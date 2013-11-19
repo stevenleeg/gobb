@@ -1,0 +1,105 @@
+body {
+    background: #EEE;
+    color: #222;
+    min-width: 600px;
+    margin: 0px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+a {
+    color: #333;
+}
+
+.top {
+    background: #7c9278;
+    padding: 15px;
+    color: #EEE;
+}
+
+.top .right {
+    float: right;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.top a {
+    color: #EEE;
+}
+
+.logo {
+    font-size: 24px;
+    color: #EEE;
+    text-decoration: none;
+    font-family: Tahoma, sans-serif;
+}
+
+.container {
+    width: 600px;
+    margin: 0px auto 0px auto;
+}
+
+.boards {
+    margin: 10px 0px;
+}
+
+.board {
+    font-size: 18px;
+    padding: 15px 10px;
+    border-bottom: 1px solid #AAA;
+}
+
+.board:last-child {
+    border-bottom: none;
+}
+
+.board_right {
+    float: right;
+    font-size: 12px;
+}
+
+.box {
+    background: #FFF;
+    width: 300px;
+    padding: 10px;
+    margin: 75px auto 0px auto;
+    text-align: center;
+    border: 1px solid #CCC;
+}
+
+.box h1 {
+    margin: 0px;
+}
+
+.box input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    background: #EEE;
+    border: 1px solid #CCC;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.box input:not([type=submit]) {
+    width: 85%;
+}
+
+.box input[type=submit] {
+    margin: 10px 10px;
+}
+
+.error, .success {
+    padding: 10px;
+    margin: 10px;
+}
+
+.error {
+    background: #FF9999;
+    border: 1px solid #FF0000;
+}
+
+.success {
+    background: #B4FFB0;
+    border: 1px solid #0DFF00;
+}

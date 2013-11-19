@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>sirjtaa</title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <div class="top">
+            <div class="container">
+                <a href="/" class="logo">sirjtaa</a>
+                <div class="right">
+                    {{#current_user}}
+                    hello {{current_user.Username}}
+                    {{/current_user}}
+                    {{^current_user}}
+                    <a href="/register">register</a> // 
+                    <a href="/login">login</a>
+                    {{/current_user}}
+                </div>
+            </div>
+        </div>
+        <div class="container content">
+            {{{content}}}
+        </div>
+    </body>
+</html>

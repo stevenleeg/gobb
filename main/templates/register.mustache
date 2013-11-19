@@ -1,0 +1,15 @@
+<div class="box">
+    <h1>Register</h1>
+    {{#error}}
+    <div class="error">
+        {{error}}
+    </div>
+    {{/error}}
+
+    <form method="POST" action="/register">
+        <input name="username" type="text" placeholder="username" />
+        <input name="password" type="password" placeholder="password" />
+        <input name="password2" type="password" placeholder="confirm password" />
+        <input type="submit" value="join the pahty" />
+    </form>
+</div>
