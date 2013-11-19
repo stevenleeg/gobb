@@ -7,6 +7,11 @@ import (
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
+    if utils.GetCurrentUser(r) != nil {
+        http.Redirect(w, r, "/", http.StatusFound)
+        return
+    }
+
     if r.Method == "POST" {
         username := r.FormValue("username")
         password := r.FormValue("password")
