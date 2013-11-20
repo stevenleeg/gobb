@@ -5,6 +5,7 @@ import (
     "sirjtaa/models"
 )
 
+// TODO: Cache this!
 func GetCurrentUser(r *http.Request) *models.User {
 	session, _ := Store.Get(r, "sirsid")
 
