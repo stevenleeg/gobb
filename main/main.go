@@ -13,6 +13,7 @@ func main() {
     r.HandleFunc("/", controllers.Index)
     r.HandleFunc("/register", controllers.Register)
     r.HandleFunc("/login", controllers.Login)
+    r.HandleFunc("/logout", controllers.Logout)
     r.PathPrefix("/static/").Handler(http.FileServer(http.Dir("./")))
     http.Handle("/", r)
 

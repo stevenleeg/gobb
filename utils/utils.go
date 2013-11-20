@@ -1,8 +1,7 @@
 package utils
 
 import (
-	"fmt"
-	"github.com/hoisie/mustache"
+    "html/template"
 	"github.com/gorilla/sessions"
 	"log"
 	"net/http"
@@ -13,7 +12,7 @@ var Store = sessions.NewCookieStore([]byte("83kjhsd98w3kjhwdfsdfw3"))
 func RenderTemplate(
 	out http.ResponseWriter,
 	r *http.Request,
-	template string,
+	tpl_file string,
 	context map[string]interface{}) {
 
     current_user := GetCurrentUser(r)
@@ -27,9 +26,11 @@ func RenderTemplate(
 		send[key] = val
 	}
 
-	rendered := mustache.RenderFileInLayout("templates/"+template, "templates/base.mustache", send)
-
-	fmt.Fprint(out, rendered)
+    tpl, err := template.ParseFiles("templates/base.html", "templates/" + tpl_file)
+    if err != nil {
+        FatalError(err, "Template error")
+    }
+    tpl.Execute(out, send)
 }
 
 func FatalError(err error, msg string) {

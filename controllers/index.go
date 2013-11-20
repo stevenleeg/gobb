@@ -6,5 +6,5 @@ import (
 )
 
 func Index(w http.ResponseWriter, request *http.Request) {
-    utils.RenderTemplate(w, request, "index.mustache", nil)
+    utils.RenderTemplate(w, request, "index.html", nil)
 }

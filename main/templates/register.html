@@ -1,10 +1,11 @@
+{{ define "content" }}
 <div class="box">
     <h1>Register</h1>
-    {{#error}}
+    {{if .error}}
     <div class="error">
-        {{error}}
+        {{.error}}
     </div>
-    {{/error}}
+    {{end}}
 
     <form method="POST" action="/register">
         <input name="username" type="text" placeholder="username" />
@@ -13,3 +14,4 @@
         <input type="submit" value="join the pahty" />
     </form>
 </div>
+{{ end }}

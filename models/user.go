@@ -58,7 +58,6 @@ func AuthenticateUser(username, password string) (error, *User) {
     password = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 
     if password != user.Password {
-        fmt.Printf("[warn] Invalid auth (%s != %s)\n", password, user.Password)
         return errors.New("Invalid username/password"), nil
     }
 
@@ -75,4 +74,8 @@ func (user *User) GenerateSid() {
     sid := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 
     user.Sid = sid
+}
+
+func (user *User) GetUsername() string {
+    return user.Username
 }

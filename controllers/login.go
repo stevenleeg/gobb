@@ -25,7 +25,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
         }
 
         if error != "" {
-            utils.RenderTemplate(w, r, "login.mustache", map[string]interface{} {
+            utils.RenderTemplate(w, r, "login.html", map[string]interface{} {
                 "error": error,
             })
             return
@@ -43,7 +43,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
         if err != nil {
             fmt.Printf("[error] Could not save session (%s)\n", err.Error())
         }
+
+        http.Redirect(w, r, "/", http.StatusFound)
+        return
     }
 
-    utils.RenderTemplate(w, r, "login.mustache", nil)
+    utils.RenderTemplate(w, r, "login.html", nil)
 }

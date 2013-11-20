@@ -23,7 +23,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
         }
 
         if error != "" {
-            utils.RenderTemplate(w, r, "register.mustache", map[string]interface{} {
+            utils.RenderTemplate(w, r, "register.html", map[string]interface{} {
                 "error": error,
             })
             return
@@ -35,5 +35,5 @@ func Register(w http.ResponseWriter, r *http.Request) {
         db_map.Insert(user)
     }
 
-    utils.RenderTemplate(w, r, "register.mustache", nil)
+    utils.RenderTemplate(w, r, "register.html", nil)
 }
