@@ -4,7 +4,7 @@ import (
     "net/http"
     "github.com/gorilla/mux"
     "sirjtaa/controllers"
-    "sirjtaa/utils"
+    "sirjtaa/config"
     "fmt"
     "flag"
 )
@@ -14,7 +14,7 @@ func main() {
     var config_path string
     flag.StringVar(&config_path, "config", "gobb.conf", "Specifies the location of a config file")
     flag.Parse()
-    utils.GetConfig(config_path)
+    config.GetConfig(config_path)
 
     // URL Routing!
     r := mux.NewRouter()

@@ -1,7 +1,8 @@
-package utils
+package config
 
 import (
     "github.com/msbranco/goconfig"
+    "log"
 )
 
 var Config *goconfig.ConfigFile
@@ -18,7 +19,7 @@ func GetConfig(path string) *goconfig.ConfigFile {
     var err error
     Config, err = goconfig.ReadConfigFile(path)
     if err != nil {
-        FatalError(err, "Could not read config file")
+		log.Fatalln("Could not read config file", err)
     }
 
     return Config

@@ -18,8 +18,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
         password := r.FormValue("password")
 
         var error string
-        db := models.GetDbSession()
-        err, user := models.AuthenticateUser(username, password)
+        err, _ := models.AuthenticateUser(username, password)
         if err != nil {
             error = "Invalid username or password"
         }
@@ -31,9 +30,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
             return
         }
         
-        user.GenerateSid()
-        db.Update(user)
-
         session, _ := utils.Store.Get(r, "sirsid")
         session.Values["username"] = username
         session.Values["password"] = password

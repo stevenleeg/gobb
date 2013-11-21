@@ -17,7 +17,7 @@ func RenderTemplate(
 
     current_user := GetCurrentUser(r)
 	send := map[string]interface{}{
-		"current_user": current_user,
+        "current_user": current_user,
         "request": r,
 	}
 

@@ -5,7 +5,6 @@ import (
     "crypto/rand"
     "encoding/base64"
     "encoding/binary"
-    "strconv"
     "io"
     "time"
     "errors"
@@ -19,7 +18,6 @@ type User struct {
     Username string     "db:username"
     Password string     "db:password"
     Salt     string     "db:salt"
-    Sid      string     "db:sid"
 }
 
 func NewUser(username, password string) *User {
@@ -42,7 +40,7 @@ func NewUser(username, password string) *User {
 func AuthenticateUser(username, password string) (error, *User) {
     db := GetDbSession()
     user := &User{}
-    err := db.SelectOne(user, "SELECT * FROM users WHERE username=?", username)
+    err := db.SelectOne(user, "SELECT * FROM users WHERE username=$1", username)
     if err != nil {
         fmt.Printf("[error] Cannot select user (%s)\n", err.Error())
         return err, nil
@@ -62,18 +60,6 @@ func AuthenticateUser(username, password string) (error, *User) {
     }
 
     return nil, user
-}
-
-func (user *User) GenerateSid() {
-    var random string
-    binary.Read(rand.Reader, binary.LittleEndian, &random)
-
-    hasher := sha1.New()
-    io.WriteString(hasher, strconv.FormatInt(time.Now().UnixNano(), 10))
-    io.WriteString(hasher, random)
-    sid := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-
-    user.Sid = sid
 }
 
 func (user *User) GetUsername() string {

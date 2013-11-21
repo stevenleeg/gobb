@@ -3,8 +3,9 @@ package models
 import (
     "github.com/coopernurse/gorp"
     "database/sql"
-    _ "github.com/mattn/go-sqlite3"
+    _ "github.com/lib/pq"
     "fmt"
+    "sirjtaa/config"
 )
 
 var db_map *gorp.DbMap
@@ -14,7 +15,24 @@ func GetDbSession() *gorp.DbMap {
         return db_map
     }
 
-    db, err := sql.Open("sqlite3", "/tmp/sirjtaa.db"); 
+    db_username, _ := config.Config.GetString("database", "username")
+    db_password, _ := config.Config.GetString("database", "password")
+    db_database, _ := config.Config.GetString("database", "database")
+    db_hostname, _ := config.Config.GetString("database", "hostname")
+    db_port, _ := config.Config.GetString("database", "port")
+
+    if db_port == "" {
+        db_port = "5432"
+    }
+
+    db, err := sql.Open("postgres", 
+        "user="      + db_username + 
+        " password=" + db_password + 
+        " dbname="   + db_database + 
+        " host="     + db_hostname + 
+        " port="     + db_port +
+    " sslmode=disable")
+
     if err != nil {
         fmt.Printf("Cannot open database! Error: %s\n", err.Error())
         return nil
@@ -22,7 +40,7 @@ func GetDbSession() *gorp.DbMap {
 
     db_map := &gorp.DbMap{
         Db: db,
-        Dialect: gorp.SqliteDialect{},
+        Dialect: gorp.PostgresDialect{},
     }
 
     // TODO: Do we need this every time?

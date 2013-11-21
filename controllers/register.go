@@ -2,6 +2,7 @@ package controllers
 
 import (
     "net/http"
+    "fmt"
     "sirjtaa/utils"
     "sirjtaa/models"
 )
@@ -32,7 +33,11 @@ func Register(w http.ResponseWriter, r *http.Request) {
         // We're good, let's make it
         db_map := models.GetDbSession()
         user := models.NewUser(username, password)
-        db_map.Insert(user)
+        err := db_map.Insert(user)
+        
+        if err != nil {
+            fmt.Printf("[error] Could not insert user (%s)\n", err.Error())
+        }
     }
 
     utils.RenderTemplate(w, r, "register.html", nil)
