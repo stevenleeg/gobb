@@ -1,0 +1,9 @@
+{{ define "content" }}
+<div class="threads">
+    {{ range .threads }}
+    <div class="thread">
+        <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</div>
+    </div>
+    {{ end }}
+</div>
+{{ end }}
