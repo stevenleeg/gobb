@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id       SERIAL PRIMARY KEY,
+    group_id INTEGER,
     created  INTEGER,
     username VARCHAR(20),
     password VARCHAR(75),

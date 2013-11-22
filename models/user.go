@@ -13,11 +13,12 @@ import (
 
 
 type User struct {
-    Id       int64      "db:id"
-    Created  int64      "db:created"
-    Username string     "db:username"
-    Password string     "db:password"
-    Salt     string     "db:salt"
+    Id       int64      `db:"id"`
+    GroupId  int64      `db:"group_id"`
+    Created  int64      `db:"created"`
+    Username string     `db:"username"`
+    Password string     `db:"password"`
+    Salt     string     `db:"salt"`
 }
 
 func NewUser(username, password string) *User {
