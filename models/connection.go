@@ -45,6 +45,7 @@ func GetDbSession() *gorp.DbMap {
 
     // TODO: Do we need this every time?
     db_map.AddTableWithName(User{}, "users").SetKeys(true, "Id")
+    db_map.AddTableWithName(Board{}, "boards").SetKeys(true, "Id")
     db_map.CreateTablesIfNotExists()
 
     return db_map
