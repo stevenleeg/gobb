@@ -23,6 +23,7 @@ func main() {
     r.HandleFunc("/register", controllers.Register)
     r.HandleFunc("/login", controllers.Login)
     r.HandleFunc("/logout", controllers.Logout)
+    r.HandleFunc("/admin", controllers.Admin)
     r.PathPrefix("/static/").Handler(http.FileServer(http.Dir("./")))
     http.Handle("/", r)
 

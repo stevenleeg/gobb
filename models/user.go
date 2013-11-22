@@ -63,6 +63,10 @@ func AuthenticateUser(username, password string) (error, *User) {
     return nil, user
 }
 
-func (user *User) GetUsername() string {
-    return user.Username
+func (user *User) IsAdmin() bool {
+    if user.GroupId == 1 {
+        return true
+    }
+
+    return false
 }

@@ -10,7 +10,11 @@
                 <a href="/" class="logo">sirjtaa</a>
                 <div class="right">
                     {{if .current_user}}
-                        hello {{.current_user.Username}} // <a href="/logout">logout</a>
+                        hello {{.current_user.Username}} // 
+                        {{ if .current_user.IsAdmin }}
+                        <a href="/admin">admin</a> //
+                        {{ end}}
+                        <a href="/logout">logout</a>
                     {{else}}
                         <a href="/register">register</a> // 
                         <a href="/login">login</a>
