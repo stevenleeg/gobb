@@ -103,3 +103,22 @@ a {
     background: #B4FFB0;
     border: 1px solid #0DFF00;
 }
+
+.menu {
+    padding: 10px;
+    text-align: right;
+}
+
+.threads {
+    margin: 20px 0px 0px;
+}
+
+.thread {
+    font-size: 18px;
+    padding: 15px 10px;
+    border-bottom: 1px solid #AAA;
+}
+
+.thread:last-child {
+    border-bottom: none;
+}

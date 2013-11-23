@@ -1,4 +1,7 @@
 {{ define "content" }}
+<div class="menu">
+    <a href="/board/{{.BoardId}}/new">[+] New thread</a>
+</div>
 <div class="threads">
     {{ range .threads }}
     <div class="thread">
