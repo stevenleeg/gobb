@@ -1,42 +1,52 @@
 body {
-    background: #EEE;
+    background: #FFF;
     color: #222;
-    min-width: 600px;
-    margin: 0px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
     font-size: 14px;
+    margin: 0px;
+    min-width: 600px;
 }
 
 a {
     color: #333;
 }
 
+.icon {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+}
+
 .top {
-    background: #7c9278;
+    background: #333;
+    border-bottom: 3px solid #7c9278;
+    color: #FFF;
     padding: 15px;
-    color: #EEE;
 }
 
 .top .right {
     float: right;
+    font-size: 16px;
     margin-top: 10px;
-    font-size: 12px;
 }
 
 .top a {
-    color: #EEE;
+    color: #FFF;
+}
+
+.top a:hover {
+    color: #CCC;
 }
 
 .logo {
-    font-size: 24px;
-    color: #EEE;
+    font-size: 26px;
+    font-weight: 700;
     text-decoration: none;
-    font-family: Tahoma, sans-serif;
 }
 
 .container {
-    width: 600px;
     margin: 0px auto 0px auto;
+    width: 600px;
 }
 
 .boards {
@@ -44,9 +54,9 @@ a {
 }
 
 .board {
+    border-bottom: 1px solid #AAA;
     font-size: 18px;
     padding: 15px 10px;
-    border-bottom: 1px solid #AAA;
 }
 
 .board:last-child {
@@ -60,11 +70,11 @@ a {
 
 .box {
     background: #FFF;
-    width: 300px;
-    padding: 10px;
-    margin: 75px auto 0px auto;
-    text-align: center;
     border: 1px solid #CCC;
+    margin: 75px auto 0px auto;
+    padding: 10px;
+    text-align: center;
+    width: 300px;
 }
 
 .box h1 {
@@ -72,14 +82,14 @@ a {
 }
 
 input, textarea {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
     background: #EEE;
     border: 1px solid #CCC;
+    display: block;
     font-family: Tahoma, Arial, sans-serif;
     font-size: 14px;
+    margin: 10px auto;
     outline: none;
+    padding: 10px;
 }
 
 input:focus, textarea:focus {
@@ -95,8 +105,8 @@ input[type=submit] {
 }
 
 .error, .success {
-    padding: 10px;
     margin: 10px;
+    padding: 10px;
 }
 
 .error {
@@ -119,9 +129,9 @@ input[type=submit] {
 }
 
 .thread {
+    border-bottom: 1px solid #AAA;
     font-size: 18px;
     padding: 15px 10px;
-    border-bottom: 1px solid #AAA;
 }
 
 .thread:last-child {
@@ -129,24 +139,24 @@ input[type=submit] {
 }
 
 .new_thread {
-    margin-top: 25px;
     background: #FFF;
+    margin-top: 25px;
     padding: 10px;
 }
 
 .new_thread .in_title {
     display: block;
-    width: 90%;
     margin: 10px auto 10px auto;
+    width: 90%;
 }
 
 .new_thread textarea {
+    background: #FFF;
     display: block;
-    padding: 10px;
-    width: 90%;
-    margin: 10px auto 0px auto;
     height: 200px;
-    background-color: 
+    padding: 10px;
+    margin: 10px auto 0px auto;
+    width: 90%;
 }
 
 .new_thread input[type=submit] {
