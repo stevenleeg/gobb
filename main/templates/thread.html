@@ -1,6 +1,12 @@
 {{ define "content" }}
-    <h1>{{.op.Title}}</h1>
-    <p>{{.op.Content}}</p>
+    <div class="post">
+        <div class="post_sidebar">
+            <img class="post_avatar" src="http://i.imgur.com/fmG0HmM.gif" />
+            <div class="post_author">{{.op.Author.Username}}</div>
+        </div>
+        <div class="post_title">{{.op.Title}}</div>
+        <div class="post_content">{{.op.Content}}</div>
+    </div>
 
     {{ range .posts }}
     {{.Title}}
@@ -8,5 +14,6 @@
 
     <div class="thread_reply">
         <textarea name="content" placeholder="Reply to this thread"></textarea>
+        <input type="submit" value="post it" />
     </div>
 {{ end }}

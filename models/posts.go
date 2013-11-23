@@ -2,6 +2,7 @@ package models
 
 import (
     "database/sql"
+    "fmt"
     "errors"
     "time"
 )
@@ -10,6 +11,7 @@ type Post struct {
     Id        int64         `db:"id"`
     BoardId   int64         `db:"board_id"` 
     ParentId  sql.NullInt64 `db:"parent_id"` 
+    Author    *User         `db:"-"`
     AuthorId  int64         `db:"author_id"` 
     Title     string        `db:"title"`
     Content   string        `db:"content"`
@@ -45,8 +47,21 @@ func GetThread(parent_id int) (error, *Post, []*Post) {
     db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1", parent_id)
 
     for _, post := range child_posts {
-        ret_posts = append(ret_posts, &post)
+        post_ptr := &post
+        post.GetAuthor()
+        ret_posts = append(ret_posts, post_ptr)
     }
 
     return nil, op.(*Post), ret_posts
+}
+
+func (post *Post) GetAuthor() {
+    db := GetDbSession()
+    user, _ := db.Get(User{}, post.AuthorId)
+
+    if user == nil {
+        fmt.Println("Something went wrong")
+    }
+
+    post.Author = user.(*User)
 }

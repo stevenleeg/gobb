@@ -87,7 +87,7 @@ input:focus, textarea:focus {
 }
 
 .box input:not([type=submit]) {
-    width: 125px;
+    width: 86%;
 }
 
 input[type=submit] {
@@ -110,7 +110,7 @@ input[type=submit] {
 }
 
 .menu {
-    padding: 10px;
+    float: right;
     text-align: right;
 }
 
@@ -151,4 +151,69 @@ input[type=submit] {
 
 .new_thread input[type=submit] {
     margin-left: 18px;
+}
+
+.thread_reply {
+    background: #FFF;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.thread_reply textarea {
+    width: 96%;
+    height: 75px;
+}
+
+.thread_reply input {
+    display: block;
+    margin: 0px;
+}
+
+.post {
+    background: #FFF;
+    margin: 20px 0px;
+}
+
+.post:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.post_sidebar {
+    float: left;
+    width: 150px;
+    padding: 10px;
+    border-right: 1px solid #AAA;
+    text-align: center;
+}
+
+.post_avatar {
+    display: block;
+    width: 135px;
+    height: 135px;
+    margin: 5px auto 10px auto;
+}
+
+.post_title, .post_content {
+    margin-left: 170px;
+}
+
+.post_title {
+    border-bottom: 1px solid #AAA;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 10px;
+}
+
+.post_content {
+    padding: 10px;
+}
+
+.post_bottom {
+    clear: both;
+}
+
+.post_author {
+    font-weight: bold;
 }

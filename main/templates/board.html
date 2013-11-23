@@ -1,12 +1,14 @@
 {{ define "content" }}
+
 <div class="menu">
     <a href="/board/{{.board}}/new">[+] New thread</a>
 </div>
 <div class="threads">
     {{ range .threads }}
     <div class="thread">
-        <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</div>
+        <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a>
     </div>
     {{ end }}
 </div>
+
 {{ end }}
