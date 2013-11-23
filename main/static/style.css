@@ -71,7 +71,7 @@ a {
     margin: 0px;
 }
 
-.box input {
+input, textarea {
     display: block;
     margin: 10px auto;
     padding: 10px;
@@ -79,13 +79,18 @@ a {
     border: 1px solid #CCC;
     font-family: Tahoma, Arial, sans-serif;
     font-size: 14px;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border: 1px solid #000;
 }
 
 .box input:not([type=submit]) {
-    width: 85%;
+    width: 125px;
 }
 
-.box input[type=submit] {
+input[type=submit] {
     margin: 10px 10px;
 }
 
@@ -121,4 +126,29 @@ a {
 
 .thread:last-child {
     border-bottom: none;
+}
+
+.new_thread {
+    margin-top: 25px;
+    background: #FFF;
+    padding: 10px;
+}
+
+.new_thread .in_title {
+    display: block;
+    width: 90%;
+    margin: 10px auto 10px auto;
+}
+
+.new_thread textarea {
+    display: block;
+    padding: 10px;
+    width: 90%;
+    margin: 10px auto 0px auto;
+    height: 200px;
+    background-color: 
+}
+
+.new_thread input[type=submit] {
+    margin-left: 18px;
 }
