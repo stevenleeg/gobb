@@ -1,0 +1,12 @@
+{{ define "content" }}
+    <h1>{{.op.Title}}</h1>
+    <p>{{.op.Content}}</p>
+
+    {{ range .posts }}
+    {{.Title}}
+    {{ end }}
+
+    <div class="thread_reply">
+        <textarea name="content" placeholder="Reply to this thread"></textarea>
+    </div>
+{{ end }}

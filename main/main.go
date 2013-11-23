@@ -26,6 +26,7 @@ func main() {
     r.HandleFunc("/admin", controllers.Admin)
     r.HandleFunc("/board/{id:[0-9]+}", controllers.Board)
     r.HandleFunc("/board/{id:[0-9]+}/new", controllers.NewThread)
+    r.HandleFunc("/board/{board_id:[0-9]+}/{post_id:[0-9]+}", controllers.Thread)
     r.PathPrefix("/static/").Handler(http.FileServer(http.Dir("./")))
     http.Handle("/", r)
 
