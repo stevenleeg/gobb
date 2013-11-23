@@ -15,3 +15,16 @@ type Post struct {
     CreatedOn time.Time     `db:"created_on"`
 }
 
+func NewPost(author *User, board *Board, title, content string) *Post {
+    // TODO: Validation
+
+    post := &Post {
+        BoardId: board.Id,
+        AuthorId: author.Id,
+        Title: title,
+        Content: content,
+        CreatedOn: time.Now(),
+    }
+
+    return post
+}
