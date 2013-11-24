@@ -5,6 +5,7 @@ import (
     "database/sql"
     "errors"
     "time"
+    "fmt"
 )
 
 type Post struct {
@@ -57,4 +58,20 @@ func (post *Post) PostGet(s gorp.SqlExecutor) error {
     post.Author = user.(*User)
 
     return nil
+}
+
+// This is used primarily for threads. It will find the latest
+// post in a thread, allowing for things like "last post was 10
+// minutes ago.
+func (post *Post) GetLatestPost() *Post {
+    db := GetDbSession()
+    latest := &Post{}
+
+    err := db.SelectOne(latest, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on DESC LIMIT 1", post.Id)
+
+    if err != nil {
+        fmt.Printf("[error] Could not get latest post: (%s)\n", err.Error())
+    }
+
+    return latest
 }

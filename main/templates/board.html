@@ -1,3 +1,9 @@
+{{ define "thread_right" }}
+<div class="right">
+    last post by <b>{{.Author.Username}}</b> 10 minutes ago
+</div>
+{{ end }}
+
 {{ define "content" }}
 
 {{ if .current_user }}
@@ -11,9 +17,7 @@
 <div class="threads">
     {{ range .threads }}
     <div class="thread">
-        <div class="right">
-            last post by <b>steve</b> 10 minutes ago
-        </div>
+        {{ template "thread_right" .GetLatestPost }}
         <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a>
         <div class="thread_author">posted by {{.Author.Username}}</div>
     </div>
