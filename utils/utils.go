@@ -5,7 +5,7 @@ import (
 	"github.com/gorilla/sessions"
 	"log"
 	"net/http"
-    "sirjtaa/config"
+    "github.com/stevenleeg/gobb/config"
 )
 
 var Store = sessions.NewCookieStore([]byte("83kjhsd98w3kjhwdfsdfw3"))
