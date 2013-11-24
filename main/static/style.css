@@ -45,10 +45,12 @@ a {
 
 .top a {
     color: #FFF;
+    text-decoration: none;
 }
 
 .top a:hover {
     color: #CCC;
+    text-decoration: underline;
 }
 
 .logo {
