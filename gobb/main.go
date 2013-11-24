@@ -3,8 +3,8 @@ package main
 import (
     "net/http"
     "github.com/gorilla/mux"
-    "sirjtaa/controllers"
-    "sirjtaa/config"
+    "github.com/stevenleeg/gobb/controllers"
+    "github.com/stevenleeg/gobb/config"
     "fmt"
     "flag"
 )

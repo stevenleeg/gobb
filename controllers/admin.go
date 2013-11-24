@@ -2,7 +2,7 @@ package controllers
 
 import (
     "net/http"
-    "sirjtaa/utils"
+    "github.com/stevenleeg/gobb/utils"
 )
 
 func Admin(w http.ResponseWriter, request *http.Request) {

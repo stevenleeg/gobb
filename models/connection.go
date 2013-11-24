@@ -5,7 +5,7 @@ import (
     "database/sql"
     _ "github.com/lib/pq"
     "fmt"
-    "sirjtaa/config"
+    "github.com/stevenleeg/gobb/config"
 )
 
 var db_map *gorp.DbMap

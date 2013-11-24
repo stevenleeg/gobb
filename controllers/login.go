@@ -3,8 +3,8 @@ package controllers
 import (
     "fmt"
     "net/http"
-    "sirjtaa/utils"
-    "sirjtaa/models"
+    "github.com/stevenleeg/gobb/utils"
+    "github.com/stevenleeg/gobb/models"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
