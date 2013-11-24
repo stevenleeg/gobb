@@ -26,7 +26,7 @@ func (board *Board) GetLatestPost() *Post {
     db := GetDbSession()
     latest := &Post{}
 
-    err := db.SelectOne(latest, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL ORDER BY created_on DESC LIMIT 1", board.Id)
+    err := db.SelectOne(latest, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL ORDER BY latest_reply DESC LIMIT 1", board.Id)
 
     if err != nil {
         fmt.Printf("[error] Could not get latest post in board: (%s)\n", err.Error())
