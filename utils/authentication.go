@@ -2,7 +2,7 @@ package utils
 
 import (
     "net/http"
-    "sirjtaa/models"
+    "github.com/stevenleeg/gobb/models"
 )
 
 // TODO: Cache this!

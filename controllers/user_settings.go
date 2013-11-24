@@ -4,8 +4,8 @@ import (
     "github.com/gorilla/mux"
     "net/http"
     "strconv"
-    "sirjtaa/models"
-    "sirjtaa/utils"
+    "github.com/stevenleeg/gobb/models"
+    "github.com/stevenleeg/gobb/utils"
 )
 
 func UserSettings(w http.ResponseWriter, r *http.Request) {

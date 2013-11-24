@@ -3,8 +3,8 @@ package controllers
 import (
     "net/http"
     "fmt"
-    "sirjtaa/utils"
-    "sirjtaa/models"
+    "github.com/stevenleeg/gobb/utils"
+    "github.com/stevenleeg/gobb/models"
 )
 
 func Index(w http.ResponseWriter, request *http.Request) {
