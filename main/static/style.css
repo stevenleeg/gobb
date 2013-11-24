@@ -62,6 +62,13 @@ a {
     width: 600px;
 }
 
+.footer {
+    margin: 20px 0px;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
 .boards {
     margin: 10px 0px;
 }
@@ -260,15 +267,15 @@ input[type=submit] {
     margin: 5px auto 10px auto;
 }
 
-.post_title, .post_content {
+.post_meta, .post_content {
     margin-left: 170px;
 }
 
-.post_title {
+.post_meta {
     border-bottom: 1px solid #AAA;
-    font-weight: bold;
-    font-size: 16px;
-    padding: 10px 10px;
+    font-size: 12px;
+    padding: 5px 10px;
+    text-align: right;
 }
 
 .post_content {

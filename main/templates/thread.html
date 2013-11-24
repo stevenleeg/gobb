@@ -1,4 +1,5 @@
 {{ define "content" }}
+<h1>{{.op.Title}}</h1>
     <div class="post">
         <div class="post_sidebar">
                 {{ if .op.Author.Avatar }}
@@ -8,7 +9,7 @@
                 {{ end }}
             <div class="post_author">{{.op.Author.Username}}</div>
         </div>
-        <div class="post_title">{{.op.Title}}</div>
+        <div class="post_meta">posted 10 minutes ago</div>
         <div class="post_content">{{.op.Content}}</div>
     </div>
 
@@ -22,6 +23,7 @@
                 {{ end }}
                 <div class="post_author">{{.Author.Username}}</div>
             </div>
+            <div class="post_meta">posted 10 minutes ago</div>
             <div class="post_content">{{.Content}}</div>
         </div>
     {{ end }}
