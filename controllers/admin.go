@@ -1,10 +1,10 @@
 package controllers
 
 import (
-    "net/http"
-    "github.com/stevenleeg/gobb/utils"
+	"github.com/stevenleeg/gobb/utils"
+	"net/http"
 )
 
 func Admin(w http.ResponseWriter, request *http.Request) {
-    utils.RenderTemplate(w, request, "admin.html", nil)
+	utils.RenderTemplate(w, request, "admin.html", nil)
 }
