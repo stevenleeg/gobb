@@ -16,9 +16,9 @@ func RenderTemplate(
 	tpl_file string,
 	context map[string]interface{}) {
 
-    func_map := template.FuncMap{
-        "TimeRelativeToNow": TimeRelativeToNow,
-    }
+	func_map := template.FuncMap{
+		"TimeRelativeToNow": TimeRelativeToNow,
+	}
 
 	current_user := GetCurrentUser(r)
 	site_name, _ := config.Config.GetString("gobb", "sitename")

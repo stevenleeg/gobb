@@ -36,10 +36,10 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		err := db_map.Insert(user)
 
 		if err != nil {
-		    fmt.Printf("[error] Could not insert user (%s)\n", err.Error())
+			fmt.Printf("[error] Could not insert user (%s)\n", err.Error())
 		} else {
-		    http.Redirect(w, r, "/login", http.StatusFound)
-		    return
+			http.Redirect(w, r, "/login", http.StatusFound)
+			return
 		}
 	}
 
