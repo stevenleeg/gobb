@@ -1,8 +1,10 @@
 {{ define "content" }}
 
+{{ if .current_user }}
 <div class="menu">
     <a href="/board/{{.board}}/new">[+] New thread</a>
 </div>
+{{ end }}
 <div class="threads">
     {{ range .threads }}
     <div class="thread">

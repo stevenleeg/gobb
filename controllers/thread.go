@@ -33,10 +33,10 @@ func Thread(w http.ResponseWriter, r *http.Request) {
         post := models.NewPost(current_user, board, title, content)
         post.ParentId = sql.NullInt64{ int64(post_id), true }
         db.Insert(post)
-    }
 
-    err, op, posts = models.GetThread(post_id)
-    op.GetAuthor()
+        err, op, posts = models.GetThread(post_id)
+        op.GetAuthor()
+    }
 
     if err != nil {
         http.NotFound(w, r)

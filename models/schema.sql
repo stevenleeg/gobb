@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     created  INTEGER,
     username VARCHAR(20),
     password VARCHAR(75),
+    avatar   VARCHAR,
     salt     VARCHAR(25)
 );
 

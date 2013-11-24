@@ -1,7 +1,11 @@
 {{ define "content" }}
     <div class="post">
         <div class="post_sidebar">
-            <img class="post_avatar" src="http://i.imgur.com/fmG0HmM.gif" />
+                {{ if .Author.Avatar }}
+                <img class="post_avatar" src="{{.Author.Avatar}}" />
+                {{ else }}
+                <img class="post_avatar" src="/static/images/default_user.png" />
+                {{ end }}
             <div class="post_author">{{.op.Author.Username}}</div>
         </div>
         <div class="post_title">{{.op.Title}}</div>
@@ -11,17 +15,23 @@
     {{ range .posts }}
         <div class="post">
             <div class="post_sidebar">
-                <img class="post_avatar" src="http://i.imgur.com/fmG0HmM.gif" />
+                {{ if .Author.Avatar }}
+                <img class="post_avatar" src="{{.Author.Avatar}}" />
+                {{ else }}
+                <img class="post_avatar" src="/static/images/default_user.png" />
+                {{ end }}
                 <div class="post_author">{{.Author.Username}}</div>
             </div>
             <div class="post_content">{{.Content}}</div>
         </div>
     {{ end }}
 
+    {{ if .current_user }}
     <div class="thread_reply">
         <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}">
         <textarea name="content" placeholder="Reply to this thread"></textarea>
         <input type="submit" value="post it" />
         </form>
     </div>
+    {{ end }}
 {{ end }}

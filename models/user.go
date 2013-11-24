@@ -18,6 +18,7 @@ type User struct {
     Created  int64      `db:"created"`
     Username string     `db:"username"`
     Password string     `db:"password"`
+    Avatar   string     `db:"avatar"`
     Salt     string     `db:"salt"`
 }
 

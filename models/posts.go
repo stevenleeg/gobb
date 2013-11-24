@@ -40,19 +40,14 @@ func GetThread(parent_id int) (error, *Post, []*Post) {
         return errors.New("Parent doesn't exist"), nil, nil
     }
 
-    var child_posts []Post
-    var ret_posts []*Post
-    
-    // Get the initial thread post
+    var child_posts []*Post
     db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1", parent_id)
 
     for _, post := range child_posts {
-        post_ptr := &post
         post.GetAuthor()
-        ret_posts = append(ret_posts, post_ptr)
     }
 
-    return nil, op.(*Post), ret_posts
+    return nil, op.(*Post), child_posts
 }
 
 func (post *Post) GetAuthor() {
