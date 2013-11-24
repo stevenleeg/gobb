@@ -1,7 +1,9 @@
 {{ define "thread_right" }}
 <div class="right">
     {{ if .Author }}
-    last post by <b>{{.Author.Username}}</b> 10 minutes ago
+    last post by <b>{{.Author.Username}}</b> {{ TimeRelativeToNow .CreatedOn }}
+    {{ else }}
+    no replies
     {{ end }}
 </div>
 {{ end }}

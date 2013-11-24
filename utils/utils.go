@@ -16,6 +16,10 @@ func RenderTemplate(
 	tpl_file string,
 	context map[string]interface{}) {
 
+    func_map := template.FuncMap{
+        "TimeRelativeToNow": TimeRelativeToNow,
+    }
+
 	current_user := GetCurrentUser(r)
 	site_name, _ := config.Config.GetString("gobb", "sitename")
 
@@ -30,11 +34,12 @@ func RenderTemplate(
 		send[key] = val
 	}
 
-	tpl, err := template.ParseFiles("templates/base.html", "templates/"+tpl_file)
+	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles("templates/base.html", "templates/"+tpl_file)
 	if err != nil {
 		FatalError(err, "Template error")
 	}
-	tpl.Execute(out, send)
+	tpl.ExecuteTemplate(out, tpl_file, send)
+	tpl.ExecuteTemplate(out, "base.html", send)
 }
 
 func FatalError(err error, msg string) {
