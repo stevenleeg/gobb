@@ -1,11 +1,13 @@
 {{ define "content" }}
+<h1>boards</h1>
 <div class="boards">
     {{ range .boards }}
     <div class="board">
-        <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
         <div class="board_right">
-            10 minutes ago
+            <div>Latest post:</div><b>Some thread</b> by Steve
         </div>
+        <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
+        <div class="board_description">{{.Description}}</div>
     </div>
     {{ end }}
 </div>

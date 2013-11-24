@@ -4,21 +4,30 @@ import (
     "github.com/gorilla/mux"
     "net/http"
     "fmt"
+    "strconv"
     "sirjtaa/utils"
     "sirjtaa/models"
 )
 
-func Board(w http.ResponseWriter, request *http.Request) {
-    board := mux.Vars(request)["id"]
-
+func Board(w http.ResponseWriter, r *http.Request) {
     db := models.GetDbSession()
-    var threads []models.Post
-    _, err := db.Select(&threads, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL", board)
+
+    board_id_str := mux.Vars(r)["id"]
+    board_id, _ := strconv.Atoi(board_id_str)
+    board, err := db.Get(models.Board{}, board_id)
+
+    if err != nil {
+        http.NotFound(w, r)
+        return
+    }
+
+    var threads []*models.Post
+    _, err = db.Select(&threads, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL", board_id)
     if err != nil {
         fmt.Printf("[error] Could not get posts (%s)\n", err.Error())
     }
 
-    utils.RenderTemplate(w, request, "board.html", map[string]interface{} {
+    utils.RenderTemplate(w, r, "board.html", map[string]interface{} {
         "board": board,
         "threads": threads,
     })

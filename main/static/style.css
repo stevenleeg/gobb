@@ -67,9 +67,15 @@ a {
 }
 
 .board {
+    background: #FFF;
     border-bottom: 1px solid #AAA;
     font-size: 18px;
     padding: 15px 10px;
+}
+
+.board_description {
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .board:last-child {
@@ -79,6 +85,7 @@ a {
 .board_right {
     float: right;
     font-size: 12px;
+    margin-top: 5px;
 }
 
 .box {
@@ -157,6 +164,7 @@ input[type=submit] {
 .menu {
     float: right;
     text-align: right;
+    margin-top: 10px;
 }
 
 .threads {
@@ -164,13 +172,25 @@ input[type=submit] {
 }
 
 .thread {
-    border-bottom: 1px solid #AAA;
+    clear: both;
+    background: #FFF;
     font-size: 18px;
-    padding: 15px 10px;
+    padding: 5px 10px;
+    margin-bottom: 1px;
 }
 
-.thread:last-child {
-    border-bottom: none;
+.thread .right {
+    float: right;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.thread .thread_title {
+    display: block;
+}
+
+.thread .thread_author {
+    font-size: 12px;
 }
 
 .new_thread {

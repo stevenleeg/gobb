@@ -17,7 +17,6 @@ func Thread(w http.ResponseWriter, r *http.Request) {
     post_id_str := mux.Vars(r)["post_id"]
     post_id, _ := strconv.Atoi(post_id_str)
     err, op, posts := models.GetThread(post_id)
-    op.GetAuthor()
 
     if r.Method == "POST" {
         db := models.GetDbSession()
@@ -35,7 +34,6 @@ func Thread(w http.ResponseWriter, r *http.Request) {
         db.Insert(post)
 
         err, op, posts = models.GetThread(post_id)
-        op.GetAuthor()
     }
 
     if err != nil {

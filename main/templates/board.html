@@ -2,13 +2,20 @@
 
 {{ if .current_user }}
 <div class="menu">
-    <a href="/board/{{.board}}/new" class="button">New Thread</a>
+    <a href="/board/{{.board.Id}}/new" class="button">New Thread</a>
 </div>
 {{ end }}
+
+<h1>posts in {{.board.Title}}</h1>
+
 <div class="threads">
     {{ range .threads }}
     <div class="thread">
+        <div class="right">
+            last post by <b>steve</b> 10 minutes ago
+        </div>
         <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a>
+        <div class="thread_author">posted by {{.Author.Username}}</div>
     </div>
     {{ end }}
 </div>

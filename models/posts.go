@@ -1,8 +1,8 @@
 package models
 
 import (
+    "github.com/coopernurse/gorp"
     "database/sql"
-    "fmt"
     "errors"
     "time"
 )
@@ -43,20 +43,18 @@ func GetThread(parent_id int) (error, *Post, []*Post) {
     var child_posts []*Post
     db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1", parent_id)
 
-    for _, post := range child_posts {
-        post.GetAuthor()
-    }
-
     return nil, op.(*Post), child_posts
 }
 
-func (post *Post) GetAuthor() {
+func (post *Post) PostGet(s gorp.SqlExecutor) error {
     db := GetDbSession()
     user, _ := db.Get(User{}, post.AuthorId)
 
     if user == nil {
-        fmt.Println("Something went wrong")
+        return errors.New("Could not find post's author")
     }
 
     post.Author = user.(*User)
+
+    return nil
 }

@@ -1,8 +1,8 @@
 {{ define "content" }}
     <div class="post">
         <div class="post_sidebar">
-                {{ if .Author.Avatar }}
-                <img class="post_avatar" src="{{.Author.Avatar}}" />
+                {{ if .op.Author.Avatar }}
+                <img class="post_avatar" src="{{.op.Author.Avatar}}" />
                 {{ else }}
                 <img class="post_avatar" src="/static/images/default_user.png" />
                 {{ end }}
