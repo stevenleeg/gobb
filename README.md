@@ -10,5 +10,5 @@ Feel free to browse around and check back, but this project is not ready yet!
 ### Installation
 
 ````sh
-$ go get github.com/stevenleeg/gobb
+$ go get github.com/stevenleeg/gobb/gobb
 ````
