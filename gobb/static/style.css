@@ -248,8 +248,11 @@ input[type=submit] {
 }
 
 .post {
+    width: 600px;
+    box-sizing: content-box;
     background: #FFF;
     margin: 20px 0px;
+    border-spacing: 0px 0px;
 }
 
 .post:after {
@@ -259,11 +262,11 @@ input[type=submit] {
 }
 
 .post_sidebar {
-    float: left;
     width: 150px;
     padding: 10px;
     border-right: 1px solid #AAA;
     text-align: center;
+    vertical-align: top;
 }
 
 .post_avatar {
@@ -280,12 +283,19 @@ input[type=submit] {
 .post_meta {
     border-bottom: 1px solid #AAA;
     font-size: 12px;
-    padding: 5px 10px;
+    padding: 10px 10px;
     text-align: right;
 }
 
 .post_content {
-    padding: 10px;
+    padding: 0px 10px;
+    vertical-align: top;
+}
+
+.post_content img {
+    display: block;
+    max-width: 90%;
+    margin: 10px auto 0px auto;
 }
 
 .post_bottom {
