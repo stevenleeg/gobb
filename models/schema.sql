@@ -15,11 +15,12 @@ CREATE TABLE IF NOT EXISTS boards (
 );
 
 CREATE TABLE IF NOT EXISTS posts (
-    id         SERIAL PRIMARY KEY,
-    board_id   INTEGER REFERENCES boards(id) NOT NULL,
-    parent_id  INTEGER REFERENCES posts(id),
-    author_id  INTEGER REFERENCES users(id) NOT NULL,
-    title      VARCHAR(70) NOT NULL,
-    content    TEXT NOT NULL,
-    created_on TIMESTAMP NOT NULL
+    id           SERIAL PRIMARY KEY,
+    board_id     INTEGER REFERENCES boards(id) NOT NULL,
+    parent_id    INTEGER REFERENCES posts(id),
+    author_id    INTEGER REFERENCES users(id) NOT NULL,
+    title        VARCHAR(70) NOT NULL,
+    content      TEXT NOT NULL,
+    created_on   TIMESTAMP NOT NULL,
+    latest_reply TIMESTAMP
 );

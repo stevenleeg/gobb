@@ -4,6 +4,7 @@ import (
     "github.com/gorilla/mux"
     "net/http"
     "strconv"
+    "time"
     "fmt"
     "sirjtaa/utils"
     "sirjtaa/models"
@@ -31,6 +32,7 @@ func NewThread(w http.ResponseWriter, r *http.Request) {
         content := r.FormValue("content")
 
         post := models.NewPost(current_user, board, title, content)
+        post.LatestReply = time.Now()
         db.Insert(post)
 
         http.Redirect(w, r, fmt.Sprintf("/board/%d/%d", board.Id, post.Id), http.StatusFound)

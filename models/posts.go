@@ -9,14 +9,15 @@ import (
 )
 
 type Post struct {
-    Id        int64         `db:"id"`
-    BoardId   int64         `db:"board_id"` 
-    ParentId  sql.NullInt64 `db:"parent_id"` 
-    Author    *User         `db:"-"`
-    AuthorId  int64         `db:"author_id"` 
-    Title     string        `db:"title"`
-    Content   string        `db:"content"`
-    CreatedOn time.Time     `db:"created_on"`
+    Id          int64         `db:"id"`
+    BoardId     int64         `db:"board_id"` 
+    ParentId    sql.NullInt64 `db:"parent_id"` 
+    Author      *User         `db:"-"`
+    AuthorId    int64         `db:"author_id"` 
+    Title       string        `db:"title"`
+    Content     string        `db:"content"`
+    CreatedOn   time.Time     `db:"created_on"`
+    LatestReply time.Time     `db:"latest_reply"`
 }
 
 func NewPost(author *User, board *Board, title, content string) *Post {

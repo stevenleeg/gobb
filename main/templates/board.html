@@ -1,6 +1,8 @@
 {{ define "thread_right" }}
 <div class="right">
+    {{ if .Author }}
     last post by <b>{{.Author.Username}}</b> 10 minutes ago
+    {{ end }}
 </div>
 {{ end }}
 

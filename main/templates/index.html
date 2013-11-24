@@ -1,6 +1,10 @@
 {{ define "board_right" }}
 <div class="board_right">
+    {{ if .Title }}
     <div class="latest">Latest post:</div><a href="/board/{{.BoardId}}/{{.Id}}">{{ .Title }}</a> by {{ .Author.Username}}
+    {{ else }}
+    Nothing yet!
+    {{ end }}
 </div>
 {{ end }}
 

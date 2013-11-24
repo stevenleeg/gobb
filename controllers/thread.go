@@ -3,6 +3,7 @@ package controllers
 import (
     "github.com/gorilla/mux"
     "database/sql"
+    "time"
     "net/http"
     "strconv"
     "sirjtaa/utils"
@@ -31,7 +32,9 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 
         post := models.NewPost(current_user, board, title, content)
         post.ParentId = sql.NullInt64{ int64(post_id), true }
+        op.LatestReply = time.Now()
         db.Insert(post)
+        db.Update(op)
 
         err, op, posts = models.GetThread(post_id)
     }
