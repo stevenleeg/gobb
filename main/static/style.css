@@ -97,6 +97,10 @@ a {
     margin-top: 5px;
 }
 
+.board_right .latest {
+    font-weight: bold;
+}
+
 .box {
     background: #FFF;
     border: 1px solid #CCC;

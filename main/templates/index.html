@@ -1,11 +1,15 @@
+{{ define "board_right" }}
+<div class="board_right">
+    <div class="latest">Latest post:</div><a href="/board/{{.BoardId}}/{{.Id}}">{{ .Title }}</a> by {{ .Author.Username}}
+</div>
+{{ end }}
+
 {{ define "content" }}
 <h1>boards</h1>
 <div class="boards">
     {{ range .boards }}
     <div class="board">
-        <div class="board_right">
-            <div>Latest post:</div><b>Some thread</b> by Steve
-        </div>
+        {{ template "board_right" .GetLatestPost }}
         <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
         <div class="board_description">{{.Description}}</div>
     </div>
