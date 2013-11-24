@@ -90,8 +90,30 @@ a {
     width: 300px;
 }
 
+.box.larger {
+    width: 600px;
+    margin: 20px auto 0px auto;
+    text-align: left;
+}
+
+.box.larger:after {
+    display: block;
+    content: "";
+    clear: both;
+    height: 0px;
+}
+
+.box.larger input[type=submit] {
+    float: right;
+    margin-right: 30px;
+}
+
+label {
+    margin: 5px 0px 0px 30px;
+}
+
 .box h1 {
-    margin: 0px;
+    margin: 0px 0px 5px 0px;
 }
 
 input, textarea {

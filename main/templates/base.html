@@ -3,7 +3,7 @@
     <head>
         <title>sirjtaa</title>
         <link rel="stylesheet" href="/static/style.css">
-        <!-- commented cuz no need on local copy <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>-->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div class="top">
@@ -12,7 +12,7 @@
                 <div class="right">
                     {{if .current_user}}
                         <img src="/static/images/user.png" class="icon" alt="User">
-                        {{.current_user.Username}} // 
+                        <a href="/user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
                         {{ if .current_user.IsAdmin }}
                         <a href="/admin">admin</a> //
                         {{ end}}
