@@ -27,10 +27,10 @@
 
     <div class="pagination">
         {{ if .prev_page }}
-            <a href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id -1}}">prev page</a>
+            <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id -1}}">&laquo; previous page</a>
         {{ end }}
         {{ if .next_page }}
-            <a href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id 1}}">next page</a>
+            <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id 1}}">next page &raquo;</a>
         {{ end }}
     </div>
 

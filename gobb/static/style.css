@@ -295,3 +295,7 @@ input[type=submit] {
 .post_author {
     font-weight: bold;
 }
+
+.pagination {
+    text-align: center;
+}
