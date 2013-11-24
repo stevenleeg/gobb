@@ -1,5 +1,5 @@
 {{ define "content" }}
-<h1>{{.op.Title}}</h1>
+<h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; {{.op.Title}}</h1>
     <div class="post">
         <div class="post_sidebar">
                 {{ if .op.Author.Avatar }}
