@@ -1,5 +1,5 @@
 {{ define "post" }}
-    <div class="post">
+    <div class="post" id="{{.Id}}">
         <div class="post_sidebar">
                 {{ if .Author.Avatar }}
                 <img class="post_avatar" src="{{.Author.Avatar}}" />
@@ -21,9 +21,11 @@
         {{ template "post" . }}
     {{ end }}
 
+    <a name="latest"></a>
+
     {{ if .current_user }}
     <div class="thread_reply">
-        <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}">
+        <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}#latest">
         <textarea name="content" placeholder="Reply to this thread"></textarea>
         <input type="submit" class="button" value="Post it">
         </form>
