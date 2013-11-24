@@ -15,13 +15,24 @@
 
 {{ define "content" }}
 <h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; {{.op.Title}}</h1>
-    {{ template "post" .op }}
+    {{ if not .prev_page }}
+        {{ template "post" .op }}
+    {{ end}}
 
     {{ range .posts }}
         {{ template "post" . }}
     {{ end }}
 
     <a name="latest"></a>
+
+    <div class="pagination">
+        {{ if .prev_page }}
+            <a href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id -1}}">prev page</a>
+        {{ end }}
+        {{ if .next_page }}
+            <a href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id 1}}">next page</a>
+        {{ end }}
+    </div>
 
     {{ if .current_user }}
     <div class="thread_reply">

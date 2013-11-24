@@ -11,13 +11,19 @@ import (
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {
+    page_id_str := r.FormValue("page")
+    page_id, err := strconv.Atoi(page_id_str)
+    if err != nil {
+        page_id = 0
+    }
+
 	board_id_str := mux.Vars(r)["board_id"]
 	board_id, _ := strconv.Atoi(board_id_str)
 	err, board := models.GetBoard(board_id)
 
 	post_id_str := mux.Vars(r)["post_id"]
 	post_id, _ := strconv.Atoi(post_id_str)
-	err, op, posts := models.GetThread(post_id)
+	err, op, posts := models.GetThread(post_id, page_id)
 
 	if r.Method == "POST" {
 		db := models.GetDbSession()
@@ -36,7 +42,7 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		db.Insert(post)
 		db.Update(op)
 
-		err, op, posts = models.GetThread(post_id)
+		err, op, posts = models.GetThread(post_id, page_id)
 	}
 
 	if err != nil {
@@ -44,9 +50,14 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+    num_pages := op.GetPagesInThread()
+
 	utils.RenderTemplate(w, r, "thread.html", map[string]interface{}{
 		"board": board,
 		"op":    op,
 		"posts": posts,
+        "prev_page": (page_id != 0),
+        "next_page": (page_id < num_pages),
+        "page_id": page_id,
 	})
 }

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/coopernurse/gorp"
 	"time"
+    "github.com/stevenleeg/gobb/config"
 )
 
 type Post struct {
@@ -34,7 +35,7 @@ func NewPost(author *User, board *Board, title, content string) *Post {
 	return post
 }
 
-func GetThread(parent_id int) (error, *Post, []*Post) {
+func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 	db := GetDbSession()
 
 	op, err := db.Get(Post{}, parent_id)
@@ -42,8 +43,15 @@ func GetThread(parent_id int) (error, *Post, []*Post) {
 		return errors.New("Parent doesn't exist"), nil, nil
 	}
 
+    posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
+    if err != nil {
+        posts_per_page = 15
+    }
+
+    i_begin := int64(page_id) * posts_per_page
+
 	var child_posts []*Post
-	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1", parent_id)
+	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 LIMIT $2 OFFSET $3", parent_id, posts_per_page, i_begin)
 
 	return nil, op.(*Post), child_posts
 }
@@ -75,4 +83,16 @@ func (post *Post) GetLatestPost() *Post {
 	}
 
 	return latest
+}
+
+func (post *Post) GetPagesInThread() int {
+    db := GetDbSession()
+    count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE parent_id=$1", post.Id)
+
+    posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
+    if err != nil {
+        posts_per_page = 15
+    }
+
+    return int(count / posts_per_page)
 }

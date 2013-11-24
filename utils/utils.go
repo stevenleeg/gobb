@@ -10,6 +10,10 @@ import (
 
 var Store = sessions.NewCookieStore([]byte("83kjhsd98w3kjhwdfsdfw3"))
 
+func tpl_add(first, second int) int {
+    return first + second
+}
+
 func RenderTemplate(
 	out http.ResponseWriter,
 	r *http.Request,
@@ -18,6 +22,7 @@ func RenderTemplate(
 
 	func_map := template.FuncMap{
 		"TimeRelativeToNow": TimeRelativeToNow,
+        "add": tpl_add,
 	}
 
 	current_user := GetCurrentUser(r)
