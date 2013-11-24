@@ -9,7 +9,7 @@
             <div class="post_author">{{.Author.Username}}</div>
         </div>
         <div class="post_meta">posted {{ TimeRelativeToNow .CreatedOn }}</div>
-        <div class="post_content">{{.Content}}</div>
+        <div class="post_content">{{ markdown .Content}}</div>
     </div>
 {{ end }}
 
