@@ -5,8 +5,8 @@ import (
     "net/http"
     "fmt"
     "strconv"
-    "sirjtaa/utils"
-    "sirjtaa/models"
+    "github.com/stevenleeg/gobb/utils"
+    "github.com/stevenleeg/gobb/models"
 )
 
 func Board(w http.ResponseWriter, r *http.Request) {

@@ -6,8 +6,8 @@ import (
     "strconv"
     "time"
     "fmt"
-    "sirjtaa/utils"
-    "sirjtaa/models"
+    "github.com/stevenleeg/gobb/utils"
+    "github.com/stevenleeg/gobb/models"
 )
 
 func NewThread(w http.ResponseWriter, r *http.Request) {
