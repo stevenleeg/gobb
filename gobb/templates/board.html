@@ -23,7 +23,7 @@
     <div class="thread">
         {{ template "thread_right" .GetLatestPost }}
         <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a>
-        <div class="thread_author">posted by {{.Author.Username}}</div>
+        <div class="thread_author">posted by {{.Author.Username}} {{ TimeRelativeToNow .CreatedOn }}</div>
     </div>
     {{ end }}
 </div>
