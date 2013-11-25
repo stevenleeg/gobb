@@ -22,5 +22,6 @@ CREATE TABLE IF NOT EXISTS posts (
     title        VARCHAR(70) NOT NULL,
     content      TEXT NOT NULL,
     created_on   TIMESTAMP NOT NULL,
-    latest_reply TIMESTAMP
+    latest_reply TIMESTAMP,
+    sticky       BOOLEAN DEFAULT 'NO'
 );
