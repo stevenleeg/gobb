@@ -1,16 +1,16 @@
 {{ define "content" }}
 <div class="larger box">
-    <h1>user settings</h1>
+    <h1>Settings</h1>
 
     {{ if .success }}
-    <div class="success">preferences saved!</div>
+    <div class="success">Settings saved!</div>
     {{ end }}
 
     <form method="POST" action="">
-    <label for="avatar_url">avatar url</label>
-    <input name="avatar_url" type="text" value="{{.current_user.Avatar}}" placeholder="default avatar" />
+    <label for="avatar_url">Avatar url</label>
+    <input name="avatar_url" id="avatar_url" type="text" value="{{.current_user.Avatar}}" placeholder="default avatar">
 
-    <input type="submit" value="save" />
+    <input type="submit" class="submit button" value="Save Settings">
     </form>
 </div>
 {{ end }}

@@ -12,22 +12,50 @@ a {
 }
 
 .button {
-    background: #7c9278;
+    background: #333;
     border: 2px solid #7c9278;
     border-radius: 5px;
     color: #fff;
+    cursor: pointer;
+    font-size: 14px;
     padding: 8px;
     text-decoration: none;
 }
 
-.button:hover {
-    border-color: #333;
+.button:hover, .button:active {
+    /*border-color: #333;*/
+    background: #444;
+}
+
+.write, .submit {
+    background: #333 url('/static/images/pencil.png') no-repeat;
+    background-position: 5px 8px!important;
+    background-size: 16px 16px!important;
+    padding-left: 25px;
+}
+
+.write:hover {
+    background: #444 url('/static/images/pencil.png') no-repeat;
+    background-position: 5px 8px;
+    background-size: 16px 16px;
+}
+
+.submit {
+    background: #333 url('/static/images/ok.png') no-repeat;
+}
+
+.submit:hover {
+    background: #444 url('/static/images/ok.png') no-repeat;
 }
 
 .icon {
     display: inline-block;
     height: 12px;
     width: 12px;
+}
+
+.right {
+    float: right;
 }
 
 .top {

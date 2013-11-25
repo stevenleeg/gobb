@@ -33,10 +33,15 @@
 {{ end }}
 
 {{ define "content" }}
-<h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; {{.op.Title}}</h1>
+<h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; {{.op.Title}}
+    {{ if .current_user }}
+    <a href="#reply" onclick="javascript:getElementById('replycontent').focus(); return false;" class="button right"><img src="/static/images/pencil.png" class="icon" alt="New Thread"> Reply</a>
+    {{ end }}
+    </h1>
+
     {{ if not .prev_page }}
         {{ template "post" .op }}
-    {{ end}}
+    {{ end }}
 
     {{ range .posts }}
         {{ template "post" . }}
@@ -54,10 +59,11 @@
     </div>
 
     {{ if .current_user }}
+    <a name="reply"></a>
     <div class="thread_reply">
         <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}#latest">
-        <textarea name="content" placeholder="Reply to this thread"></textarea>
-        <input type="submit" class="button" value="Post it">
+            <textarea name="content" id="replycontent" placeholder="Reply to this thread" tabindex="2" required></textarea>
+            <input type="submit" class="submit button" value="Reply" tabindex="3">
         </form>
     </div>
     {{ end }}
