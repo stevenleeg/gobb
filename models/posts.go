@@ -51,7 +51,7 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
     i_begin := int64(page_id) * posts_per_page
 
 	var child_posts []*Post
-	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 LIMIT $2 OFFSET $3", parent_id, posts_per_page, i_begin)
+	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on ASC LIMIT $2 OFFSET $3", parent_id, posts_per_page, i_begin)
 
 	return nil, op.(*Post), child_posts
 }
