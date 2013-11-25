@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/utils"
+    "fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -47,6 +48,7 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.NotFound(w, r)
+        fmt.Printf("[error] Something went wrong in posts (%s)\n", err.Error())
 		return
 	}
 

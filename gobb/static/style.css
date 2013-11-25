@@ -1,4 +1,4 @@
-body {
+b{{ if .Sticky }} sticky{{ end }}ody {
     background: #EEE;
     color: #222;
     font-family: "Lato", Helvetica, Arial, sans-serif;
@@ -190,6 +190,10 @@ input[type=submit] {
     font-size: 18px;
     padding: 5px 10px;
     margin-bottom: 1px;
+}
+
+.thread.sticky {
+    background: #FFFED1;
 }
 
 .thread .right {

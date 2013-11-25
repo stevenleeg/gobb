@@ -22,7 +22,7 @@ func Board(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var threads []*models.Post
-	_, err = db.Select(&threads, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL ORDER BY latest_reply DESC", board_id)
+	_, err = db.Select(&threads, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL ORDER BY sticky DESC, latest_reply DESC", board_id)
 	if err != nil {
 		fmt.Printf("[error] Could not get posts (%s)\n", err.Error())
 	}

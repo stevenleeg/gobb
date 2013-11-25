@@ -3,6 +3,7 @@ package utils
 import (
 	"github.com/gorilla/sessions"
 	"github.com/stevenleeg/gobb/config"
+	"github.com/stevenleeg/gobb/models"
     "github.com/russross/blackfriday"
 	"html/template"
 	"log"
@@ -20,6 +21,12 @@ func tpl_markdown(input string) template.HTML {
     return template.HTML(string(blackfriday.MarkdownCommon(byte_slice)))
 }
 
+func tpl_getcurrentuser(r *http.Request) func() *models.User {
+    return func() *models.User {
+        return GetCurrentUser(r)
+    }
+}
+
 func RenderTemplate(
 	out http.ResponseWriter,
 	r *http.Request,
@@ -30,6 +37,7 @@ func RenderTemplate(
 		"TimeRelativeToNow": TimeRelativeToNow,
         "add": tpl_add,
         "markdown": tpl_markdown,
+        "GetCurrentUser": tpl_getcurrentuser(r),
 	}
 
 	current_user := GetCurrentUser(r)

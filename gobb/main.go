@@ -24,6 +24,7 @@ func main() {
 	r.HandleFunc("/login", controllers.Login)
 	r.HandleFunc("/logout", controllers.Logout)
 	r.HandleFunc("/admin", controllers.Admin)
+	r.HandleFunc("/admin/stick", controllers.AdminStickThread)
 	r.HandleFunc("/board/{id:[0-9]+}", controllers.Board)
 	r.HandleFunc("/board/{id:[0-9]+}/new", controllers.NewThread)
 	r.HandleFunc("/board/{board_id:[0-9]+}/{post_id:[0-9]+}", controllers.Thread)

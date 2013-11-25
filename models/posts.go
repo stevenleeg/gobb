@@ -19,6 +19,7 @@ type Post struct {
 	Content     string        `db:"content"`
 	CreatedOn   time.Time     `db:"created_on"`
 	LatestReply time.Time     `db:"latest_reply"`
+    Sticky      bool          `db:"sticky"`
 }
 
 func NewPost(author *User, board *Board, title, content string) *Post {
@@ -30,6 +31,7 @@ func NewPost(author *User, board *Board, title, content string) *Post {
 		Title:     title,
 		Content:   content,
 		CreatedOn: time.Now(),
+        Sticky:    false,
 	}
 
 	return post
@@ -40,7 +42,7 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 
 	op, err := db.Get(Post{}, parent_id)
 	if err != nil || op == nil {
-		return errors.New("Parent doesn't exist"), nil, nil
+		return errors.New("[error] Could not get parent (" + err.Error() + ")"), nil, nil
 	}
 
     posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")

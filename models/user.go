@@ -70,3 +70,11 @@ func (user *User) IsAdmin() bool {
 
 	return false
 }
+
+func (user *User) CanModerate() bool {
+    if user.GroupId > 0 {
+        return true
+    }
+
+    return false
+}

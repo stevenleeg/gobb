@@ -10,7 +10,19 @@
 
             <div class="post_author">{{ .Author.Username }}</div>
         </td>
-        <td class="post_meta">posted {{ TimeRelativeToNow .CreatedOn }}</td>
+        <td class="post_meta">
+            posted {{ TimeRelativeToNow .CreatedOn }}
+            {{ if GetCurrentUser.CanModerate}}
+                {{ if not .ParentId.Valid }}
+                // 
+                {{ if .Sticky }}
+                    <a href="/admin/stick?thread_id={{.Id}}">unstick</a>
+                {{ else }}
+                    <a href="/admin/stick?thread_id={{.Id}}">stick</a>
+                {{ end }}
+                {{ end}}
+            {{ end }}
+        </td>
     </tr>
     <tr>
         <td class="post_content">{{ markdown .Content}}</td>
