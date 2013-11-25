@@ -1,4 +1,4 @@
-b{{ if .Sticky }} sticky{{ end }}ody {
+body {
     background: #EEE;
     color: #222;
     font-family: "Lato", Helvetica, Arial, sans-serif;
