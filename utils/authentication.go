@@ -1,13 +1,26 @@
 package utils
 
 import (
-	"github.com/stevenleeg/gobb/models"
+	"github.com/gorilla/sessions"
 	"net/http"
+	"github.com/stevenleeg/gobb/models"
+	"github.com/stevenleeg/gobb/config"
 )
+
+var Store *sessions.CookieStore
+
+func GetCookieStore(r *http.Request) *sessions.CookieStore {
+    if Store == nil {
+        cookie_key, _ := config.Config.GetString("gobb", "cookie_key")
+        Store = sessions.NewCookieStore([]byte(cookie_key))
+    }
+
+    return Store
+}
 
 // TODO: Cache this!
 func GetCurrentUser(r *http.Request) *models.User {
-	session, _ := Store.Get(r, "sirsid")
+	session, _ := GetCookieStore(r).Get(r, "sirsid")
 
 	if session.Values["username"] == nil || session.Values["password"] == nil {
 		return nil

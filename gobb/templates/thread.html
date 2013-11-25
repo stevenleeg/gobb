@@ -27,7 +27,7 @@
         </td>
     </tr>
     <tr>
-        <td class="post_content">{{ markdown .Content}}</td>
+        <td class="post_content">{{ ParseMarkdown .Content}}</td>
     </tr>
 </table>
 {{ end }}
@@ -51,10 +51,10 @@
 
     <div class="pagination">
         {{ if .prev_page }}
-            <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id -1}}">&laquo; previous page</a>
+            <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
         {{ end }}
         {{ if .next_page }}
-            <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{add .page_id 1}}">next page &raquo;</a>
+            <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
         {{ end }}
     </div>
 
