@@ -5,7 +5,7 @@
         {{ if .Latest }}
             {{ .Latest.Author.Username}}
         {{ else }}
-            {{ .Op.Title }}
+            {{ .Op.Author.Username }}
         {{ end }}
     {{ else }}
         Nothing yet!
