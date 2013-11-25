@@ -128,6 +128,8 @@ a:hover {
     float: right;
     font-size: 12px;
     margin-top: 5px;
+    overflow: hidden;
+    width: 200px;
 }
 
 .board_right .latest {
@@ -224,6 +226,16 @@ input[type=submit] {
     font-size: 18px;
     padding: 5px 10px;
     margin-bottom: 1px;
+}
+
+.thread .threadtitle {
+    width: 400px;
+    overflow: hidden;
+}
+
+.threadtitle {
+    width: 500px;
+    word-wrap: break-word;
 }
 
 .thread.sticky {
