@@ -110,3 +110,10 @@ func (post *Post) GetPagesInThread() int {
 
     return int(count / posts_per_page)
 }
+
+func (post *Post) DeleteAllChildren() error {
+	db := GetDbSession()
+
+    _, err := db.Exec("DELETE FROM posts WHERE parent_id=$1", post.Id)
+    return err
+}

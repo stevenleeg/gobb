@@ -29,5 +29,5 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 
 	utils.RenderTemplate(w, r, "user_settings.html", map[string]interface{}{
 		"success": success,
-	})
+	}, nil)
 }

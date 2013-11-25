@@ -46,5 +46,5 @@ func NewThread(w http.ResponseWriter, r *http.Request) {
 
 	utils.RenderTemplate(w, r, "new_thread.html", map[string]interface{}{
 		"board": board,
-	})
+	}, nil)
 }

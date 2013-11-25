@@ -24,18 +24,19 @@ func tplGetCurrentUser(r *http.Request) func() *models.User {
     }
 }
 
+var default_funcmap = template.FuncMap{
+    "TimeRelativeToNow": TimeRelativeToNow,
+    "Add": tplAdd,
+    "ParseMarkdown": tplParseMarkdown,
+}
+
+
 func RenderTemplate(
 	out http.ResponseWriter,
 	r *http.Request,
 	tpl_file string,
-	context map[string]interface{}) {
-
-	func_map := template.FuncMap{
-		"TimeRelativeToNow": TimeRelativeToNow,
-        "Add": tplAdd,
-        "ParseMarkdown": tplParseMarkdown,
-        "GetCurrentUser": tplGetCurrentUser(r),
-	}
+	context map[string]interface{},
+    funcs template.FuncMap) {
 
 	current_user := GetCurrentUser(r)
 	site_name, _ := config.Config.GetString("gobb", "site_name")
@@ -50,6 +51,13 @@ func RenderTemplate(
 	for key, val := range context {
 		send[key] = val
 	}
+
+    // Same with the function map
+    func_map := default_funcmap
+    func_map["GetCurrentUser"] = tplGetCurrentUser(r)
+    for key, val := range funcs {
+        func_map[key] = val
+    }
 
 	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles("templates/base.html", "templates/"+tpl_file)
 	if err != nil {

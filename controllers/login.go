@@ -26,7 +26,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		if error != "" {
 			utils.RenderTemplate(w, r, "login.html", map[string]interface{}{
 				"error": error,
-			})
+			}, nil)
 			return
 		}
 
@@ -44,5 +44,5 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.RenderTemplate(w, r, "login.html", nil)
+	utils.RenderTemplate(w, r, "login.html", nil, nil)
 }

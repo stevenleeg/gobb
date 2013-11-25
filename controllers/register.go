@@ -26,7 +26,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		if error != "" {
 			utils.RenderTemplate(w, r, "register.html", map[string]interface{}{
 				"error": error,
-			})
+			}, nil)
 			return
 		}
 
@@ -43,5 +43,5 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	utils.RenderTemplate(w, r, "register.html", nil)
+	utils.RenderTemplate(w, r, "register.html", nil, nil)
 }

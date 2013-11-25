@@ -12,17 +12,18 @@
         </td>
         <td class="post_meta">
             posted {{ TimeRelativeToNow .CreatedOn }}
-            {{ if GetCurrentUser }}
-            {{ if GetCurrentUser.CanModerate}}
-                {{ if not .ParentId.Valid }}
+
+            {{ if CurrentUserCanStickyThread . }}
                 // 
                 {{ if .Sticky }}
-                    <a href="/admin/stick?thread_id={{.Id}}">unstick</a>
+                    <a href="/action/stick?thread_id={{.Id}}">unstick</a>
                 {{ else }}
-                    <a href="/admin/stick?thread_id={{.Id}}">stick</a>
-                {{ end }}
+                    <a href="/action/stick?thread_id={{.Id}}">stick</a>
                 {{ end}}
             {{ end }}
+
+            {{ if CurrentUserCanDeleteThread . }}
+                // <a href="/action/delete?thread_id={{.Id}}">delete</a>
             {{ end }}
         </td>
     </tr>

@@ -24,5 +24,5 @@ func Index(w http.ResponseWriter, request *http.Request) {
         "user_count":  user_count,
         "latest_user": latest_user,
         "total_posts": total_posts,
-	})
+	}, nil)
 }

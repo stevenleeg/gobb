@@ -30,5 +30,5 @@ func Board(w http.ResponseWriter, r *http.Request) {
 	utils.RenderTemplate(w, r, "board.html", map[string]interface{}{
 		"board":   board,
 		"threads": threads,
-	})
+	}, nil)
 }
