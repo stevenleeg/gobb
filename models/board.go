@@ -40,6 +40,10 @@ func (board *Board) GetLatestPost() BoardLatest {
 
 	err = db.SelectOne(latest, "SELECT * FROM posts WHERE board_id=$1 AND parent_id=$2 ORDER BY created_on DESC LIMIT 1", board.Id, op.Id)
 
+    if latest.Author == nil {
+        latest = nil
+    }
+
     return BoardLatest {
         Op:     op,
         Latest: latest,

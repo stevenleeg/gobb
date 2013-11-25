@@ -39,7 +39,7 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 	db := GetDbSession()
 
 	op, err := db.Get(Post{}, parent_id)
-	if err != nil {
+	if err != nil || op == nil {
 		return errors.New("Parent doesn't exist"), nil, nil
 	}
 

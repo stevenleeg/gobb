@@ -33,7 +33,12 @@ func NewThread(w http.ResponseWriter, r *http.Request) {
 
 		post := models.NewPost(current_user, board, title, content)
 		post.LatestReply = time.Now()
-		db.Insert(post)
+		err := db.Insert(post)
+
+        if err != nil {
+            fmt.Printf("[error] Could not create new thread (%s)", err.Error())
+            return
+        }
 
 		http.Redirect(w, r, fmt.Sprintf("/board/%d/%d", board.Id, post.Id), http.StatusFound)
 		return
