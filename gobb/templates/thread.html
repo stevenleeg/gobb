@@ -61,7 +61,7 @@
     {{ if .current_user }}
     <a name="reply"></a>
     <div class="thread_reply">
-        <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}#latest">
+        <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}?page={{ .op.GetPagesInThread }}#latest">
             <textarea name="content" id="replycontent" placeholder="Reply to this thread" tabindex="2" required></textarea>
             <input type="submit" class="submit button" value="Reply" tabindex="3">
         </form>
