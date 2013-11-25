@@ -128,6 +128,8 @@ a:hover {
     float: right;
     font-size: 12px;
     margin-top: 5px;
+    overflow: hidden;
+    width: 200px;
 }
 
 .board_right .latest {
@@ -226,6 +228,16 @@ input[type=submit] {
     margin-bottom: 1px;
 }
 
+.thread .threadtitle {
+    width: 375px;
+    overflow: hidden;
+}
+
+.threadtitle {
+    width: 500px;
+    word-wrap: break-word;
+}
+
 .thread.sticky {
     background: #FFFED1;
 }
@@ -233,6 +245,7 @@ input[type=submit] {
 .thread .right {
     font-size: 12px;
     margin: 10px 0 0 5px;
+    width: 150px;
 }
 
 .thread .thread_latest {

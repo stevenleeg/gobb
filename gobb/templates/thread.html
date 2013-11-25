@@ -34,10 +34,10 @@
 {{ end }}
 
 {{ define "content" }}
-<h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; {{.op.Title}}
-    {{ if .current_user }}
-    <a href="#reply" onclick="javascript:getElementById('replycontent').focus(); return false;" class="button right"><img src="/static/images/pencil.png" class="icon" alt="New Thread"> Reply</a>
-    {{ end }}
+{{ if .current_user }}
+<a href="#reply" onclick="javascript:getElementById('replycontent').focus(); return false;" class="write button right">Reply</a>
+{{ end }}
+    <h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; <div class="threadtitle">{{.op.Title}}</div>
     </h1>
 
     {{ if not .prev_page }}
