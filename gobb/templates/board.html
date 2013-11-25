@@ -22,7 +22,7 @@
     {{ range .threads }}
     <div class="thread{{ if .Sticky }} sticky{{ end }}">
         {{ template "thread_right" .GetLatestPost }}
-        <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a>
+        <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
         <div class="thread_author">posted by {{.Author.Username}} {{ TimeRelativeToNow .CreatedOn }}</div>
     </div>
     {{ end }}

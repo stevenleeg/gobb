@@ -8,7 +8,9 @@ body {
 }
 
 a {
+    text-decoration: none;
     color: #333;
+    font-weight: bold;
 }
 
 .button {
@@ -231,12 +233,14 @@ input[type=submit] {
     margin-top: 10px;
 }
 
-.thread .thread_title {
-    display: block;
+.thread .thread_latest {
+    display: inline-block;
+    padding: 0px 5px;
 }
 
 .thread .thread_author {
     font-size: 12px;
+    display: block;
 }
 
 .new_thread {
