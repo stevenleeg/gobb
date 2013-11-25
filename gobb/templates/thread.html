@@ -12,6 +12,7 @@
         </td>
         <td class="post_meta">
             posted {{ TimeRelativeToNow .CreatedOn }}
+            {{ if GetCurrentUser }}
             {{ if GetCurrentUser.CanModerate}}
                 {{ if not .ParentId.Valid }}
                 // 
@@ -21,6 +22,7 @@
                     <a href="/admin/stick?thread_id={{.Id}}">stick</a>
                 {{ end }}
                 {{ end}}
+            {{ end }}
             {{ end }}
         </td>
     </tr>
