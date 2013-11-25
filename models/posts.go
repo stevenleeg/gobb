@@ -58,6 +58,18 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 	return nil, op.(*Post), child_posts
 }
 
+func GetPostCount() (int64, error) {
+    db := GetDbSession()
+
+    count, err := db.SelectInt("SELECT COUNT(*) FROM posts")
+    if err != nil {
+        fmt.Printf("[error] Error selecting post count (%s)\n", err.Error())
+        return 0, errors.New("Database error: " + err.Error())
+    }
+
+    return count, nil
+}
+
 func (post *Post) PostGet(s gorp.SqlExecutor) error {
 	db := GetDbSession()
 	user, _ := db.Get(User{}, post.AuthorId)

@@ -63,6 +63,36 @@ func AuthenticateUser(username, password string) (error, *User) {
 	return nil, user
 }
 
+func GetUserCount() (int64, error) {
+    db := GetDbSession()
+
+    count, err := db.SelectInt("SELECT COUNT(*) FROM users")
+    if err != nil {
+        fmt.Printf("[error] Error selecting user count (%s)\n", err.Error())
+        return 0, errors.New("Database error: " + err.Error())
+    }
+
+    return count, nil
+}
+
+func GetLatestUser() (*User, error) {
+    db := GetDbSession()
+
+    user := &User{}
+    err := db.SelectOne(user, "SELECT * FROM users ORDER BY created DESC LIMIT 1")
+    
+    if err != nil {
+        fmt.Printf("[error] Error selecting latest user (%s)\n", err.Error())
+        return nil, errors.New("Database error: " + err.Error())
+    }
+
+    if user.Username == "" {
+        return nil, nil
+    }
+
+    return user, nil
+}
+
 func (user *User) IsAdmin() bool {
 	if user.GroupId == 1 {
 		return true

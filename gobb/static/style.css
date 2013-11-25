@@ -114,6 +114,7 @@ a {
     width: 600px;
     margin: 20px auto 0px auto;
     text-align: left;
+    box-sizing: border-box;
 }
 
 .box.larger:after {

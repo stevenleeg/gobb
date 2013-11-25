@@ -24,4 +24,9 @@
     </div>
     {{ end }}
 </div>
+
+<h1>stats</h1>
+<div class="box larger">
+    {{ .site_name }} has <b>{{ .user_count }} members</b>, who have created a total of <b>{{ .total_posts}} posts</b>. Say hello to our newest member, <b>{{ .latest_user.Username }}</b>. 
+</div>
 {{ end }}
