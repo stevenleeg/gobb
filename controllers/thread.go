@@ -64,10 +64,18 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 	}, map[string]interface{}{
         "CurrentUserCanDeleteThread": func(thread *models.Post) bool {
             current_user := utils.GetCurrentUser(r)
+            if current_user == nil {
+                return false
+            }
+            
             return ((current_user.Id == thread.AuthorId || current_user.CanModerate()) && !thread.ParentId.Valid)
         },
         "CurrentUserCanStickyThread": func(thread *models.Post) bool {
             current_user := utils.GetCurrentUser(r)
+            if current_user == nil {
+                return false
+            }
+
             return (current_user.CanModerate() && !thread.ParentId.Valid)
         },
     })
