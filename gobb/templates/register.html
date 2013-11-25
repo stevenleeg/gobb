@@ -8,10 +8,10 @@
     {{end}}
 
     <form method="POST" action="/register">
-        <input name="username" type="text" placeholder="username" />
-        <input name="password" type="password" placeholder="password" />
-        <input name="password2" type="password" placeholder="confirm password" />
-        <input type="submit" class="button" value="join the pahty" />
+        <input name="username" type="text" placeholder="username" required autofocus>
+        <input name="password" type="password" placeholder="password" required>
+        <input name="password2" type="password" placeholder="confirm password" required>
+        <input type="submit" class="button" value="Register" />
     </form>
 </div>
 {{ end }}

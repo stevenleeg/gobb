@@ -16,9 +16,9 @@
 </div>
 {{ end }}
 
-<h1>posts in {{.board.Title}}</h1>
+<h1>Posts in {{.board.Title}}</h1>
 
-<div class="threads">
+<div class="box larger threads">
     {{ range .threads }}
     <div class="thread{{ if .Sticky }} sticky{{ end }}">
         {{ template "thread_right" .GetLatestPost }}

@@ -13,6 +13,10 @@ a {
     font-weight: bold;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 .button {
     background: #333;
     border: 2px solid #7c9278;
@@ -288,7 +292,7 @@ input[type=submit] {
     width: 600px;
     box-sizing: content-box;
     background: #FFF;
-    margin: 20px 0px;
+    margin: 10px 0px;
     border-spacing: 0px 0px;
 }
 
@@ -301,7 +305,7 @@ input[type=submit] {
 .post_sidebar {
     width: 150px;
     padding: 10px;
-    border-right: 1px solid #AAA;
+    border-right: 2px solid #EEE;
     text-align: center;
     vertical-align: top;
 }
@@ -318,7 +322,7 @@ input[type=submit] {
 }
 
 .post_meta {
-    border-bottom: 1px solid #AAA;
+    border-bottom: 2px solid #EEE;
     font-size: 12px;
     padding: 10px 10px;
     text-align: right;
