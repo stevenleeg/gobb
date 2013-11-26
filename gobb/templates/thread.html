@@ -8,7 +8,7 @@
             <img class="post_avatar" src="/static/images/default_user.png" />
             {{ end }}
 
-            <div class="post_author">{{ .Author.Username }}</div>
+            <div class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</div>
         </td>
         <td class="post_meta">
             posted {{ TimeRelativeToNow .CreatedOn }}
@@ -25,17 +25,19 @@
             {{ if CurrentUserCanDeleteThread . }}
                 // <a href="/action/delete?thread_id={{.Id}}">delete</a>
             {{ end }}
+            // <a href="#reply" class="thread_quote" thread="{{.Id}}">quote</a>
         </td>
     </tr>
     <tr>
-        <td class="post_content">{{ ParseMarkdown .Content}}</td>
+        <td class="post_content" >{{ ParseMarkdown .Content}}</td>
     </tr>
 </table>
+<div class="post_unparsed_content" id="p{{.Id}}_content">{{ .Content }}</div>
 {{ end }}
 
 {{ define "content" }}
 {{ if .current_user }}
-<a href="#reply" onclick="javascript:getElementById('replycontent').focus(); return false;" class="write button right">Reply</a>
+<a href="#reply" class="write button right thread_reply_btn">Reply</a>
 {{ end }}
     <h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; <div class="threadtitle">{{.op.Title}}</div>
     </h1>
@@ -63,7 +65,7 @@
     <a name="reply"></a>
     <div class="thread_reply">
         <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}?page={{ .op.GetPagesInThread }}#latest">
-            <textarea name="content" id="replycontent" placeholder="Reply to this thread" tabindex="2" required></textarea>
+            <textarea name="content" id="reply_content" placeholder="Reply to this thread" tabindex="2" required></textarea>
             <input type="submit" class="submit button" value="Reply" tabindex="3">
         </form>
     </div>

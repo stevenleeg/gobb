@@ -17,6 +17,12 @@ a:hover {
     text-decoration: underline;
 }
 
+blockquote {
+    margin: 10px 0px;
+    padding: 5px 10px;
+    background: #EEE;
+}
+
 .button {
     background: #333;
     border: 2px solid #7c9278;
@@ -342,6 +348,10 @@ input[type=submit] {
 .post_content {
     padding: 0px 10px;
     vertical-align: top;
+}
+
+.post_unparsed_content {
+    display: none;
 }
 
 .post_content img {
