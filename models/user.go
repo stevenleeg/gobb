@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/stevenleeg/gobb/config"
 	"crypto/rand"
 	"crypto/sha1"
 	"encoding/base64"
@@ -12,13 +13,13 @@ import (
 )
 
 type User struct {
-	Id       int64  `db:"id"`
-	GroupId  int64  `db:"group_id"`
-	Created  int64  `db:"created"`
-	Username string `db:"username"`
-	Password string `db:"password"`
-	Avatar   string `db:"avatar"`
-	Salt     string `db:"salt"`
+	Id        int64     `db:"id"`
+	GroupId   int64     `db:"group_id"`
+	CreatedOn time.Time `db:"created_on"`
+	Username  string    `db:"username"`
+	Password  string    `db:"password"`
+	Avatar    string    `db:"avatar"`
+	Salt      string    `db:"salt"`
 }
 
 func NewUser(username, password string) *User {
@@ -31,7 +32,7 @@ func NewUser(username, password string) *User {
 	password = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 
 	return &User{
-		Created:  time.Now().Unix(),
+		CreatedOn:  time.Now(),
 		Username: username,
 		Password: password,
 		Salt:     salt,
@@ -79,7 +80,7 @@ func GetLatestUser() (*User, error) {
     db := GetDbSession()
 
     user := &User{}
-    err := db.SelectOne(user, "SELECT * FROM users ORDER BY created DESC LIMIT 1")
+    err := db.SelectOne(user, "SELECT * FROM users ORDER BY created_on DESC LIMIT 1")
     
     if err != nil {
         fmt.Printf("[error] Error selecting latest user (%s)\n", err.Error())
@@ -107,4 +108,33 @@ func (user *User) CanModerate() bool {
     }
 
     return false
+}
+
+func (user *User) GetPostCount() int64 {
+    db := GetDbSession()
+    count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE author_id=$1", user.Id)
+
+    if err != nil {
+        return 0
+    }
+
+    return count
+}
+
+func (user *User) GetPosts(page int) []*Post {
+    db := GetDbSession()
+    var posts []*Post
+    
+    posts_per_page, _ := config.Config.GetInt64("gobb", "posts_per_page")
+    offset := posts_per_page * int64(page)
+
+    _, err := db.Select(&posts, "SELECT * FROM posts WHERE author_id=$1 ORDER BY created_on DESC LIMIT $2 OFFSET $3", user.Id, posts_per_page, offset)
+
+    if err != nil {
+        fmt.Printf("[error] Could not get user's posts (%s)", err.Error())
+    }
+
+    fmt.Println(posts_per_page, offset)
+
+    return posts
 }

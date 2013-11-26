@@ -1,0 +1,36 @@
+{{ define "post" }}
+<table class="post">
+    <tr>
+        <td rowspan="2" class="post_sidebar">
+            {{ if .Author.Avatar }}
+            <img class="post_avatar" src="{{.Author.Avatar}}" />
+            {{ else }}
+            <img class="post_avatar" src="/static/images/default_user.png" />
+            {{ end }}
+
+            <div class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</div>
+        </td>
+        <td class="post_meta">
+            posted {{ TimeRelativeToNow .CreatedOn }}
+        </td>
+    </tr>
+    <tr>
+        <td class="post_content" >{{ ParseMarkdown .Content}}</td>
+    </tr>
+</table>
+{{ end }}
+
+{{ define "content" }}
+<h1>{{ .user.Username }}</h1>
+<div class="box larger">
+    {{ .user.Username }} created their account {{ TimeRelativeToNow .user.CreatedOn }} and has posted {{ .user.GetPostCount }} times since.
+</div>
+
+<h1>Posts by {{ .user.Username }}</h1>
+
+{{ range .user.GetPosts 0 }}
+    {{ template "post" . }}
+{{ end }}
+
+{{ end }}
+

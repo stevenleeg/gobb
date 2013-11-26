@@ -29,6 +29,7 @@ func main() {
 	r.HandleFunc("/board/{id:[0-9]+}", controllers.Board)
 	r.HandleFunc("/board/{id:[0-9]+}/new", controllers.NewThread)
 	r.HandleFunc("/board/{board_id:[0-9]+}/{post_id:[0-9]+}", controllers.Thread)
+	r.HandleFunc("/user/{id:[0-9]+}", controllers.User)
 	r.HandleFunc("/user/{id:[0-9]+}/settings", controllers.UserSettings)
 	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir("./")))
 	http.Handle("/", r)
