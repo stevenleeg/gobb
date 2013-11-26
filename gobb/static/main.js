@@ -5,7 +5,7 @@ var Sirjtaa = (function() {
         var author  = $("#p"+ thread_id +"_author").text();
 
         var prev = $("#reply_content").text();
-        var val  = author + " said \n\n>" + content.replace('\n', '\n>') + "\n\n";
+        var val  = author + " said: \n\n>" + content.replace('\n', '\n>') + "\n\n";
         $("#reply_content").focus().val('').val(val);
     }
 
