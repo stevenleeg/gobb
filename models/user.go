@@ -134,7 +134,5 @@ func (user *User) GetPosts(page int) []*Post {
         fmt.Printf("[error] Could not get user's posts (%s)", err.Error())
     }
 
-    fmt.Println(posts_per_page, offset)
-
     return posts
 }
