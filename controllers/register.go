@@ -23,6 +23,13 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			error = "Passwords don't match"
 		}
 
+        // See if a user with this name already exists
+		db := models.GetDbSession()
+        count, err := db.SelectInt("SELECT COUNT(*) FROM users WHERE username=$1", username)
+        if count > 0 || err != nil {
+            error = "This username is already taken."
+        }
+        
 		if error != "" {
 			utils.RenderTemplate(w, r, "register.html", map[string]interface{}{
 				"error": error,
@@ -31,9 +38,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// We're good, let's make it
-		db_map := models.GetDbSession()
 		user := models.NewUser(username, password)
-		err := db_map.Insert(user)
+		err = db.Insert(user)
 
 		if err != nil {
 			fmt.Printf("[error] Could not insert user (%s)\n", err.Error())
