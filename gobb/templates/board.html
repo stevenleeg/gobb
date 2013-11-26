@@ -1,7 +1,7 @@
 {{ define "thread_right" }}
 <div class="right">
     {{ if .Author }}
-    last post by <b>{{.Author.Username}}</b>
+    last post by <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a>
     <br>{{ TimeRelativeToNow .CreatedOn }}</a>
     {{ else }}
     no replies
@@ -26,7 +26,7 @@
         <div class="threadtitle">
             <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
         </div>
-        <div class="thread_author">posted by {{.Author.Username}} {{ TimeRelativeToNow .CreatedOn }}</div>
+        <div class="thread_author">posted by <a href="/user/{{ .Author.Username }}">{{.Author.Username}}</a> {{ TimeRelativeToNow .CreatedOn }}</div>
     </div>
     {{ end }}
 </div>

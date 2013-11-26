@@ -8,7 +8,7 @@
             <img class="post_avatar" src="/static/images/default_user.png" />
             {{ end }}
 
-            <div class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</div>
+            <a href="/user/{{ .Author.Id }}" class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</a>
         </td>
         <td class="post_meta">
             posted {{ TimeRelativeToNow .CreatedOn }}
