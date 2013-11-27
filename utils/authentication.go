@@ -2,9 +2,11 @@ package utils
 
 import (
 	"github.com/gorilla/sessions"
+	"github.com/gorilla/context"
 	"net/http"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/config"
+    "fmt"
 )
 
 var Store *sessions.CookieStore
@@ -20,6 +22,11 @@ func GetCookieStore(r *http.Request) *sessions.CookieStore {
 
 // TODO: Cache this!
 func GetCurrentUser(r *http.Request) *models.User {
+    cached := context.Get(r, "user") 
+    if cached != nil {
+        return cached.(*models.User)
+    }
+
 	session, _ := GetCookieStore(r).Get(r, "sirsid")
 
 	if session.Values["username"] == nil || session.Values["password"] == nil {
@@ -30,5 +37,7 @@ func GetCurrentUser(r *http.Request) *models.User {
 	if err != nil {
 		return nil
 	}
+
+    context.Set(r, "user", current_user)
 	return current_user
 }
