@@ -33,7 +33,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		session, _ := utils.Store.Get(r, "sirsid")
 		session.Values["username"] = username
 		session.Values["password"] = password
-		fmt.Println("[notice] Auth success!")
 
 		err = session.Save(r, w)
 		if err != nil {
