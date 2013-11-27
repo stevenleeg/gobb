@@ -1,0 +1,24 @@
+{{define "content"}}
+<div class="new_thread">
+    {{ if .post }}
+        <h1>Editing post</h1>
+    {{ else }}
+        <h1>New Thread</h1>
+    {{ end }}
+    {{ if .board }}
+        <form method="POST" action="/board/{{.board.Id}}/new">
+    {{ else }}
+        <form method="POST" action="/action/edit?post_id={{ .post.Id }}">
+    {{ end }}
+    {{ if or (not .post) (not .post.ParentId.Valid) }}
+    <input class="in_title" type="text" name="title" placeholder="Thread title" tabindex="2" required autofocus maxlength="70"{{ if .post }}value="{{ .post.Title }}"{{ end }}>
+    {{ end }}
+        <textarea name="content" placeholder="Yo put thread stuff here" tabindex="3"required>{{ if .post }}{{ .post.Content }}{{ end }}</textarea>
+        {{ if .post }}
+            <input type="submit" class="submit button" value="Save post" tabindex="4">
+        {{ else }}
+            <input type="submit" class="submit button" value="Post Thread" tabindex="4">
+        {{ end }}
+    </form>
+</div>
+{{end}}

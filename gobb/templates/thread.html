@@ -1,7 +1,7 @@
 {{ define "post" }}
 <table class="post">
     <tr>
-        <td rowspan="2" class="post_sidebar">
+        <td rowspan="3" class="post_sidebar">
             {{ if .Author.Avatar }}
             <img class="post_avatar" src="{{.Author.Avatar}}" />
             {{ else }}
@@ -34,6 +34,15 @@
     </tr>
     <tr>
         <td class="post_content" >{{ ParseMarkdown .Content}}</td>
+    </tr>
+    <tr>
+        {{ if IsValidTime .LastEdit }}
+        <td class="post_edited">
+            Edited {{ TimeRelativeToNow .LastEdit }}
+        </td>
+        {{ else }}
+        <td class="post_edited_empty"></td>
+        {{ end }}
     </tr>
 </table>
 <div class="post_unparsed_content" id="p{{.Id}}_content">{{ .Content }}</div>

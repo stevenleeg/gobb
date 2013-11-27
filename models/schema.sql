@@ -23,5 +23,6 @@ CREATE TABLE IF NOT EXISTS posts (
     content      TEXT NOT NULL,
     created_on   TIMESTAMP NOT NULL,
     latest_reply TIMESTAMP,
+    last_edit    TIMESTAMP,
     sticky       BOOLEAN DEFAULT 'NO'
 );

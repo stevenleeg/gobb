@@ -6,6 +6,7 @@ import (
     "github.com/russross/blackfriday"
 	"html/template"
 	"fmt"
+    "time"
 	"net/http"
 )
 
@@ -24,10 +25,15 @@ func tplGetCurrentUser(r *http.Request) func() *models.User {
     }
 }
 
+func tplIsValidTime(in time.Time) bool {
+    return in.Year() > 1
+}
+
 var default_funcmap = template.FuncMap{
     "TimeRelativeToNow": TimeRelativeToNow,
     "Add": tplAdd,
     "ParseMarkdown": tplParseMarkdown,
+    "IsValidTime": tplIsValidTime,
 }
 
 

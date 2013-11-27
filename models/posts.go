@@ -19,6 +19,7 @@ type Post struct {
 	Content     string        `db:"content"`
 	CreatedOn   time.Time     `db:"created_on"`
 	LatestReply time.Time     `db:"latest_reply"`
+    LastEdit    time.Time     `db:"last_edit"`
     Sticky      bool          `db:"sticky"`
 }
 

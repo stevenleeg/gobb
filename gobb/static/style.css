@@ -337,6 +337,15 @@ input[type=submit] {
     display: none;
 }
 
+.post_edited {
+    font-size: 10px;
+    padding-left: 10px;
+}
+
+.post_edited_empty {
+    height: 0px;
+}
+
 .post_content img {
     display: block;
     max-width: 90%;
