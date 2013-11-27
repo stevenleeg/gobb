@@ -46,11 +46,15 @@ func RenderTemplate(
 
 	current_user := GetCurrentUser(r)
 	site_name, _ := config.Config.GetString("gobb", "site_name")
+    ga_tracking_id, _ := config.Config.GetString("googleanalytics", "tracking_id")
+    ga_account, _ := config.Config.GetString("googleanalytics", "account")
 
 	send := map[string]interface{}{
 		"current_user": current_user,
-		"request":      r,
-		"site_name":    site_name,
+		"request": r,
+		"site_name": site_name,
+        "ga_tracking_id": ga_tracking_id,
+        "ga_account": ga_account,  
 	}
 
 	// Merge the global template variables with the local context
