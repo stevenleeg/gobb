@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/config"
-    "fmt"
 )
 
 var Store *sessions.CookieStore
