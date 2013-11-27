@@ -57,13 +57,23 @@ func ActionDeleteThread(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    if (thread.AuthorId != user.Id && !user.CanModerate()) || thread.ParentId.Valid {
+    if (thread.AuthorId != user.Id || thread.ParentId.Valid) && !user.CanModerate() {
         http.NotFound(w, r)
         return
+    }
+
+    redirect_board := true
+    if thread.ParentId.Valid {
+        redirect_board = false
     }
 
     thread.DeleteAllChildren()
     db.Delete(thread)
 
-    http.Redirect(w, r, fmt.Sprintf("/board/%d", thread.BoardId), http.StatusFound)
+    if redirect_board {
+        http.Redirect(w, r, fmt.Sprintf("/board/%d", thread.BoardId), http.StatusFound)
+    } else {
+        http.Redirect(w, r, fmt.Sprintf("/board/%d/%d", thread.BoardId, thread.ParentId.Int64), http.StatusFound)
+    }
+
 }
