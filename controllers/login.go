@@ -30,7 +30,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		session, _ := utils.Store.Get(r, "sirsid")
+		session, _ := utils.GetCookieStore(r).Get(r, "sirsid")
 		session.Values["username"] = username
 		session.Values["password"] = password
 

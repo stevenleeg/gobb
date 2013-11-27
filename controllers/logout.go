@@ -7,7 +7,7 @@ import (
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {
-	session, _ := utils.Store.Get(r, "sirsid")
+	session, _ := utils.GetCookieStore(r).Get(r, "sirsid")
 	session.Values["username"] = ""
 	session.Values["password"] = ""
 
