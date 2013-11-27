@@ -21,7 +21,7 @@
     <tr><td>Title</td><td>Latest post</td></tr>
     {{ range .threads }}
     <tr>
-        <td class="thread_title">
+        <td class="thread_title{{ if .Sticky }} thread_sticky{{end}}">
             <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> 
             <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
         </td>

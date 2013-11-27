@@ -156,6 +156,14 @@ blockquote {
     width: 30%;
 }
 
+.thread_sticky:before {
+    content: "sticky: ";
+    color: #636363;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .box {
     background: #FFF;
     border: 1px solid #CCC;
@@ -234,48 +242,6 @@ input[type=submit] {
     float: right;
     text-align: right;
     margin-top: 10px;
-}
-
-.threads {
-    margin: 20px 0px 0px;
-}
-
-.thread {
-    clear: both;
-    background: #FFF;
-    font-size: 18px;
-    padding: 5px 10px;
-    margin-bottom: 1px;
-}
-
-.thread .threadtitle {
-    width: 375px;
-    overflow: hidden;
-}
-
-.threadtitle {
-    width: 500px;
-    word-wrap: break-word;
-}
-
-.thread.sticky {
-    background: #FFFED1;
-}
-
-.thread .right {
-    font-size: 12px;
-    margin: 10px 0 0 5px;
-    width: 150px;
-}
-
-.thread .thread_latest {
-    display: inline-block;
-    padding: 0px 5px;
-}
-
-.thread .thread_author {
-    font-size: 12px;
-    display: block;
 }
 
 .new_thread {
