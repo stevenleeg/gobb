@@ -1,6 +1,6 @@
 {{ define "thread_right" }}
 {{ if .Author }}
-    last post by <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a>
+    by <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a>
     <div class="thread_time">{{ TimeRelativeToNow .CreatedOn }}</div>
 {{ else }}
     no replies
@@ -18,7 +18,7 @@
 <h1>Posts in {{.board.Title}}</h1>
 
 <table class="threads">
-    <tr><td>Title</td><td>Latest post</td></tr>
+    <tr><td>Title</td><td>Latest reply</td></tr>
     {{ range .threads }}
     <tr>
         <td class="thread_title{{ if .Sticky }} thread_sticky{{end}}">
