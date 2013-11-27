@@ -16,7 +16,7 @@
 {{ end }}
 
 <h1>Posts in {{.board.Title}}</h1>
-
+{{ if .threads }}
 <table class="threads">
     <tr><td>Title</td><td>Latest reply</td></tr>
     {{ range .threads }}
@@ -36,5 +36,10 @@
     </tr>
     {{ end }}
 </table>
+{{ else }}
+<div class="box larger centered">
+    Nothing yet!
+</div>
+{{ end }}
 
 {{ end }}

@@ -39,6 +39,10 @@ blockquote {
     background: #444;
 }
 
+.centered {
+    text-align: center!important;
+}
+
 .write, .submit {
     background: #333 url('/static/images/pencil.png') no-repeat;
     background-position: 5px 8px!important;

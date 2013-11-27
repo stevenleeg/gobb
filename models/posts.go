@@ -53,7 +53,7 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
     i_begin := int64(page_id) * (posts_per_page - 1)
 
 	var child_posts []*Post
-	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on ASC LIMIT $2 OFFSET $3", parent_id, posts_per_page, i_begin)
+	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on ASC LIMIT $2 OFFSET $3", parent_id, posts_per_page - 1, i_begin)
 
 	return nil, op.(*Post), child_posts
 }
@@ -104,11 +104,12 @@ func (post *Post) GetPagesInThread() int {
     count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE parent_id=$1", post.Id)
 
     posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
+    
     if err != nil {
         posts_per_page = 15
     }
 
-    return int((count-1) / posts_per_page)
+    return int((count - 1) / posts_per_page)
 }
 
 func (post *Post) DeleteAllChildren() error {

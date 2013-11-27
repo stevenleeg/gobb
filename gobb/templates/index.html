@@ -15,6 +15,7 @@
 
 {{ define "content" }}
 <h1>Boards</h1>
+{{ if .boards }}
 <table class="boards">
     <tr><td>Title</td><td>Latest post</td></tr>
     {{ range .boards }}
@@ -31,6 +32,11 @@
     </tr>
     {{ end }}
 </table>
+{{ else }}
+<div class="box larger centered">
+    Nothing yet!
+</div>
+{{ end }}
 
 <h1>Stats</h1>
 <div class="box larger">
