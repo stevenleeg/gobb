@@ -40,12 +40,10 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 
 	current_user := utils.GetCurrentUser(r)
 	if current_user == nil {
-        fmt.Println("no current user")
 		http.NotFound(w, r)
 		return
 	}
-    if post != nil && (post.AuthorId != current_user.Id || !current_user.CanModerate()) {
-        fmt.Println("no priv")
+    if post != nil && (post.AuthorId != current_user.Id && !current_user.CanModerate()) {
 		http.NotFound(w, r)
 		return
     }
@@ -84,5 +82,13 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 	utils.RenderTemplate(w, r, "post_editor.html", map[string]interface{}{
 		"board": board,
         "post":  post,
-	}, nil)
+	}, map[string]interface{} {
+        "ShowTitleField": func() bool {
+            if post == nil {
+                return true
+            }
+
+            return !post.ParentId.Valid
+        },
+    })
 }
