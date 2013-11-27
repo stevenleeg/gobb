@@ -62,7 +62,8 @@ func Thread(w http.ResponseWriter, r *http.Request) {
         "next_page": (page_id < num_pages),
         "page_id": page_id,
 	}, map[string]interface{}{
-        "CurrentUserCanDeleteThread": func(thread *models.Post) bool {
+
+        "CurrentUserCanDeletePost": func(thread *models.Post) bool {
             current_user := utils.GetCurrentUser(r)
             if current_user == nil {
                 return false
@@ -70,6 +71,7 @@ func Thread(w http.ResponseWriter, r *http.Request) {
             
             return ((current_user.Id == thread.AuthorId || current_user.CanModerate()) && !thread.ParentId.Valid)
         },
+
         "CurrentUserCanStickyThread": func(thread *models.Post) bool {
             current_user := utils.GetCurrentUser(r)
             if current_user == nil {
@@ -77,6 +79,15 @@ func Thread(w http.ResponseWriter, r *http.Request) {
             }
 
             return (current_user.CanModerate() && !thread.ParentId.Valid)
+        },
+
+        "CurrentUserCanEditPost": func(post *models.Post) bool {
+            current_user := utils.GetCurrentUser(r)
+            if current_user == nil {
+                return false
+            }
+
+            return (current_user.Id == post.AuthorId || current_user.CanModerate())
         },
     })
 }

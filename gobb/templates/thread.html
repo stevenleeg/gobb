@@ -16,14 +16,18 @@
             {{ if CurrentUserCanStickyThread . }}
                 // 
                 {{ if .Sticky }}
-                    <a href="/action/stick?thread_id={{.Id}}">unstick</a>
+                    <a href="/action/stick?post_id={{.Id}}">unstick</a>
                 {{ else }}
-                    <a href="/action/stick?thread_id={{.Id}}">stick</a>
+                    <a href="/action/stick?post_id={{.Id}}">stick</a>
                 {{ end}}
             {{ end }}
 
-            {{ if CurrentUserCanDeleteThread . }}
-                // <a href="/action/delete?thread_id={{.Id}}">delete</a>
+            {{ if CurrentUserCanDeletePost . }}
+                // <a href="/action/delete?post_id={{.Id}}">delete</a>
+            {{ end }}
+
+            {{ if CurrentUserCanEditPost . }}
+                // <a href="/action/edit?post_id={{.Id}}">edit</a>
             {{ end }}
             // <a href="#reply" class="thread_quote" thread="{{.Id}}">quote</a>
         </td>

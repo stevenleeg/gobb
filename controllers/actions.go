@@ -15,7 +15,7 @@ func ActionStickThread(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    thread_id_str := r.FormValue("thread_id")
+    thread_id_str := r.FormValue("post_id")
     thread_id, err := strconv.Atoi(thread_id_str)
 
     if err != nil {
@@ -40,7 +40,7 @@ func ActionStickThread(w http.ResponseWriter, r *http.Request) {
 
 func ActionDeleteThread(w http.ResponseWriter, r *http.Request) {
     user := utils.GetCurrentUser(r)
-    thread_id_str := r.FormValue("thread_id")
+    thread_id_str := r.FormValue("post_id")
     thread_id, err := strconv.Atoi(thread_id_str)
 
     if err != nil {

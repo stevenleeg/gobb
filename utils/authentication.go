@@ -19,7 +19,6 @@ func GetCookieStore(r *http.Request) *sessions.CookieStore {
     return Store
 }
 
-// TODO: Cache this!
 func GetCurrentUser(r *http.Request) *models.User {
     cached := context.Get(r, "user") 
     if cached != nil {
