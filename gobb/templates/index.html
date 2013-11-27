@@ -1,29 +1,36 @@
 {{ define "board_right" }}
-<div class="board_right">
-    {{ if .Op.Title }}
-        <div class="latest">Latest post:</div><a href="/board/{{ .Op.BoardId }}/{{ .Op.Id }}">{{ .Op.Title }}</a> <br> by 
-        {{ if .Latest }}
-            <a href="/user/{{ .Latest.Author.Id }}">{{ .Latest.Author.Username}}</a>
-        {{ else }}
-            <a href="/user/{{ .Op.Author.Id }}">{{ .Op.Author.Username}}</a>
-        {{ end }}
+{{ if .Op.Title }}
+    <a href="/board/{{ .Op.BoardId }}/{{ .Op.Id }}">{{ .Op.Title }}</a> by 
+    {{ if .Latest }}
+        <a href="/user/{{ .Latest.Author.Id }}">{{ .Latest.Author.Username}}</a>
+        <div class="board_latest_time">{{ TimeRelativeToNow .Latest.CreatedOn }}</div>
     {{ else }}
-        Nothing yet!
+        <a href="/user/{{ .Op.Author.Id }}">{{ .Op.Author.Username}}</a>
+        <div class="board_latest_time">{{ TimeRelativeToNow .Op.CreatedOn }}</div>
     {{ end }}
-</div>
+{{ else }}
+    Nothing yet!
+{{ end }}
 {{ end }}
 
 {{ define "content" }}
 <h1>Boards</h1>
-<div class="box larger boards">
+<table class="boards">
+    <tr><td>Title</td><td>Latest post</td></tr>
     {{ range .boards }}
-    <div class="board">
-        {{ template "board_right" .GetLatestPost }}
-        <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
-        <div class="board_description">{{.Description}}</div>
-    </div>
+    <tr>
+        <td>
+            <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
+        </td>
+        <td class="board_right" rowspan="2">
+            {{ template "board_right" .GetLatestPost }}
+        </td>
+    </tr>
+    <tr>
+        <td class="board_description">{{ .Description }}</td>
+    </tr>
     {{ end }}
-</div>
+</table>
 
 <h1>Stats</h1>
 <div class="box larger">

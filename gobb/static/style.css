@@ -111,14 +111,36 @@ blockquote {
 }
 
 .boards {
+    width: 100%;
+    background: #FFF;
     margin: 10px 0px;
+    border: 1px solid #CCC;
+    padding: 10px;
+    border-spacing: 0px;
+    vertical-align: middle;
 }
 
-.board {
-    background: #FFF;
-    border-bottom: 1px solid #AAA;
-    font-size: 18px;
-    padding: 15px 10px;
+.boards tr:nth-child(1) td {
+    font-weight: bold;
+    border-bottom: 1px solid #CCC;
+    padding: 0px 0px 5px 5px;
+}
+
+.boards tr:nth-child(2n+2) td {
+    padding-top: 5px;
+}
+
+.boards tr:nth-last-child(1) td {
+    padding-bottom: 5px;
+}
+
+.boards tr:nth-child(1) td:nth-last-child(1) {
+    padding-left: 0px;
+}
+
+.board_latest_time {
+    padding-top: 3px;
+    font-size: 12px;
 }
 
 .board_description {
@@ -126,20 +148,12 @@ blockquote {
     margin-top: 5px;
 }
 
-.board:last-child {
-    border-bottom: none;
+.board_title {
+    font-size: 18px;
 }
 
 .board_right {
-    float: right;
-    font-size: 12px;
-    margin-top: 5px;
-    overflow: hidden;
-    width: 200px;
-}
-
-.board_right .latest {
-    font-weight: bold;
+    width: 30%;
 }
 
 .box {
