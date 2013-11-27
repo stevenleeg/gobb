@@ -110,7 +110,7 @@ blockquote {
     text-align: center;
 }
 
-.boards {
+.boards, .threads {
     width: 100%;
     background: #FFF;
     margin: 10px 0px;
@@ -120,21 +120,21 @@ blockquote {
     vertical-align: middle;
 }
 
-.boards tr:nth-child(1) td {
+.boards tr:nth-child(1) td, .threads tr:nth-child(1) td {
     font-weight: bold;
     border-bottom: 1px solid #CCC;
     padding: 0px 0px 5px 5px;
 }
 
-.boards tr:nth-child(2n+2) td {
+.boards tr:nth-child(2n+2) td, .threads tr:nth-child(2n+2) td {
     padding-top: 5px;
 }
 
-.boards tr:nth-last-child(1) td {
+.boards tr:nth-last-child(1) td, .threads tr:nth-last-child(1) td {
     padding-bottom: 5px;
 }
 
-.boards tr:nth-child(1) td:nth-last-child(1) {
+.boards tr:nth-child(1) td:nth-last-child(1), .threads tr:nth-child(1) td:nth-last-child(1) {
     padding-left: 0px;
 }
 
@@ -143,16 +143,16 @@ blockquote {
     font-size: 12px;
 }
 
-.board_description {
+.board_description, .thread_author {
     font-size: 12px;
     margin-top: 5px;
 }
 
-.board_title {
+.board_title, .thread_title {
     font-size: 18px;
 }
 
-.board_right {
+.board_right, .thread_right {
     width: 30%;
 }
 

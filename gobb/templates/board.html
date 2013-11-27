@@ -1,12 +1,10 @@
 {{ define "thread_right" }}
-<div class="right">
-    {{ if .Author }}
+{{ if .Author }}
     last post by <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a>
-    <br>{{ TimeRelativeToNow .CreatedOn }}</a>
-    {{ else }}
+    <div class="thread_time">{{ TimeRelativeToNow .CreatedOn }}</div>
+{{ else }}
     no replies
-    {{ end }}
-</div>
+{{ end }}
 {{ end }}
 
 {{ define "content" }}
@@ -19,16 +17,24 @@
 
 <h1>Posts in {{.board.Title}}</h1>
 
-<div class="box larger threads">
+<table class="threads">
+    <tr><td>Title</td><td>Latest post</td></tr>
     {{ range .threads }}
-    <div class="thread{{ if .Sticky }} sticky{{ end }}">
-        {{ template "thread_right" .GetLatestPost }}
-        <div class="threadtitle">
-            <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
-        </div>
-        <div class="thread_author">posted by <a href="/user/{{ .Author.Username }}">{{.Author.Username}}</a> {{ TimeRelativeToNow .CreatedOn }}</div>
-    </div>
+    <tr>
+        <td class="thread_title">
+            <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> 
+            <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
+        </td>
+        <td class="thread_right" rowspan="2">{{ template "thread_right" . }}</td>
+    </tr>
+    <tr>
+        <td class="thread_author">
+            posted by 
+            <a href="/user/{{ .Author.Username }}">{{.Author.Username}}</a> 
+            {{ TimeRelativeToNow .CreatedOn }}
+        </td>
+    </tr>
     {{ end }}
-</div>
+</table>
 
 {{ end }}
