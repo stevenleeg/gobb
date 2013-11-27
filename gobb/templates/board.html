@@ -25,7 +25,7 @@
             <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> 
             <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
         </td>
-        <td class="thread_right" rowspan="2">{{ template "thread_right" . }}</td>
+        <td class="thread_right" rowspan="2">{{ template "thread_right" .GetLatestPost }}</td>
     </tr>
     <tr>
         <td class="thread_author">
