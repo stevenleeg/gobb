@@ -11,8 +11,8 @@ type Board struct {
 }
 
 type BoardLatest struct {
-    Op     *Post
-    Latest *Post
+	Op     *Post
+	Latest *Post
 }
 
 func GetBoard(id int) (error, *Board) {
@@ -29,8 +29,8 @@ func GetBoard(id int) (error, *Board) {
 
 func (board *Board) GetLatestPost() BoardLatest {
 	db := GetDbSession()
-    op := &Post{}
-    latest := &Post{}
+	op := &Post{}
+	latest := &Post{}
 
 	err := db.SelectOne(op, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL ORDER BY latest_reply DESC LIMIT 1", board.Id)
 
@@ -40,8 +40,8 @@ func (board *Board) GetLatestPost() BoardLatest {
 
 	err = db.SelectOne(latest, "SELECT * FROM posts WHERE board_id=$1 AND parent_id=$2 ORDER BY created_on DESC LIMIT 1", board.Id, op.Id)
 
-    return BoardLatest {
-        Op:     op,
-        Latest: latest,
-    }
+	return BoardLatest{
+		Op:     op,
+		Latest: latest,
+	}
 }

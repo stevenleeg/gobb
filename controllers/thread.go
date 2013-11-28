@@ -11,11 +11,11 @@ import (
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {
-    page_id_str := r.FormValue("page")
-    page_id, err := strconv.Atoi(page_id_str)
-    if err != nil {
-        page_id = 0
-    }
+	page_id_str := r.FormValue("page")
+	page_id, err := strconv.Atoi(page_id_str)
+	if err != nil {
+		page_id = 0
+	}
 
 	board_id_str := mux.Vars(r)["board_id"]
 	board_id, _ := strconv.Atoi(board_id_str)
@@ -50,14 +50,14 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    num_pages := op.GetPagesInThread()
+	num_pages := op.GetPagesInThread()
 
 	utils.RenderTemplate(w, r, "thread.html", map[string]interface{}{
-		"board": board,
-		"op":    op,
-		"posts": posts,
-        "prev_page": (page_id != 0),
-        "next_page": (page_id < num_pages),
-        "page_id": page_id,
+		"board":     board,
+		"op":        op,
+		"posts":     posts,
+		"prev_page": (page_id != 0),
+		"next_page": (page_id < num_pages),
+		"page_id":   page_id,
 	})
 }
