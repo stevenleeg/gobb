@@ -110,7 +110,7 @@ func (post *Post) GetPagesInThread() int {
         posts_per_page = 15
     }
 
-    return int((count - 1) / posts_per_page)
+    return int(count / posts_per_page)
 }
 
 func (post *Post) DeleteAllChildren() error {
