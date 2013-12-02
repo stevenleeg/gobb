@@ -1,6 +1,6 @@
 {{ define "board_right" }}
 {{ if .Op.Title }}
-    <a href="/board/{{ .Op.BoardId }}/{{ .Op.Id }}">{{ .Op.Title }}</a> by 
+    <a href="/board/{{ .Op.BoardId }}/{{.Op.Id}}?page={{ .Op.GetPagesInThread }}#latest" >{{ .Op.Title }}</a> by
     {{ if .Latest }}
         <a href="/user/{{ .Latest.Author.Id }}">{{ .Latest.Author.Username}}</a>
         <div class="board_latest_time">{{ TimeRelativeToNow .Latest.CreatedOn }}</div>
