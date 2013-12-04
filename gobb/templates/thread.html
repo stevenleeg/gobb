@@ -55,6 +55,14 @@
     <h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; <div class="threadtitle">{{.op.Title}}</div>
     </h1>
 
+    <div class="pagination">
+        {{ if .prev_page }}
+            <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
+        {{ end }}
+        {{ if .next_page }}
+            <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
+        {{ end }}
+    </div>
     {{ if not .prev_page }}
         {{ template "post" .op }}
     {{ end }}
