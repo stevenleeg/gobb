@@ -39,7 +39,7 @@ func GetDbSession() *gorp.DbMap {
 		return nil
 	}
 
-	db_map := &gorp.DbMap{
+	db_map = &gorp.DbMap{
 		Db:      db,
 		Dialect: gorp.PostgresDialect{},
 	}
