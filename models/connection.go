@@ -25,7 +25,6 @@ func GetDbSession() *gorp.DbMap {
 		db_port = "5432"
 	}
 
-    fmt.Println("Opening connection!")
 	db, err := sql.Open("postgres",
 		"user="+db_username+
 			" password="+db_password+
