@@ -21,7 +21,7 @@ func Board(w http.ResponseWriter, r *http.Request) {
 	board_id_str := mux.Vars(r)["id"]
 	board_id, _ := strconv.Atoi(board_id_str)
 	obj, err := db.Get(&models.Board{}, board_id)
-	if err != nil {
+	if err != nil || obj == nil {
 		http.NotFound(w, r)
 		return
 	}
