@@ -1,6 +1,8 @@
 package models
 
 import (
+    "github.com/stevenleeg/gobb/config"
+    "math"
 	"fmt"
 )
 
@@ -48,4 +50,29 @@ func (board *Board) GetLatestPost() BoardLatest {
         Op:     op,
         Latest: latest,
     }
+}
+
+
+func (board *Board) GetThreads(page int) ([]*Post, error) {
+    db := GetDbSession()
+    threads_per_page, err := config.Config.GetInt64("gobb", "threads_per_page")
+
+	var threads []*Post
+    i_begin := int64(page) * (threads_per_page - 1)
+	_, err = db.Select(&threads, "SELECT * FROM posts WHERE board_id=$1 AND parent_id IS NULL ORDER BY sticky DESC, latest_reply DESC LIMIT $2 OFFSET $3", board.Id, threads_per_page - 1, i_begin)
+
+    return threads, err
+}
+
+func (board *Board) GetPagesInBoard() int {
+    db := GetDbSession()
+    count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE board_id=$1 AND parent_id IS NULL", board.Id)
+
+    threads_per_page, err := config.Config.GetInt64("gobb", "threads_per_page")
+    
+    if err != nil {
+        threads_per_page = 30
+    }
+
+    return int(math.Floor(float64(count) / float64(threads_per_page)))
 }
