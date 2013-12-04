@@ -114,6 +114,32 @@ func (post *Post) GetPagesInThread() int {
     return int(math.Floor(float64(count) / float64(posts_per_page)))
 }
 
+// This function tells us which page this particular post is in
+// within a thread based on the current value of posts_per_page
+func (post *Post) GetPageInThread() int {
+    posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
+    if err != nil {
+        posts_per_page = 15
+    }
+
+    db := GetDbSession()
+    n, err := db.SelectInt(`
+        WITH thread AS (
+                SELECT posts.*,
+                ROW_NUMBER() OVER(ORDER BY posts.id) AS position
+                FROM posts WHERE parent_id=$1)
+        SELECT 
+            posts.position
+        FROM 
+            thread posts
+        WHERE 
+            posts.id=$2 AND 
+            posts.parent_id=$1;
+    `, post.ParentId, post.Id)
+
+    return int(math.Floor(float64(n + 1) / float64(posts_per_page)))
+}
+
 func (post *Post) DeleteAllChildren() error {
 	db := GetDbSession()
 

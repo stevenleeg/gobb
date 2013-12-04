@@ -60,11 +60,12 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
             post.Title = title
             post.Content = content
             post.LastEdit = time.Now()
+            post.LatestReply = time.Now()
             _, err = db.Update(post)
         }
 
         if err != nil {
-            fmt.Printf("[error] Could not create new thread (%s)", err.Error())
+            fmt.Printf("[error] Could not save post (%s)", err.Error())
             return
         }
 
@@ -75,7 +76,9 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
             redirect_post = post.Id
         }
 
-		http.Redirect(w, r, fmt.Sprintf("/board/%d/%d", post.BoardId, redirect_post), http.StatusFound)
+        redirect_page := post.GetPageInThread()
+
+		http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, redirect_post, redirect_page, post.Id), http.StatusFound)
 		return
 	}
 
