@@ -12,7 +12,11 @@ var db_map *gorp.DbMap
 
 func GetDbSession() *gorp.DbMap {
 	if db_map != nil {
-		return db_map
+        err := db_map.Db.Ping()
+        if err == nil {
+            return db_map
+        }
+        fmt.Printf("[error] Reconnecting (%s)\n", err.Error())
 	}
 
 	db_username, _ := config.Config.GetString("database", "username")
