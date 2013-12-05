@@ -111,7 +111,7 @@ func (post *Post) GetPagesInThread() int {
         posts_per_page = 15
     }
 
-    return int(math.Floor(float64(count) / float64(posts_per_page)))
+    return int(math.Ceil(float64(count + 1) / float64(posts_per_page)))
 }
 
 // This function tells us which page this particular post is in
