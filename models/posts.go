@@ -152,7 +152,7 @@ func (post *Post) GetPageInThread() int {
             posts.parent_id=$1;
     `, post.ParentId, post.Id)
 
-    return int(math.Floor(float64(n + 1) / float64(posts_per_page)))
+    return int(math.Floor(float64(n) / float64(posts_per_page)))
 }
 
 func (post *Post) DeleteAllChildren() error {

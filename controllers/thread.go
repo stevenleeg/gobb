@@ -43,6 +43,10 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		db.Insert(post)
 		db.Update(op)
 
+        if page := post.GetPageInThread(); page != page_id {
+            http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, op.Id, page, post.Id), http.StatusFound)
+        }
+
 		err, op, posts = models.GetThread(post_id, page_id)
 	}
 
