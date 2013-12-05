@@ -24,6 +24,7 @@ type Post struct {
     Sticky      bool          `db:"sticky"`
 }
 
+// Initializes a new struct, adds some data, and returns the pointer to it
 func NewPost(author *User, board *Board, title, content string) *Post {
 	// TODO: Validation
 
@@ -39,6 +40,8 @@ func NewPost(author *User, board *Board, title, content string) *Post {
 	return post
 }
 
+// Returns a pointer to the OP and a slice of post pointers for the given
+// page number in the thread.
 func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 	db := GetDbSession()
 
@@ -65,6 +68,7 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 	return nil, op.(*Post), child_posts
 }
 
+// Returns the number of posts (on every board/thread)
 func GetPostCount() (int64, error) {
     db := GetDbSession()
 
@@ -77,6 +81,8 @@ func GetPostCount() (int64, error) {
     return count, nil
 }
 
+// Post-SELECT hook for gorp which adds a pointer to the author
+// to the Post's struct
 func (post *Post) PostGet(s gorp.SqlExecutor) error {
 	db := GetDbSession()
 	user, _ := db.Get(User{}, post.AuthorId)
@@ -155,6 +161,8 @@ func (post *Post) GetPageInThread() int {
     return int(math.Floor(float64(n) / float64(posts_per_page)))
 }
 
+// Used when deleting a thread. This deletes all posts who are
+// children of the OP.
 func (post *Post) DeleteAllChildren() error {
 	db := GetDbSession()
 
