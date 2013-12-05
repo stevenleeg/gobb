@@ -52,10 +52,15 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
         posts_per_page = 15
     }
 
-    i_begin := int64(page_id) * (posts_per_page - 1)
+    i_begin := (int64(page_id) * (posts_per_page)) - 1
+    // The first page already has the OP, which isn't included
+    if page_id == 0 {
+        posts_per_page -= 1
+        i_begin += 1
+    }
 
 	var child_posts []*Post
-	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on ASC LIMIT $2 OFFSET $3", parent_id, posts_per_page - 1, i_begin)
+	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on ASC LIMIT $2 OFFSET $3", parent_id, posts_per_page, i_begin)
 
 	return nil, op.(*Post), child_posts
 }
@@ -101,6 +106,8 @@ func (post *Post) GetLatestPost() *Post {
 	return latest
 }
 
+// Returns the number of pages contained by a thread. This won't work on
+// post structs that have ParentIds.
 func (post *Post) GetPagesInThread() int {
     db := GetDbSession()
     count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE parent_id=$1", post.Id)
@@ -115,7 +122,11 @@ func (post *Post) GetPagesInThread() int {
         posts_per_page = 15
     }
 
-    return int((count + 1) / posts_per_page)
+    if count == posts_per_page {
+        return 2
+    }
+
+    return int(math.Floor(float64(count) / float64(posts_per_page)))
 }
 
 // This function tells us which page this particular post is in

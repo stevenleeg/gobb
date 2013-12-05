@@ -54,6 +54,11 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 
     num_pages := op.GetPagesInThread()
 
+    if page_id > num_pages {
+		http.NotFound(w, r)
+        return
+    }
+
 	utils.RenderTemplate(w, r, "thread.html", map[string]interface{}{
 		"board": board,
 		"op":    op,
