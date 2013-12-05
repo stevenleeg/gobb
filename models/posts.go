@@ -105,13 +105,17 @@ func (post *Post) GetPagesInThread() int {
     db := GetDbSession()
     count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE parent_id=$1", post.Id)
 
+	if err != nil {
+		fmt.Printf("[error] Could not get post count (%s)\n", err.Error())
+	}
+
     posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
     
     if err != nil {
         posts_per_page = 15
     }
 
-    return int(math.Ceil(float64(count + 1) / float64(posts_per_page)))
+    return int((count + 1) / posts_per_page)
 }
 
 // This function tells us which page this particular post is in
