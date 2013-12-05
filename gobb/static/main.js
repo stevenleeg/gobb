@@ -4,9 +4,17 @@ var Sirjtaa = (function() {
         var content = $("#p"+ thread_id +"_content").text();
         var author  = $("#p"+ thread_id +"_author").text();
 
+        // Remove any previous quotes from the content
+        content = content.replace(/.* said:\s*(\>.*\n)*/g, "");
+        content = content.replace(/>.*\n/g, "").trim();
+        content = content.replace(/\n/g, "\n>");
+
         var prev = $("#reply_content").text();
-        var val  = author + " said: \n\n>" + content.replace('\n', '\n>') + "\n\n";
-        $("#reply_content").focus().val('').val(val);
+        var val  = author + " said: \n\n>" + content + "\n\n";
+        $("#reply_content")
+            .focus()
+            .val('').val(val)
+            .scrollTop($('#reply_content')[0].scrollHeight);
     }
 
     function clickThreadReply() {
