@@ -21,8 +21,16 @@ var Sirjtaa = (function() {
         $("#reply_content").focus();
     }
 
+    function clickConfirmDelete() {
+        r = confirm("Really delete this? It can't be undone.");
+        if(r == false) {
+            return false;
+        }
+    }
+
     $(document).ready(function() {
         $(".thread_quote").on("click", clickThreadQuote);
         $(".thread_reply_btn").on("click", clickThreadReply);
+        $(".delete").on("click", clickConfirmDelete);
     });
 })();

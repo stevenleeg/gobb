@@ -23,7 +23,7 @@
             {{ end }}
 
             {{ if CurrentUserCanDeletePost . }}
-                // <a href="/action/delete?post_id={{.Id}}">delete</a>
+                // <a href="/action/delete?post_id={{.Id}}" class="delete">delete</a>
             {{ end }}
 
             {{ if CurrentUserCanEditPost . }}
