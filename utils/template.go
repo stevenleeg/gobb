@@ -49,12 +49,18 @@ func RenderTemplate(
     ga_tracking_id, _ := config.Config.GetString("googleanalytics", "tracking_id")
     ga_account, _ := config.Config.GetString("googleanalytics", "account")
 
+    stylesheet := "/static/style.css"
+    if (current_user != nil) && current_user.StylesheetUrl.Valid && current_user.StylesheetUrl.String != "" {
+    	stylesheet = current_user.StylesheetUrl.String
+    }
+
 	send := map[string]interface{}{
 		"current_user": current_user,
 		"request": r,
 		"site_name": site_name,
         "ga_tracking_id": ga_tracking_id,
         "ga_account": ga_account,  
+        "stylesheet": stylesheet,  
 	}
 
 	// Merge the global template variables with the local context

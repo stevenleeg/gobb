@@ -6,6 +6,7 @@ import (
 	"github.com/stevenleeg/gobb/utils"
 	"net/http"
 	"strconv"
+	"database/sql"
 )
 
 func UserSettings(w http.ResponseWriter, r *http.Request) {
@@ -23,11 +24,21 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		db := models.GetDbSession()
 		current_user.Avatar = r.FormValue("avatar_url")
+		current_user.StylesheetUrl = sql.NullString{
+			Valid: true,
+			String: r.FormValue("stylesheet_url"),
+		}
 		db.Update(current_user)
 		success = true
 	}
 
+	stylesheet := ""
+	if current_user.StylesheetUrl.Valid {
+		stylesheet = current_user.StylesheetUrl.String
+	}
+	
 	utils.RenderTemplate(w, r, "user_settings.html", map[string]interface{}{
 		"success": success,
+		"user_stylesheet": stylesheet,
 	}, nil)
 }

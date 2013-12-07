@@ -45,5 +45,6 @@ INSERT 0 1
 
 5. Run!
 	```
-$ go run gobb/main.go
+$ cd gobb
+$ go run main.go
 ```
