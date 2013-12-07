@@ -20,15 +20,15 @@
 <table class="threads">
     <tr><td>Title</td><td>Latest reply</td></tr>
     {{ range .threads }}
-    <tr>
-        <td class="thread_title{{ if .Sticky }} thread_sticky{{end}}">
+    <tr{{ if .Sticky }} class="highlighted"{{ end }}>
+        <td class="thread_title{{ if .Sticky }} thread_sticky{{ end }}">
             <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> 
             <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
         </td>
         <td class="thread_right" rowspan="2">{{ template "thread_right" .GetLatestPost }}</td>
     </tr>
     <tr>
-        <td class="thread_author">
+        <td class="thread_author{{ if .Sticky }} highlighted{{ end }}">
             posted by 
             <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a> 
             {{ TimeRelativeToNow .CreatedOn }}
