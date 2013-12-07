@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS users (
-    id       SERIAL PRIMARY KEY,
-    group_id INTEGER DEFAULT 0,
-    created  INTEGER,
-    username VARCHAR(20),
-    password VARCHAR(75),
-    avatar   VARCHAR,
-    salt     VARCHAR(25)
+    id          SERIAL PRIMARY KEY,
+    group_id    INTEGER DEFAULT 0,
+    created_on  TIMESTAMP NOT NULL,
+    username    VARCHAR(20),
+    password    VARCHAR(75),
+    avatar      VARCHAR,
+    salt        VARCHAR(25)
 );
 
 CREATE TABLE IF NOT EXISTS boards (
