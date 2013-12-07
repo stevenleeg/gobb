@@ -1,3 +1,4 @@
 *.swp
 gobb.conf
 .DS_Store
+dbconf.yml
