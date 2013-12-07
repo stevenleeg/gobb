@@ -160,6 +160,10 @@ blockquote {
     width: 30%;
 }
 
+.highlighted {
+    background: #ffc;
+}
+
 .thread_sticky:before {
     content: "sticky: ";
     color: #636363;
