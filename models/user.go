@@ -10,16 +10,18 @@ import (
 	"fmt"
 	"io"
 	"time"
+	"database/sql"
 )
 
 type User struct {
-	Id        int64     `db:"id"`
-	GroupId   int64     `db:"group_id"`
-	CreatedOn time.Time `db:"created_on"`
-	Username  string    `db:"username"`
-	Password  string    `db:"password"`
-	Avatar    string    `db:"avatar"`
-	Salt      string    `db:"salt"`
+	Id        		int64          `db:"id"`
+	GroupId   		int64          `db:"group_id"`
+	CreatedOn 		time.Time      `db:"created_on"`
+	Username  		string         `db:"username"`
+	Password  		string   	   `db:"password"`
+	Avatar    		string         `db:"avatar"`
+	Salt      		string         `db:"salt"`
+	StylesheetUrl	sql.NullString `db:"stylesheet_url"`
 }
 
 func NewUser(username, password string) *User {

@@ -39,6 +39,8 @@ ALTER ROLE
 	```
 $ psql gobb
 # INSERT INTO boards (title, description) VALUES('general', 'whatever');
+INSERT 0 1
+# ^D
 ```
 
 5. Run!
