@@ -11,12 +11,13 @@ Feel free to browse around and check back, but this project is not ready yet!
 
 ````sh
 $ go get github.com/stevenleeg/gobb/gobb
+$ go get bitbucket.org/liamstask/goose/cmd/goose #for migrations
 ````
 
-Copy gobb.sample.conf into gobb.conf and set the `[database]` parameters.
+1. Copy gobb.sample.conf into gobb.conf and set the `[database]` parameters.
 
-Next, set up Postgres as follows:
-```
+2. Set up the Postgres database:
+	```
 $ psql
 # CREATE DATABASE gobb;
 CREATE DATABASE
@@ -27,17 +28,20 @@ GRANT
 # ALTER ROLE gobb WITH LOGIN;
 ALTER ROLE
 # ^D
-~$ psql -h localhost -U gobb -W gobb
-gobb=> \i your/gopath/src/github.com/stevenleeg/gobb/models/schema.sql 
 ```
 
-Add a board to start:
-```
+3. Run migrations using Goose:
+	```
+	$ goose up
+	```
+
+4. Add a board to start:
+	```
 $ psql gobb
 # INSERT INTO boards (title, description) VALUES('general', 'whatever');
 ```
 
-Run!
-```
+5. Run!
+	```
 $ go run gobb/main.go
 ```
