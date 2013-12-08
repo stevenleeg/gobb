@@ -1,3 +1,6 @@
+/*
+ * Base elements
+ */
 body {
     background: #EEE;
     color: #222;
@@ -74,6 +77,9 @@ blockquote {
     float: right;
 }
 
+/*
+ * Top bar
+ */
 .top {
     background: #333;
     border-bottom: 3px solid #7c9278;
@@ -114,6 +120,9 @@ blockquote {
     text-align: center;
 }
 
+/*
+ * Board/threads tables
+ */
 .boards, .threads {
     width: 100%;
     background: #FFF;
@@ -172,6 +181,9 @@ blockquote {
     text-transform: uppercase;
 }
 
+/*
+ * Content boxes
+ */
 .box {
     background: #FFF;
     border: 1px solid #CCC;
@@ -200,6 +212,9 @@ blockquote {
     margin-right: 30px;
 }
 
+/*
+ * Forms
+ */
 label {
     margin: 5px 0px 0px 30px;
 }
@@ -246,6 +261,9 @@ input[type=submit] {
     border: 1px solid #0DFF00;
 }
 
+/*
+ * Menu for new thread/reply (on board/thread page)
+ */
 .menu {
     float: right;
     text-align: right;
@@ -291,6 +309,24 @@ input[type=submit] {
 .thread_reply input {
     display: block;
     margin: 0px;
+}
+
+/*
+ * Thread page elements
+ */
+
+.crumbs {
+    margin: 15px 0px 5px 0px;
+}
+
+.crumbs_board {
+    font-size: 16px;
+}
+
+.crumbs_title {
+    display: block;
+    font-size: 28px;
+    margin-top: 3px;
 }
 
 .post {

@@ -49,11 +49,14 @@
 {{ end }}
 
 {{ define "content" }}
-{{ if .current_user }}
-<a href="#reply" class="write button right thread_reply_btn">Reply</a>
-{{ end }}
-    <h1><a href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; <div class="threadtitle">{{.op.Title}}</div>
-    </h1>
+    {{ if .current_user }}
+    <a href="#reply" class="write button right thread_reply_btn">Reply</a>
+    {{ end }}
+
+    <div class="crumbs">
+        <a class="crumbs_board" href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; 
+        <a class="crumbs_title" href="/board/{{.board.Id}}/{{.op.Id}}">{{.op.Title}}</a>
+    </div>
 
     <div class="pagination">
         {{ if .prev_page }}
