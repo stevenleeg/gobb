@@ -79,6 +79,12 @@ func ActionDeleteThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func ActionMoveThread(w http.ResponseWriter, r *http.Request) {
+    current_user := utils.GetCurrentUser(r)
+    if current_user == nil || !current_user.CanModerate() {
+        http.NotFound(w, r)
+        return
+    }
+
     thread_id_str := r.FormValue("post_id")
     thread_id, err := strconv.Atoi(thread_id_str)
     board_id_str := r.FormValue("to")
