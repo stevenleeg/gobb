@@ -17,6 +17,13 @@ type BoardLatest struct {
     Latest *Post
 }
 
+func NewBoard(title, desc string) *Board {
+    return &Board {
+        Title: title,
+        Description: desc,
+    }
+}
+
 func GetBoard(id int) (error, *Board) {
 	db := GetDbSession()
 	board := new(Board)
@@ -27,6 +34,15 @@ func GetBoard(id int) (error, *Board) {
 	}
 
 	return nil, board
+}
+
+func GetBoards() ([]*Board, error) {
+    db := GetDbSession()
+
+    var boards []*Board
+    _, err := db.Select(&boards, "SELECT * FROM boards")
+
+    return boards, err
 }
 
 func (board *Board) GetLatestPost() BoardLatest {
@@ -75,4 +91,11 @@ func (board *Board) GetPagesInBoard() int {
     }
 
     return int(math.Floor(float64(count) / float64(threads_per_page)))
+}
+
+// Deletes a board and all of the posts it contains
+func (board *Board) Delete() {
+    db := GetDbSession()
+    db.Exec("DELETE FROM posts WHERE board_id=$1", board.Id)
+    db.Delete(board)
 }

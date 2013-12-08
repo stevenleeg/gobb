@@ -1,0 +1,30 @@
+{{ define "content" }}
+<div class="box larger">
+    {{ template "admin_topbar" . }}
+    <h2>Manage boards</h2>
+    <form method="POST" action="/admin/boards">
+    <table class="list">
+        <tr><td>&nbsp;</td><td>Board title</td><td>Description</td></tr>
+        {{ range .boards }}
+        <tr>
+            <td><a href="/admin/boards?delete={{ .Id }}">[x]</a></td>
+            <td><input value="{{ .Title }}" type="text" name="name" placeholder="Board title" /></td>
+            <td><input value="{{ .Description }}" type="text" name="description" placeholder="Board description" /></td>
+        </tr>
+        {{ end }}
+    </table>
+    <input type="submit" value="Save" />
+    </form>
+
+    <div style="clear:both;"></div>
+
+    <h2>Create a new board</h2>
+    <form method="POST" action="/admin/boards">
+    <div class="new_board">
+        <input type="text" name="title" placeholder="Board title" />
+        <input type="text" name="description" placeholder="Board description" />
+        <input type="submit" name="create_board" value="Create" />
+    </div>
+    </form>
+</div>
+{{ end }}

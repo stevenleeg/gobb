@@ -367,3 +367,30 @@ input[type=submit] {
 .pagination {
     text-align: center;
 }
+
+/*
+ * Admin panel elements
+ */
+.box_tabs {
+    width: 100%;
+    border-spacing: 0px 0px;
+}
+
+.box_tabs td {
+    text-align: center;
+    border-bottom: 1px solid #AAA;
+    padding: 0px 0px 10px 0px;
+}
+
+.list {
+    width: 100%;
+    border-spacing: 0px 10px;
+}
+
+.list tr:nth-child(1) {
+    font-weight: bold;
+}
+
+.list tr td input {
+    margin: 0px;
+}

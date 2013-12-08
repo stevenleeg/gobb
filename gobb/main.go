@@ -24,6 +24,7 @@ func main() {
 	r.HandleFunc("/login", controllers.Login)
 	r.HandleFunc("/logout", controllers.Logout)
 	r.HandleFunc("/admin", controllers.Admin)
+	r.HandleFunc("/admin/boards", controllers.AdminBoards)
 	r.HandleFunc("/action/stick", controllers.ActionStickThread)
 	r.HandleFunc("/action/delete", controllers.ActionDeleteThread)
 	r.HandleFunc("/action/edit", controllers.PostEditor)

@@ -36,7 +36,6 @@ var default_funcmap = template.FuncMap{
     "IsValidTime": tplIsValidTime,
 }
 
-
 func RenderTemplate(
 	out http.ResponseWriter,
 	r *http.Request,
