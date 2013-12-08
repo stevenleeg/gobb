@@ -40,6 +40,16 @@ func NewPost(author *User, board *Board, title, content string) *Post {
 	return post
 }
 
+func GetPost(id int) (*Post, error) {
+	db := GetDbSession()
+    obj, err := db.Get(&Post{}, id)
+    if obj == nil {
+        return nil, err
+    }
+
+    return obj.(*Post), err
+}
+
 // Returns a pointer to the OP and a slice of post pointers for the given
 // page number in the thread.
 func GetThread(parent_id, page_id int) (error, *Post, []*Post) {

@@ -77,3 +77,45 @@ func ActionDeleteThread(w http.ResponseWriter, r *http.Request) {
     }
 
 }
+
+func ActionMoveThread(w http.ResponseWriter, r *http.Request) {
+    thread_id_str := r.FormValue("post_id")
+    thread_id, err := strconv.Atoi(thread_id_str)
+    board_id_str := r.FormValue("to")
+    board_id, err := strconv.Atoi(board_id_str)
+
+    op, err := models.GetPost(thread_id)
+    boards, _ := models.GetBoards()
+
+    if op == nil || err != nil {
+        http.NotFound(w, r)
+        return
+    }
+
+    if board_id_str != "" {
+        db := models.GetDbSession()
+        new_board, _ := models.GetBoard(board_id)
+        if new_board == nil {
+            http.NotFound(w, r)
+            return
+        }
+        
+        _, err := db.Exec("UPDATE posts SET board_id=$1 WHERE parent_id=$2", new_board.Id, op.Id)
+        op.BoardId = new_board.Id
+        db.Update(op)
+        if err != nil {
+            http.NotFound(w, r)
+            fmt.Printf("Error moving post: %s\n", err.Error())
+            return
+        }
+        http.Redirect(w, r, fmt.Sprintf("/board/%d/%d", op.BoardId, op.Id), http.StatusFound)
+    }
+
+    board, err := models.GetBoard(int(op.BoardId))
+    
+	utils.RenderTemplate(w, r, "action_move_thread.html", map[string]interface{}{
+        "board": board,
+        "thread": op,
+        "boards": boards,
+    }, nil)
+}

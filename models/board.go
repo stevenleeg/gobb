@@ -24,16 +24,14 @@ func NewBoard(title, desc string) *Board {
     }
 }
 
-func GetBoard(id int) (error, *Board) {
+func GetBoard(id int) (*Board, error) {
 	db := GetDbSession()
-	board := new(Board)
-	err := db.SelectOne(board, "SELECT * FROM boards WHERE id=$1", id)
+    obj, err := db.Get(&Board{}, id)
+    if obj == nil {
+        return nil, err
+    }
 
-	if err != nil {
-		return err, nil
-	}
-
-	return nil, board
+    return obj.(*Board), err
 }
 
 func GetBoards() ([]*Board, error) {

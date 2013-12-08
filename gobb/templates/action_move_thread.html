@@ -1,0 +1,15 @@
+{{ define "content" }}
+<div class="box smaller">
+    <form method="GET" action="/action/move">
+    <h1>Moving thread</h1>
+    <p>You are moving the thread "{{ .thread.Title }}" from {{ .board.Title }} to...</p>
+    <select name="to">
+        {{ range .boards }}
+        <option value="{{.Id}}">{{.Title}}</option>
+        {{ end }}
+    </select>
+    <input type="hidden" name="post_id" value="{{ .thread.Id }}" />
+    <input type="submit" value="Move" />
+    </form>
+</div>
+{{ end }}

@@ -22,6 +22,10 @@
                 {{ end}}
             {{ end }}
 
+            {{ if CurrentUserCanMoveThread . }}
+                // <a href="/action/move?post_id={{.Id}}">move</a>
+            {{ end }}
+
             {{ if CurrentUserCanDeletePost . }}
                 // <a href="/action/delete?post_id={{.Id}}" class="delete">delete</a>
             {{ end }}

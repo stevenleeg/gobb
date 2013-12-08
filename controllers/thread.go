@@ -20,7 +20,7 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 
 	board_id_str := mux.Vars(r)["board_id"]
 	board_id, _ := strconv.Atoi(board_id_str)
-	err, board := models.GetBoard(board_id)
+	board, err := models.GetBoard(board_id)
 
 	post_id_str := mux.Vars(r)["post_id"]
 	post_id, _ := strconv.Atoi(post_id_str)
@@ -82,6 +82,15 @@ func Thread(w http.ResponseWriter, r *http.Request) {
         },
 
         "CurrentUserCanStickyThread": func(thread *models.Post) bool {
+            current_user := utils.GetCurrentUser(r)
+            if current_user == nil {
+                return false
+            }
+
+            return (current_user.CanModerate() && !thread.ParentId.Valid)
+        },
+
+        "CurrentUserCanMoveThread": func(thread *models.Post) bool {
             current_user := utils.GetCurrentUser(r)
             if current_user == nil {
                 return false

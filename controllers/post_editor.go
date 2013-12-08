@@ -21,7 +21,7 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 	board_id_str := mux.Vars(r)["board_id"]
     if board_id_str != "" {
         board_id, _ := strconv.Atoi(board_id_str)
-        err, board = models.GetBoard(board_id)
+        board, err = models.GetBoard(board_id)
     }
 
     // Otherwise, a post

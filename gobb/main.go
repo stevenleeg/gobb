@@ -27,6 +27,7 @@ func main() {
 	r.HandleFunc("/admin/boards", controllers.AdminBoards)
 	r.HandleFunc("/action/stick", controllers.ActionStickThread)
 	r.HandleFunc("/action/delete", controllers.ActionDeleteThread)
+	r.HandleFunc("/action/move", controllers.ActionMoveThread)
 	r.HandleFunc("/action/edit", controllers.PostEditor)
 	r.HandleFunc("/board/{id:[0-9]+}", controllers.Board)
 	r.HandleFunc("/board/{board_id:[0-9]+}/new", controllers.PostEditor)
