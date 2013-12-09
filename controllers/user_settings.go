@@ -7,9 +7,12 @@ import (
 	"net/http"
 	"strconv"
 	"database/sql"
+	"github.com/stevenleeg/gobb/config"
 )
 
 func UserSettings(w http.ResponseWriter, r *http.Request) {
+	enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
+
 	user_id_str := mux.Vars(r)["id"]
 	user_id, _ := strconv.Atoi(user_id_str)
 
@@ -28,6 +31,10 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 			Valid: true,
 			String: r.FormValue("stylesheet_url"),
 		}
+		current_user.Signature = sql.NullString{
+			Valid: true,
+			String: r.FormValue("signature"),
+		}
 		db.Update(current_user)
 		success = true
 	}
@@ -36,9 +43,15 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 	if current_user.StylesheetUrl.Valid {
 		stylesheet = current_user.StylesheetUrl.String
 	}
+	signature := ""
+	if current_user.Signature.Valid {
+		signature = current_user.Signature.String
+	}
 	
 	utils.RenderTemplate(w, r, "user_settings.html", map[string]interface{}{
 		"success": success,
 		"user_stylesheet": stylesheet,
+		"user_signature": signature,
+		"enable_signatures": enable_signatures,
 	}, nil)
 }

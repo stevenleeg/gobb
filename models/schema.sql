@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     username    VARCHAR(20),
     password    VARCHAR(75),
     avatar      VARCHAR,
+    signature   VARCHAR,
     salt        VARCHAR(25)
 );
 

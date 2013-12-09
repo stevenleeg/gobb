@@ -9,9 +9,11 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+    "github.com/stevenleeg/gobb/config"
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {
+
     page_id_str := r.FormValue("page")
     page_id, err := strconv.Atoi(page_id_str)
     if err != nil {
@@ -106,6 +108,11 @@ func Thread(w http.ResponseWriter, r *http.Request) {
             }
 
             return (current_user.Id == post.AuthorId || current_user.CanModerate())
+        },
+
+        "SignaturesEnabled": func() bool {
+            enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
+            return enable_signatures
         },
     })
 }

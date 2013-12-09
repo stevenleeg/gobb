@@ -12,6 +12,10 @@
 
     <label for="stylesheet_url">Stylesheet URL</label>
     <input name="stylesheet_url" id="stylesheet_url" type="text" value="{{.user_stylesheet}}" placeholder="default stylesheet">
+    {{ if .enable_signatures }}
+    <label for="signature">Signature</label>
+    <textarea name="signature" id="signature" placeholder="no signature">{{.user_signature}}</textarea>
+    {{ end }}
 
     <input type="submit" class="submit button" value="Save Settings">
     </form>
