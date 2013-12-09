@@ -3,9 +3,9 @@
     <tr>
         <td rowspan="3" class="post_sidebar">
             {{ if .Author.Avatar }}
-            <img class="post_avatar" src="{{.Author.Avatar}}" />
+            <img class="post_avatar" src="{{.Author.Avatar}}">
             {{ else }}
-            <img class="post_avatar" src="/static/images/default_user.png" />
+            <img class="post_avatar" src="/static/images/default_user.png">
             {{ end }}
 
             <a href="/user/{{ .Author.Id }}" class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</a>
@@ -37,8 +37,15 @@
         </td>
     </tr>
     <tr>
-        <td class="post_content" >{{ ParseMarkdown .Content}}</td>
+        <td class="post_content">{{ ParseMarkdown .Content }}</td>
     </tr>
+    {{ if .enable_signatures }}
+    {{ if .Author.Signature }}
+    <tr>
+        <td class="post_signature">{{ ParseMarkdown .Author.Signature.String }}</td>
+    </tr>
+    {{ end }}
+    {{ end }}
     <tr>
         {{ if IsValidTime .LastEdit }}
         <td class="post_edited">

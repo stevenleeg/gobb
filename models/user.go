@@ -20,6 +20,7 @@ type User struct {
 	Username  		string         `db:"username"`
 	Password  		string   	   `db:"password"`
 	Avatar    		string         `db:"avatar"`
+    Signature       sql.NullString `db:"signature"`
 	Salt      		string         `db:"salt"`
 	StylesheetUrl	sql.NullString `db:"stylesheet_url"`
 }
