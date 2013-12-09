@@ -13,7 +13,6 @@ import (
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {
-    enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
 
     page_id_str := r.FormValue("page")
     page_id, err := strconv.Atoi(page_id_str)
@@ -73,7 +72,6 @@ func Thread(w http.ResponseWriter, r *http.Request) {
         "prev_page": (page_id != 0),
         "next_page": (page_id < num_pages),
         "page_id": page_id,
-        "enable_signatures": enable_signatures,
 	}, map[string]interface{}{
 
         "CurrentUserCanDeletePost": func(thread *models.Post) bool {
@@ -110,6 +108,11 @@ func Thread(w http.ResponseWriter, r *http.Request) {
             }
 
             return (current_user.Id == post.AuthorId || current_user.CanModerate())
+        },
+
+        "SignaturesEnabled": func() bool {
+            enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
+            return enable_signatures
         },
     })
 }

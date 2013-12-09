@@ -336,7 +336,6 @@ input[type=submit] {
     margin: 10px 0px;
     overflow-x: auto;
     border-spacing: 0px 0px;
-    word-break: break-all;
 }
 
 .post:after {
