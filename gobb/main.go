@@ -42,6 +42,12 @@ func main() {
     static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath)
 	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
 
+    // User provided static files
+    static_path, err := config.Config.GetString("gobb", "base_path")
+    if err == nil {
+        r.PathPrefix("/assets/").Handler(http.FileServer(http.Dir(static_path)))
+    }
+
 	http.Handle("/", r)
 
 	fmt.Println("Starting server on port 8080")
