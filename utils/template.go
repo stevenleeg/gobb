@@ -78,7 +78,17 @@ func RenderTemplate(
 	if err != nil {
         fmt.Printf("[error] Could not parse template (%s)\n", err.Error())
 	}
-	tpl.ExecuteTemplate(out, tpl_file, send)
-	tpl.ExecuteTemplate(out, "base.html", send)
+
+    // Attempt to execute the template we're on
+	err = tpl.ExecuteTemplate(out, tpl_file, send)
+	if err != nil {
+        fmt.Printf("[error] Could not parse template (%s)\n", err.Error())
+	}
+
+    // And now the base template
+	err = tpl.ExecuteTemplate(out, "base.html", send)
+	if err != nil {
+        fmt.Printf("[error] Could not parse template (%s)\n", err.Error())
+	}
 }
 

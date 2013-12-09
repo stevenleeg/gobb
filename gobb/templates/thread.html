@@ -39,12 +39,10 @@
     <tr>
         <td class="post_content">{{ ParseMarkdown .Content }}</td>
     </tr>
-    {{ if .enable_signatures }}
-    {{ if .Author.Signature }}
+    {{ if .Author.Signature.Valid }}
     <tr>
-        <td class="post_signature">{{ ParseMarkdown .Author.Signature.String }}</td>
+        <td class="post_signature">{{ ParseMarkdown .Author.Signature.Value }}</td>
     </tr>
-    {{ end }}
     {{ end }}
     <tr>
         {{ if IsValidTime .LastEdit }}
