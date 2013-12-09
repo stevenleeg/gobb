@@ -8,6 +8,8 @@ import (
 	"fmt"
     "time"
 	"net/http"
+    "go/build"
+    "path/filepath"
 )
 
 func tplAdd(first, second int) int {
@@ -74,7 +76,12 @@ func RenderTemplate(
         func_map[key] = val
     }
 
-	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles("templates/base.html", "templates/"+tpl_file)
+    // Get the base template path
+    pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+    base_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "templates/base.html")
+    tpl_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "templates/" + tpl_file)
+
+	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles(base_path, tpl_path)
 	if err != nil {
         fmt.Printf("[error] Could not parse template (%s)\n", err.Error())
 	}

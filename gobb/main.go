@@ -7,6 +7,8 @@ import (
 	"github.com/stevenleeg/gobb/config"
 	"github.com/stevenleeg/gobb/controllers"
 	"net/http"
+    "go/build"
+    "path/filepath"
 )
 
 func main() {
@@ -34,7 +36,12 @@ func main() {
 	r.HandleFunc("/board/{board_id:[0-9]+}/{post_id:[0-9]+}", controllers.Thread)
 	r.HandleFunc("/user/{id:[0-9]+}", controllers.User)
 	r.HandleFunc("/user/{id:[0-9]+}/settings", controllers.UserSettings)
-	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir("./")))
+
+    // Handle static files
+    pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+    static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath)
+	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
+
 	http.Handle("/", r)
 
 	fmt.Println("Starting server on port 8080")
