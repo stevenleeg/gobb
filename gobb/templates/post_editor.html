@@ -5,11 +5,19 @@
     {{ else }}
         <h1>New Thread</h1>
     {{ end }}
+
+    {{ if .error }}
+        <div class="error">
+            {{ .error }}
+        </div>
+    {{ end }}
+
     {{ if .board }}
         <form method="POST" action="/board/{{.board.Id}}/new">
     {{ else }}
         <form method="POST" action="/action/edit?post_id={{ .post.Id }}">
     {{ end }}
+
     {{ if ShowTitleField }}
     <input class="in_title" type="text" name="title" placeholder="Thread title" tabindex="2" required autofocus maxlength="70"{{ if .post }}value="{{ .post.Title }}"{{ end }}>
     {{ end }}

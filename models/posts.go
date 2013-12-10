@@ -26,9 +26,7 @@ type Post struct {
 
 // Initializes a new struct, adds some data, and returns the pointer to it
 func NewPost(author *User, board *Board, title, content string) *Post {
-	// TODO: Validation
-
-	post := &Post{
+    post := &Post{
 		BoardId:   board.Id,
 		AuthorId:  author.Id,
 		Title:     title,
@@ -104,6 +102,23 @@ func (post *Post) PostGet(s gorp.SqlExecutor) error {
 	post.Author = user.(*User)
 
 	return nil
+}
+
+// Ensures that a post is valid
+func (post *Post) Validate() error {
+    if post.BoardId == 0  {
+        return errors.New("Board does not exist")
+    }
+
+    if len(post.Content) <= 3 {
+        return errors.New("Post must be longer than three characters")
+    }
+
+    if !post.ParentId.Valid && len(post.Title) <= 3 {
+        return errors.New("Post title must be longer than three characters")
+    }
+
+    return nil
 }
 
 // This is used primarily for threads. It will find the latest

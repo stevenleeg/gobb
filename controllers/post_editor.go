@@ -10,6 +10,28 @@ import (
 	"time"
 )
 
+func renderPostEditor(
+	w http.ResponseWriter,
+	r *http.Request,
+	board *models.Board,
+	post *models.Post,
+	err error) {
+
+	utils.RenderTemplate(w, r, "post_editor.html", map[string]interface{}{
+		"board": board,
+		"post":  post,
+        "error": err,
+	}, map[string]interface{}{
+		"ShowTitleField": func() bool {
+			if post == nil {
+				return true
+			}
+
+			return !post.ParentId.Valid
+		},
+	})
+}
+
 func PostEditor(w http.ResponseWriter, r *http.Request) {
 	db := models.GetDbSession()
 
@@ -55,12 +77,26 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 		if post == nil {
 			post = models.NewPost(current_user, board, title, content)
 			post.LatestReply = time.Now()
+
+            err = post.Validate()
+            if err != nil {
+                renderPostEditor(w, r, board, post, err)
+                return
+            }
+
 			err = db.Insert(post)
 		} else {
 			post.Title = title
 			post.Content = content
 			post.LastEdit = time.Now()
 			post.LatestReply = time.Now()
+
+            err = post.Validate()
+            if err != nil {
+                renderPostEditor(w, r, board, post, err)
+                return
+            }
+
 			_, err = db.Update(post)
 		}
 
@@ -82,16 +118,5 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.RenderTemplate(w, r, "post_editor.html", map[string]interface{}{
-		"board": board,
-		"post":  post,
-	}, map[string]interface{}{
-		"ShowTitleField": func() bool {
-			if post == nil {
-				return true
-			}
-
-			return !post.ParentId.Valid
-		},
-	})
+    renderPostEditor(w, r, board, post, err)
 }

@@ -13,7 +13,6 @@ import (
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {
-
 	page_id_str := r.FormValue("page")
 	page_id, err := strconv.Atoi(page_id_str)
 	if err != nil {
@@ -27,6 +26,8 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 	post_id_str := mux.Vars(r)["post_id"]
 	post_id, _ := strconv.Atoi(post_id_str)
 	err, op, posts := models.GetThread(post_id, page_id)
+
+	var posting_error error
 
 	if r.Method == "POST" {
 		db := models.GetDbSession()
@@ -42,14 +43,19 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		post := models.NewPost(current_user, board, title, content)
 		post.ParentId = sql.NullInt64{int64(post_id), true}
 		op.LatestReply = time.Now()
-		db.Insert(post)
-		db.Update(op)
 
-		if page := post.GetPageInThread(); page != page_id {
-			http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, op.Id, page, post.Id), http.StatusFound)
+		posting_error = post.Validate()
+
+		if posting_error == nil {
+			db.Insert(post)
+			db.Update(op)
+
+			if page := post.GetPageInThread(); page != page_id {
+				http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, op.Id, page, post.Id), http.StatusFound)
+			}
+
+			err, op, posts = models.GetThread(post_id, page_id)
 		}
-
-		err, op, posts = models.GetThread(post_id, page_id)
 	}
 
 	if err != nil {
@@ -65,13 +71,20 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+    var previous_text string
+    if posting_error != nil {
+        previous_text = r.FormValue("content")
+    }
+
 	utils.RenderTemplate(w, r, "thread.html", map[string]interface{}{
-		"board":     board,
-		"op":        op,
-		"posts":     posts,
-		"prev_page": (page_id != 0),
-		"next_page": (page_id < num_pages),
-		"page_id":   page_id,
+		"board":         board,
+		"op":            op,
+		"posts":         posts,
+		"prev_page":     (page_id != 0),
+		"next_page":     (page_id < num_pages),
+		"page_id":       page_id,
+		"posting_error": posting_error,
+        "previous_text": previous_text,
 	}, map[string]interface{}{
 
 		"CurrentUserCanDeletePost": func(thread *models.Post) bool {

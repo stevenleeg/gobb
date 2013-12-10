@@ -100,7 +100,13 @@
     <a name="reply"></a>
     <div class="thread_reply">
         <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}?page={{ .op.GetPagesInThread }}#latest">
-            <textarea name="content" id="reply_content" placeholder="Reply to this thread" tabindex="2" required></textarea>
+            {{ if .posting_error }}
+            <div class="error">
+                {{.posting_error}}
+            </div>
+            {{ end }}
+
+            <textarea name="content" id="reply_content" placeholder="Reply to this thread" tabindex="2" required>{{ .previous_text }}</textarea>
             <input type="submit" class="submit button" value="Reply" tabindex="3">
         </form>
     </div>
