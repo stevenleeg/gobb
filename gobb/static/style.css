@@ -355,7 +355,7 @@ input[type=submit] {
 .post_signature {
     border-top: 2px dotted #eee;
     display: inline-block;
-    padding: 0 5px;
+    margin: 0 5px;
     width: 100%;
 }
 
