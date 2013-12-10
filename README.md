@@ -2,20 +2,24 @@
 A simple forum platform written in Go. 
 
 ## Warning! Alpha quality software!
-GoBB is currently in its early stages of development. While it is pretty usable at the moment (and actively being used in a *trusted* production environment), I'd reccommend you hold off on using it for something big for the time being. There are still a lot of things that need to be patched up before it's ready for the big leagues. Having said that, if you're looking for a simple (and blazing fast) bulletin board for your friends who are willing to deal with some bugs, this might be the bb for you!
+GoBB is currently in its early stages of development. While it is pretty usable at the moment (and actively being used in a *trusted* production environment), I'd recommend you hold off on using it for something big for the time being. There are still a lot of things that need to be patched up before it's ready for the big leagues. Having said that, if you're looking for a simple (and blazing fast) bulletin board for your friends who are willing to deal with some bugs, this might be the bb for you!
 
 GoBB is getting better by the day, so hopefully it'll be ready to graduate from the alpha stage of development soon.
 
 ## Installation
 
-1. Get GoBB
+### Get GoBB
 ````sh
 $ go get github.com/stevenleeg/gobb/gobb
 ````
 
-2. Copy gobb.sample.conf into gobb.conf and set the `[database]` parameters.
+### Create a config file
+Create a directory where you'd like to house your GoBB installation's files. This can be anywhere on your filesystem. Then copy the contents of [gobb.sample.conf](https://github.com/stevenleeg/gobb/blob/master/gobb/gobb.sample.conf) into a file called `gobb.conf`.
 
-3. Set up the Postgres database:
+The config should be self explanatory, so fill it with the appropriate information and save.
+
+### Set up the Postgres database:
+We'll need to create a new database for GoBB's data to be stored:
 
 ```
 $ psql
@@ -29,17 +33,17 @@ GRANT
 ALTER ROLE
 ```
 
-3. Run!
-The first time you run gobb you'll need to pass the `--migrate` flag. This will automatically set up the database schema for you.
+### Run it
+Now that everything's ready to go we can start the server for the first time. You'll need to pass the `--migrate` flag on the initial start up. This will automatically create the database schema and make sure it's up to date. 
 
 ```
 $ gobb --config /path/to/gobb.conf --migrate
 ```
 
-The server will be up and running on port 8080, where you can create your first account.
+The server should then be up and running on port 8080.
 
-4. Admin yourself
-After creating your account, admin yourself so you can create boards and moderate posts.
+4. Your first account
+Once the server is up, go ahead and browse to http://localhost:8080 and register. Once you've created the first account you can promote it to admin in order to create the first boards and begin moderating posts.
 
 ```
 $ psql gobb
@@ -49,6 +53,7 @@ UPDATE 0 1
 
 And that's it! You should have a functional copy of GoBB ready to use!
 
+### Deploy it!
 If you understand what you're getting yourself into and willing to run GoBB in a prod environment, I reccommend setting up an nginx reverse-proxy to expose your installation to the public. Create a new nginx config that looks something like this:
 
 ```Nginx
