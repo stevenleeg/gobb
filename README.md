@@ -42,7 +42,7 @@ $ gobb --config /path/to/gobb.conf --migrate
 
 The server should then be up and running on port 8080.
 
-4. Your first account
+### Your first account
 Once the server is up, go ahead and browse to http://localhost:8080 and register. Once you've created the first account you can promote it to admin in order to create the first boards and begin moderating posts.
 
 ```
@@ -67,3 +67,6 @@ server {
     }
 }
 ```
+
+## Contributing
+If you see something that could be better with GoBB, feel free to fork it and create a pull request. Just be sure to run `go fmt` before you submit the pull request so everything stays tidy!
