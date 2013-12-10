@@ -78,8 +78,8 @@ func RenderTemplate(
 
 	// Get the base template path
 	pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
-	base_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "templates/base.html")
-	tpl_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "templates/"+tpl_file)
+	base_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/base.html")
+	tpl_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/"+tpl_file)
 
 	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles(base_path, tpl_path)
 	if err != nil {

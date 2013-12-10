@@ -21,8 +21,6 @@ func main() {
 	flag.Parse()
 	config.GetConfig(config_path)
 
-	pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
-
 	// Do we need to run migrations?
 	latest_db_version, migrations, err := utils.GetMigrationInfo()
 	if len(migrations) != 0 && *run_migrations {
@@ -59,7 +57,8 @@ func main() {
 	r.HandleFunc("/user/{id:[0-9]+}/settings", controllers.UserSettings)
 
 	// Handle static files
-	static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath)
+	pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+	static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../")
 	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
 
 	// User provided static files
