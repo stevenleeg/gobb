@@ -3,10 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-    "bitbucket.org/liamstask/goose/lib/goose"
 	"github.com/gorilla/mux"
 	"github.com/stevenleeg/gobb/config"
-	"github.com/stevenleeg/gobb/models"
+	"github.com/stevenleeg/gobb/utils"
 	"github.com/stevenleeg/gobb/controllers"
 	"net/http"
     "go/build"
@@ -24,37 +23,11 @@ func main() {
 
     pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
 
-    db := models.GetDbSession()
-
     // Do we need to run migrations?
-	db_username, _ := config.Config.GetString("database", "username")
-	db_password, _ := config.Config.GetString("database", "password")
-	db_database, _ := config.Config.GetString("database", "database")
-	db_hostname, _ := config.Config.GetString("database", "hostname")
-	db_port, _ := config.Config.GetString("database", "port")
-
-    if db_port == "" {
-        db_port = "5432"
-    }
-
-    migrations_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../db/migrations")
-    goose_conf := &goose.DBConf{
-        MigrationsDir: migrations_path,
-        Env: "development",
-        Driver: goose.DBDriver{
-            Name: "postgres",
-            OpenStr: fmt.Sprintf("user=%s dbname=%s password=%s port=%s host=%s sslmode=disable", db_username, db_database, db_password, db_port, db_hostname),
-            Import: "github.com/lib/pq",
-            Dialect: &goose.PostgresDialect{},
-        },
-    }
-    latest_db_version, err := goose.GetMostRecentDBVersion(goose_conf.MigrationsDir)
-    current_db_version, err := goose.EnsureDBVersion(goose_conf, db.Db)
-    migrations, err := goose.CollectMigrations(goose_conf.MigrationsDir, current_db_version, latest_db_version)
-
+    latest_db_version, migrations, err := utils.GetMigrationInfo()
     if len(migrations) != 0 && *run_migrations {
         fmt.Println("[notice] Running database migrations:\n")
-        err = goose.RunMigrations(goose_conf, goose_conf.MigrationsDir, latest_db_version)
+        err = utils.RunMigrations(latest_db_version)
         if err != nil {
             fmt.Printf("[error] Could not run migrations (%s)\n", err.Error())
             return
