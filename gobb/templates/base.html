@@ -10,7 +10,8 @@
 <html lang="en">
     <head>
     <title>{{.site_name}}</title>
-        <link rel="stylesheet" href="{{.stylesheet}}">
+        <link rel="stylesheet" href="/static/style.css">
+        {{ if .stylesheet }}<link rel="stylesheet" href="{{.stylesheet}}">{{ end }}
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="/static/main.js"></script>
