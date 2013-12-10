@@ -358,10 +358,9 @@ input[type=submit] {
 }
 
 .post_signature {
-    border-top: 2px dotted #eee;
-    display: inline-block;
-    margin: 0 5px;
-    width: 100%;
+    border-top: 2px dotted #EEE;
+    margin: 0 10px 0 10px;
+    padding: 0 10px;
 }
 
 .post_avatar {

@@ -61,7 +61,9 @@
     {{ if SignaturesEnabled }}
     {{ if .Author.Signature.Valid }}
     <tr>
-        <td class="post_signature">{{ ParseMarkdown .Author.Signature.Value }}</td>
+        <td class="post_signature">
+            {{ ParseMarkdown .Author.Signature.Value }}
+        </td>
     </tr>
     {{ end }}
     {{ end }}
