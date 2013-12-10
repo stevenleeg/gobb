@@ -31,9 +31,16 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 			Valid:  true,
 			String: r.FormValue("stylesheet_url"),
 		}
-		current_user.Signature = sql.NullString{
-			Valid:  true,
-			String: r.FormValue("signature"),
+		if r.FormValue("signature") == "" {
+			current_user.Signature = sql.NullString{
+				Valid:  false,
+				String: r.FormValue("signature"),
+			}
+		} else {
+			current_user.Signature = sql.NullString{
+				Valid:  true,
+				String: r.FormValue("signature"),
+			}
 		}
 		db.Update(current_user)
 		success = true
