@@ -4,16 +4,25 @@
     <h2>Manage boards</h2>
     <form method="POST" action="/admin/boards">
     <table class="list">
-        <tr><td>&nbsp;</td><td>Board title</td><td>Description</td></tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>Board title</td>
+            <td>Description</td>
+            <td>Order</td>
+        </tr>
         {{ range .boards }}
         <tr>
-            <td><a href="/admin/boards?delete={{ .Id }}">[x]</a></td>
-            <td><input value="{{ .Title }}" type="text" name="name" placeholder="Board title" /></td>
-            <td><input value="{{ .Description }}" type="text" name="description" placeholder="Board description" /></td>
+            <td>
+                <a href="/admin/boards?delete={{ .Id }}">[x]</a>
+                <input type="hidden" name="board_id" value="{{ .Id }}">
+            </td>
+            <td><input value="{{ .Title }}" type="text" name="name" placeholder="Board title"></td>
+            <td><input value="{{ .Description }}" type="text" name="description" placeholder="Board description"></td>
+            <td><input value="{{ .Order }}" type="text" name="order" placeholder="auto"></td>
         </tr>
         {{ end }}
     </table>
-    <input type="submit" value="Save" />
+    <input type="submit" class="button" name="update_boards" value="Save">
     </form>
 
     <div style="clear:both;"></div>
@@ -21,9 +30,10 @@
     <h2>Create a new board</h2>
     <form method="POST" action="/admin/boards">
     <div class="new_board">
-        <input type="text" name="title" placeholder="Board title" />
-        <input type="text" name="description" placeholder="Board description" />
-        <input type="submit" name="create_board" value="Create" />
+        <input type="text" name="title" placeholder="Board title">
+        <input type="text" name="description" placeholder="Board description">
+        <input type="text" name="order" placeholder="Board order (blank for auto)">
+        <input type="submit" class="button" name="create_board" value="Create">
     </div>
     </form>
 </div>

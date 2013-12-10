@@ -39,6 +39,7 @@ func main() {
 
 	// URL Routing!
 	r := mux.NewRouter()
+	r.StrictSlash(true)
 
 	r.HandleFunc("/", controllers.Index)
 	r.HandleFunc("/register", controllers.Register)

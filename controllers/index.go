@@ -8,9 +8,9 @@ import (
 )
 
 func Index(w http.ResponseWriter, request *http.Request) {
-	db := models.GetDbSession()
-	var boards []models.Board
-	_, err := db.Select(&boards, "SELECT * FROM boards")
+
+	boards, err := models.GetBoards()
+
 	if err != nil {
 		fmt.Printf("[error] Could not get boards (%s)\n", err.Error())
 	}
