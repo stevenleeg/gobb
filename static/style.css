@@ -181,6 +181,11 @@ blockquote {
     text-transform: uppercase;
 }
 
+.pagination .prev, .pagination .next {
+    display: inline-block;
+    margin: 0px 5px 0px 5px;
+}
+
 /*
  * Content boxes
  */

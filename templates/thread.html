@@ -1,3 +1,22 @@
+{{ define "pagination" }}
+
+<div class="pagination">
+    {{ if .first_page }}
+        <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page=0">&laquo; first page</a>
+    {{ end }}
+    {{ if .prev_page }}
+        <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
+    {{ end }}
+    {{ if .next_page }}
+        <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
+    {{ end }}
+    {{ if .last_page }}
+        <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{ .op.GetPagesInThread }}#latest">last page &raquo;</a>
+    {{ end }}
+</div>
+
+{{ end }}
+
 {{ define "post" }}
 <table class="post" id="post_{{.Id}}">
     <tr>
@@ -69,14 +88,8 @@
         <a class="crumbs_title" href="/board/{{.board.Id}}/{{.op.Id}}">{{.op.Title}}</a>
     </div>
 
-    <div class="pagination">
-        {{ if .prev_page }}
-            <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
-        {{ end }}
-        {{ if .next_page }}
-            <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
-        {{ end }}
-    </div>
+    {{ template "pagination" . }}
+
     {{ if not .prev_page }}
         {{ template "post" .op }}
     {{ end }}
@@ -87,14 +100,7 @@
 
     <a name="latest"></a>
 
-    <div class="pagination">
-        {{ if .prev_page }}
-            <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
-        {{ end }}
-        {{ if .next_page }}
-            <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
-        {{ end }}
-    </div>
+    {{ template "pagination" . }}
 
     {{ if .current_user }}
     <a name="reply"></a>
