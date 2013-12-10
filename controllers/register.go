@@ -23,13 +23,13 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			error = "Passwords don't match"
 		}
 
-        // See if a user with this name already exists
+		// See if a user with this name already exists
 		db := models.GetDbSession()
-        count, err := db.SelectInt("SELECT COUNT(*) FROM users WHERE username=$1", username)
-        if count > 0 || err != nil {
-            error = "This username is already taken."
-        }
-        
+		count, err := db.SelectInt("SELECT COUNT(*) FROM users WHERE username=$1", username)
+		if count > 0 || err != nil {
+			error = "This username is already taken."
+		}
+
 		if error != "" {
 			utils.RenderTemplate(w, r, "register.html", map[string]interface{}{
 				"error": error,

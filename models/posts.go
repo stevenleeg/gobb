@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/coopernurse/gorp"
+	"github.com/stevenleeg/gobb/config"
+	"math"
 	"time"
-    "math"
-    "github.com/stevenleeg/gobb/config"
 )
 
 type Post struct {
@@ -20,8 +20,8 @@ type Post struct {
 	Content     string        `db:"content"`
 	CreatedOn   time.Time     `db:"created_on"`
 	LatestReply time.Time     `db:"latest_reply"`
-    LastEdit    time.Time     `db:"last_edit"`
-    Sticky      bool          `db:"sticky"`
+	LastEdit    time.Time     `db:"last_edit"`
+	Sticky      bool          `db:"sticky"`
 }
 
 // Initializes a new struct, adds some data, and returns the pointer to it
@@ -34,7 +34,7 @@ func NewPost(author *User, board *Board, title, content string) *Post {
 		Title:     title,
 		Content:   content,
 		CreatedOn: time.Now(),
-        Sticky:    false,
+		Sticky:    false,
 	}
 
 	return post
@@ -42,12 +42,12 @@ func NewPost(author *User, board *Board, title, content string) *Post {
 
 func GetPost(id int) (*Post, error) {
 	db := GetDbSession()
-    obj, err := db.Get(&Post{}, id)
-    if obj == nil {
-        return nil, err
-    }
+	obj, err := db.Get(&Post{}, id)
+	if obj == nil {
+		return nil, err
+	}
 
-    return obj.(*Post), err
+	return obj.(*Post), err
 }
 
 // Returns a pointer to the OP and a slice of post pointers for the given
@@ -60,17 +60,17 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 		return errors.New("[error] Could not get parent (" + err.Error() + ")"), nil, nil
 	}
 
-    posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
-    if err != nil {
-        posts_per_page = 15
-    }
+	posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
+	if err != nil {
+		posts_per_page = 15
+	}
 
-    i_begin := (int64(page_id) * (posts_per_page)) - 1
-    // The first page already has the OP, which isn't included
-    if page_id == 0 {
-        posts_per_page -= 1
-        i_begin += 1
-    }
+	i_begin := (int64(page_id) * (posts_per_page)) - 1
+	// The first page already has the OP, which isn't included
+	if page_id == 0 {
+		posts_per_page -= 1
+		i_begin += 1
+	}
 
 	var child_posts []*Post
 	db.Select(&child_posts, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on ASC LIMIT $2 OFFSET $3", parent_id, posts_per_page, i_begin)
@@ -80,15 +80,15 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 
 // Returns the number of posts (on every board/thread)
 func GetPostCount() (int64, error) {
-    db := GetDbSession()
+	db := GetDbSession()
 
-    count, err := db.SelectInt("SELECT COUNT(*) FROM posts")
-    if err != nil {
-        fmt.Printf("[error] Error selecting post count (%s)\n", err.Error())
-        return 0, errors.New("Database error: " + err.Error())
-    }
+	count, err := db.SelectInt("SELECT COUNT(*) FROM posts")
+	if err != nil {
+		fmt.Printf("[error] Error selecting post count (%s)\n", err.Error())
+		return 0, errors.New("Database error: " + err.Error())
+	}
 
-    return count, nil
+	return count, nil
 }
 
 // Post-SELECT hook for gorp which adds a pointer to the author
@@ -125,36 +125,36 @@ func (post *Post) GetLatestPost() *Post {
 // Returns the number of pages contained by a thread. This won't work on
 // post structs that have ParentIds.
 func (post *Post) GetPagesInThread() int {
-    db := GetDbSession()
-    count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE parent_id=$1", post.Id)
+	db := GetDbSession()
+	count, err := db.SelectInt("SELECT COUNT(*) FROM posts WHERE parent_id=$1", post.Id)
 
 	if err != nil {
 		fmt.Printf("[error] Could not get post count (%s)\n", err.Error())
 	}
 
-    posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
-    
-    if err != nil {
-        posts_per_page = 15
-    }
+	posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
 
-    if count == posts_per_page {
-        return 2
-    }
+	if err != nil {
+		posts_per_page = 15
+	}
 
-    return int(math.Floor(float64(count) / float64(posts_per_page)))
+	if count == posts_per_page {
+		return 2
+	}
+
+	return int(math.Floor(float64(count) / float64(posts_per_page)))
 }
 
 // This function tells us which page this particular post is in
 // within a thread based on the current value of posts_per_page
 func (post *Post) GetPageInThread() int {
-    posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
-    if err != nil {
-        posts_per_page = 15
-    }
+	posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
+	if err != nil {
+		posts_per_page = 15
+	}
 
-    db := GetDbSession()
-    n, err := db.SelectInt(`
+	db := GetDbSession()
+	n, err := db.SelectInt(`
         WITH thread AS (
                 SELECT posts.*,
                 ROW_NUMBER() OVER(ORDER BY posts.id) AS position
@@ -168,7 +168,7 @@ func (post *Post) GetPageInThread() int {
             posts.parent_id=$1;
     `, post.ParentId, post.Id)
 
-    return int(math.Floor(float64(n) / float64(posts_per_page)))
+	return int(math.Floor(float64(n) / float64(posts_per_page)))
 }
 
 // Used when deleting a thread. This deletes all posts who are
@@ -176,6 +176,6 @@ func (post *Post) GetPageInThread() int {
 func (post *Post) DeleteAllChildren() error {
 	db := GetDbSession()
 
-    _, err := db.Exec("DELETE FROM posts WHERE parent_id=$1", post.Id)
-    return err
+	_, err := db.Exec("DELETE FROM posts WHERE parent_id=$1", post.Id)
+	return err
 }

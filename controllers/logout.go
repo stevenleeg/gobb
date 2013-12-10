@@ -1,9 +1,9 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/stevenleeg/gobb/utils"
 	"net/http"
-    "fmt"
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {
@@ -13,7 +13,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 
 	err := session.Save(r, w)
 	if err != nil {
-        fmt.Printf("[error] Could not save session (%s)\n", err.Error)
+		fmt.Printf("[error] Could not save session (%s)\n", err.Error)
 	}
 
 	http.Redirect(w, r, "/", http.StatusFound)

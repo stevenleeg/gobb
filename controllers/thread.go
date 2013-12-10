@@ -2,23 +2,23 @@ package controllers
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/stevenleeg/gobb/config"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/utils"
-    "fmt"
 	"net/http"
 	"strconv"
 	"time"
-    "github.com/stevenleeg/gobb/config"
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {
 
-    page_id_str := r.FormValue("page")
-    page_id, err := strconv.Atoi(page_id_str)
-    if err != nil {
-        page_id = 0
-    }
+	page_id_str := r.FormValue("page")
+	page_id, err := strconv.Atoi(page_id_str)
+	if err != nil {
+		page_id = 0
+	}
 
 	board_id_str := mux.Vars(r)["board_id"]
 	board_id, _ := strconv.Atoi(board_id_str)
@@ -45,74 +45,74 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 		db.Insert(post)
 		db.Update(op)
 
-        if page := post.GetPageInThread(); page != page_id {
-            http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, op.Id, page, post.Id), http.StatusFound)
-        }
+		if page := post.GetPageInThread(); page != page_id {
+			http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, op.Id, page, post.Id), http.StatusFound)
+		}
 
 		err, op, posts = models.GetThread(post_id, page_id)
 	}
 
 	if err != nil {
 		http.NotFound(w, r)
-        fmt.Printf("[error] Something went wrong in posts (%s)\n", err.Error())
+		fmt.Printf("[error] Something went wrong in posts (%s)\n", err.Error())
 		return
 	}
 
-    num_pages := op.GetPagesInThread()
+	num_pages := op.GetPagesInThread()
 
-    if page_id > num_pages {
+	if page_id > num_pages {
 		http.NotFound(w, r)
-        return
-    }
+		return
+	}
 
 	utils.RenderTemplate(w, r, "thread.html", map[string]interface{}{
-		"board": board,
-		"op":    op,
-		"posts": posts,
-        "prev_page": (page_id != 0),
-        "next_page": (page_id < num_pages),
-        "page_id": page_id,
+		"board":     board,
+		"op":        op,
+		"posts":     posts,
+		"prev_page": (page_id != 0),
+		"next_page": (page_id < num_pages),
+		"page_id":   page_id,
 	}, map[string]interface{}{
 
-        "CurrentUserCanDeletePost": func(thread *models.Post) bool {
-            current_user := utils.GetCurrentUser(r)
-            if current_user == nil {
-                return false
-            }
-            
-            return (current_user.Id == thread.AuthorId && !thread.ParentId.Valid) || current_user.CanModerate()
-        },
+		"CurrentUserCanDeletePost": func(thread *models.Post) bool {
+			current_user := utils.GetCurrentUser(r)
+			if current_user == nil {
+				return false
+			}
 
-        "CurrentUserCanStickyThread": func(thread *models.Post) bool {
-            current_user := utils.GetCurrentUser(r)
-            if current_user == nil {
-                return false
-            }
+			return (current_user.Id == thread.AuthorId && !thread.ParentId.Valid) || current_user.CanModerate()
+		},
 
-            return (current_user.CanModerate() && !thread.ParentId.Valid)
-        },
+		"CurrentUserCanStickyThread": func(thread *models.Post) bool {
+			current_user := utils.GetCurrentUser(r)
+			if current_user == nil {
+				return false
+			}
 
-        "CurrentUserCanMoveThread": func(thread *models.Post) bool {
-            current_user := utils.GetCurrentUser(r)
-            if current_user == nil {
-                return false
-            }
+			return (current_user.CanModerate() && !thread.ParentId.Valid)
+		},
 
-            return (current_user.CanModerate() && !thread.ParentId.Valid)
-        },
+		"CurrentUserCanMoveThread": func(thread *models.Post) bool {
+			current_user := utils.GetCurrentUser(r)
+			if current_user == nil {
+				return false
+			}
 
-        "CurrentUserCanEditPost": func(post *models.Post) bool {
-            current_user := utils.GetCurrentUser(r)
-            if current_user == nil {
-                return false
-            }
+			return (current_user.CanModerate() && !thread.ParentId.Valid)
+		},
 
-            return (current_user.Id == post.AuthorId || current_user.CanModerate())
-        },
+		"CurrentUserCanEditPost": func(post *models.Post) bool {
+			current_user := utils.GetCurrentUser(r)
+			if current_user == nil {
+				return false
+			}
 
-        "SignaturesEnabled": func() bool {
-            enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
-            return enable_signatures
-        },
-    })
+			return (current_user.Id == post.AuthorId || current_user.CanModerate())
+		},
+
+		"SignaturesEnabled": func() bool {
+			enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
+			return enable_signatures
+		},
+	})
 }

@@ -1,13 +1,13 @@
 package controllers
 
 import (
+	"database/sql"
 	"github.com/gorilla/mux"
+	"github.com/stevenleeg/gobb/config"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/utils"
 	"net/http"
 	"strconv"
-	"database/sql"
-	"github.com/stevenleeg/gobb/config"
 )
 
 func UserSettings(w http.ResponseWriter, r *http.Request) {
@@ -28,11 +28,11 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 		db := models.GetDbSession()
 		current_user.Avatar = r.FormValue("avatar_url")
 		current_user.StylesheetUrl = sql.NullString{
-			Valid: true,
+			Valid:  true,
 			String: r.FormValue("stylesheet_url"),
 		}
 		current_user.Signature = sql.NullString{
-			Valid: true,
+			Valid:  true,
 			String: r.FormValue("signature"),
 		}
 		db.Update(current_user)
@@ -47,11 +47,11 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 	if current_user.Signature.Valid {
 		signature = current_user.Signature.String
 	}
-	
+
 	utils.RenderTemplate(w, r, "user_settings.html", map[string]interface{}{
-		"success": success,
-		"user_stylesheet": stylesheet,
-		"user_signature": signature,
+		"success":           success,
+		"user_stylesheet":   stylesheet,
+		"user_signature":    signature,
 		"enable_signatures": enable_signatures,
 	}, nil)
 }
