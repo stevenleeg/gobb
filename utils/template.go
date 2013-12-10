@@ -50,7 +50,7 @@ func RenderTemplate(
     ga_tracking_id, _ := config.Config.GetString("googleanalytics", "tracking_id")
     ga_account, _ := config.Config.GetString("googleanalytics", "account")
 
-    stylesheet := "/static/style.css"
+    stylesheet := ""
     if (current_user != nil) && current_user.StylesheetUrl.Valid && current_user.StylesheetUrl.String != "" {
     	stylesheet = current_user.StylesheetUrl.String
     }
