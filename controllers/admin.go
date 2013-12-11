@@ -14,7 +14,20 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.RenderTemplate(w, r, "admin.html", nil, nil)
+    var err error
+    success := false
+    stylesheet, _ := models.GetStringSetting("theme_stylesheet")
+    if r.Method == "POST" {
+        stylesheet = r.FormValue("theme_stylesheet")
+        models.SetStringSetting("theme_stylesheet", stylesheet)
+        success = true
+    }
+
+	utils.RenderTemplate(w, r, "admin.html", map[string]interface{}{
+        "error": err,
+        "success": success,
+        "theme_stylesheet": stylesheet,
+    }, nil)
 }
 
 func AdminBoards(w http.ResponseWriter, r *http.Request) {

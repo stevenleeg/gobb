@@ -27,6 +27,11 @@ func tplGetCurrentUser(r *http.Request) func() *models.User {
 	}
 }
 
+func tplGetStringSetting(key string) string {
+    val, _ := models.GetStringSetting(key)
+    return val
+}
+
 func tplIsValidTime(in time.Time) bool {
 	return in.Year() > 1
 }
@@ -36,6 +41,7 @@ var default_funcmap = template.FuncMap{
 	"Add":               tplAdd,
 	"ParseMarkdown":     tplParseMarkdown,
 	"IsValidTime":       tplIsValidTime,
+    "GetStringSetting":  tplGetStringSetting,
 }
 
 func RenderTemplate(
@@ -53,7 +59,12 @@ func RenderTemplate(
 	stylesheet := ""
 	if (current_user != nil) && current_user.StylesheetUrl.Valid && current_user.StylesheetUrl.String != "" {
 		stylesheet = current_user.StylesheetUrl.String
-	}
+	} else if((!current_user.StylesheetUrl.Valid || current_user.StylesheetUrl.String == "")) {
+        global_theme, _ := models.GetStringSetting("theme_stylesheet")
+        if global_theme != "" {
+            stylesheet = global_theme
+        }
+    }
 
 	send := map[string]interface{}{
 		"current_user":   current_user,

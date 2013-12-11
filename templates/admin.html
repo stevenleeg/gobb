@@ -1,6 +1,18 @@
 {{ define "content" }}
 <div class="box larger">
     {{ template "admin_topbar" . }}
-    <p>Select an option from the top to get started.</p>
+    <h2>General settings</h2>
+
+    {{ if .success }}
+    <div class="success">
+        Settings saved!
+    </div>
+    {{ end }}
+
+    <form method="POST" action="/admin">
+        <label for="theme_stylesheet">Default theme stylesheet:</label>
+        <input type="text" name="theme_stylesheet" value="{{.theme_stylesheet}}" placeholder="None. Use default theme." />
+        <input type="submit" value="Save" />
+    </form>
 </div>
 {{ end }}
