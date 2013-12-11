@@ -27,6 +27,7 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		db := models.GetDbSession()
 		current_user.Avatar = r.FormValue("avatar_url")
+		current_user.UserTitle = r.FormValue("user_title")
 		current_user.StylesheetUrl = sql.NullString{
 			Valid:  true,
 			String: r.FormValue("stylesheet_url"),

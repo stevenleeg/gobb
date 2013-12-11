@@ -28,6 +28,9 @@
             {{ end }}
 
             <a href="/user/{{ .Author.Id }}" class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</a>
+            {{ if .Author.UserTitle }}
+                <div class="user_title">{{ .Author.UserTitle }}</div>
+            {{ end }}
         </td>
         <td class="post_meta">
             posted {{ TimeRelativeToNow .CreatedOn }}

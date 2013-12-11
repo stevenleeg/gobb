@@ -357,6 +357,11 @@ input[type=submit] {
     vertical-align: top;
 }
 
+.user_title {
+    width: 150px;
+    word-wrap: break-word;
+}
+
 .post_signature {
     border-top: 2px dotted #EEE;
     margin: 0 10px 0 10px;

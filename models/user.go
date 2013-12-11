@@ -23,6 +23,7 @@ type User struct {
 	Signature     sql.NullString `db:"signature"`
 	Salt          string         `db:"salt"`
 	StylesheetUrl sql.NullString `db:"stylesheet_url"`
+    UserTitle     string          `db:"user_title"`
 }
 
 func NewUser(username, password string) *User {
