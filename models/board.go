@@ -10,7 +10,7 @@ type Board struct {
 	Id          int64  `db:"id"`
 	Title       string `db:"title"`
 	Description string `db:"description"`
-	Order   	int    `db:"boardorder"`
+	Order       int    `db:"ordering"`
 }
 
 type BoardLatest struct {
@@ -22,16 +22,16 @@ func NewBoard(title, desc string, order int) *Board {
 	return &Board{
 		Title:       title,
 		Description: desc,
-		Order:		 order,
+		Order:       order,
 	}
 }
 
 func UpdateBoard(title, desc string, order int, id int64) *Board {
 	return &Board{
-		Title:		 title,
+		Title:       title,
 		Description: desc,
-		Order:		 order,
-		Id:			 id,
+		Order:       order,
+		Id:          id,
 	}
 }
 
@@ -49,7 +49,7 @@ func GetBoards() ([]*Board, error) {
 	db := GetDbSession()
 
 	var boards []*Board
-	_, err := db.Select(&boards, "SELECT * FROM boards ORDER BY boardorder ASC")
+	_, err := db.Select(&boards, "SELECT * FROM boards ORDER BY ordering ASC")
 
 	return boards, err
 }
