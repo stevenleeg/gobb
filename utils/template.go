@@ -59,7 +59,7 @@ func RenderTemplate(
 	stylesheet := ""
 	if (current_user != nil) && current_user.StylesheetUrl.Valid && current_user.StylesheetUrl.String != "" {
 		stylesheet = current_user.StylesheetUrl.String
-	} else if((!current_user.StylesheetUrl.Valid || current_user.StylesheetUrl.String == "")) {
+	} else if((current_user == nil || !current_user.StylesheetUrl.Valid || current_user.StylesheetUrl.String == "")) {
         global_theme, _ := models.GetStringSetting("theme_stylesheet")
         if global_theme != "" {
             stylesheet = global_theme
