@@ -95,7 +95,7 @@
 
     {{ template "pagination" . }}
 
-    {{ if not .prev_page }}
+    {{ if not .first_page }}
         {{ template "post" .op }}
     {{ end }}
 
