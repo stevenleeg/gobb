@@ -55,7 +55,8 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 
 	op, err := db.Get(Post{}, parent_id)
 	if err != nil || op == nil {
-		return errors.New("[error] Could not get parent (" + err.Error() + ")"), nil, nil
+        fmt.Printf("Something weird is going on here: parent_id: %d, page_id: %d", parent_id, page_id);
+		return errors.New(fmt.Sprintf("[error] Could not get parent (%d)", parent_id)), nil, nil
 	}
 
 	posts_per_page, err := config.Config.GetInt64("gobb", "posts_per_page")
