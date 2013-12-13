@@ -95,7 +95,7 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 				return false
 			}
 
-			return (current_user.Id == thread.AuthorId && !thread.ParentId.Valid) || current_user.CanModerate()
+			return (current_user.Id == thread.AuthorId) || current_user.CanModerate()
 		},
 
 		"CurrentUserCanStickyThread": func(thread *models.Post) bool {

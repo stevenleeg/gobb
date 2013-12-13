@@ -57,7 +57,7 @@ func ActionDeleteThread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if (thread.AuthorId != user.Id || thread.ParentId.Valid) && !user.CanModerate() {
+	if (thread.AuthorId != user.Id) && !user.CanModerate() {
 		http.NotFound(w, r)
 		return
 	}
