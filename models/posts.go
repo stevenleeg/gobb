@@ -155,7 +155,7 @@ func (post *Post) GetPagesInThread() int {
 	}
 
 	if count == posts_per_page {
-		return 2
+		return 1
 	}
 
 	return int(math.Floor(float64(count) / float64(posts_per_page)))
