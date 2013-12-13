@@ -43,7 +43,7 @@
     {{ .site_name }} has <b>{{ .user_count }} members</b>, who have created a total of <b>{{ .total_posts}} posts</b>. 
     
     {{ if .latest_user }}
-    Say hello to our newest member, <b>{{ .latest_user.Username }}</b>. 
+    Say hello to our newest member, <a href="/user/{{.latest_user.Id}}">{{ .latest_user.Username }}</a>. 
     {{ end }}
 </div>
 {{ end }}
