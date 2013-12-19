@@ -25,6 +25,7 @@ type User struct {
 	StylesheetUrl sql.NullString `db:"stylesheet_url"`
     UserTitle     string         `db:"user_title"`
     LastSeen      time.Time      `db:"last_seen"`
+    HideOnline    bool           `db:"hide_online"`
 }
 
 func NewUser(username, password string) *User {
@@ -68,8 +69,10 @@ func AuthenticateUser(username, password string) (error, *User) {
 	}
 
     // Update the user's last seen
-    user.LastSeen = time.Now()
-    db.Update(user)
+    if !user.HideOnline {
+        user.LastSeen = time.Now()
+        db.Update(user)
+    }
 
 	return nil, user
 }
