@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/stevenleeg/gobb/config"
 	"io"
+    "strconv"
 	"time"
 )
 
@@ -29,8 +30,9 @@ type User struct {
 }
 
 func NewUser(username, password string) *User {
-	var salt string
-	binary.Read(rand.Reader, binary.LittleEndian, &salt)
+	var int_salt int32
+	binary.Read(rand.Reader, binary.LittleEndian, &int_salt)
+    salt := strconv.Itoa(int(int_salt))
 
 	hasher := sha1.New()
 	io.WriteString(hasher, password)
