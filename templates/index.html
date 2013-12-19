@@ -53,6 +53,8 @@
 
         {{ range .online_users }}
             <a class="online_user" href="/user/{{.Id}}">{{ .Username }}</a>
+        {{ else }}
+            None
         {{ end }}
     </p>
 </div>
