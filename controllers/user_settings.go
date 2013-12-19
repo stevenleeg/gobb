@@ -18,7 +18,7 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 
 	current_user := utils.GetCurrentUser(r)
 
-	if int64(user_id) != current_user.Id {
+	if current_user == nil || int64(user_id) != current_user.Id {
 		http.NotFound(w, r)
 		return
 	}
