@@ -1,0 +1,48 @@
+{{ define "content" }}
+<div class="box larger">
+    {{ template "admin_topbar" . }}
+    <h2>Manage users</h2>
+    <table class="alphabet">
+        <tr>
+            <td><a href="/admin/users">all</a></td>
+            <td><a href="/admin/users?starts_with=a">a</a></td>
+            <td><a href="/admin/users?starts_with=b">b</a></td>
+            <td><a href="/admin/users?starts_with=c">c</a></td>
+            <td><a href="/admin/users?starts_with=d">d</a></td>
+            <td><a href="/admin/users?starts_with=e">e</a></td>
+            <td><a href="/admin/users?starts_with=f">f</a></td>
+            <td><a href="/admin/users?starts_with=g">g</a></td>
+            <td><a href="/admin/users?starts_with=h">h</a></td>
+            <td><a href="/admin/users?starts_with=i">i</a></td>
+            <td><a href="/admin/users?starts_with=j">j</a></td>
+            <td><a href="/admin/users?starts_with=k">k</a></td>
+            <td><a href="/admin/users?starts_with=l">l</a></td>
+            <td><a href="/admin/users?starts_with=m">m</a></td>
+            <td><a href="/admin/users?starts_with=n">n</a></td>
+            <td><a href="/admin/users?starts_with=o">o</a></td>
+            <td><a href="/admin/users?starts_with=p">p</a></td>
+            <td><a href="/admin/users?starts_with=q">q</a></td>
+            <td><a href="/admin/users?starts_with=r">r</a></td>
+            <td><a href="/admin/users?starts_with=s">s</a></td>
+            <td><a href="/admin/users?starts_with=t">t</a></td>
+            <td><a href="/admin/users?starts_with=u">u</a></td>
+            <td><a href="/admin/users?starts_with=v">v</a></td>
+            <td><a href="/admin/users?starts_with=w">w</a></td>
+            <td><a href="/admin/users?starts_with=x">x</a></td>
+            <td><a href="/admin/users?starts_with=y">y</a></td>
+            <td><a href="/admin/users?starts_with=z">z</a></td>
+            <td><a href="/admin/users?starts_with=all">other</a></td>
+        </tr>
+    </table>
+
+    <table class="list">
+        <tr><td>ID</td><td>Username</td><td>Last seen</td></tr>
+        {{ range .users }}
+            <tr>
+                <td><a href="/admin/users/{{.Id}}">{{ .Id }}</a></td>
+                <td><a href="/admin/users/{{.Id}}">{{ .Username }}</a></td>
+                <td>{{ TimeRelativeToNow .LastSeen }}</td>
+            </tr>
+        {{ end }}
+    </table>
+{{ end }}

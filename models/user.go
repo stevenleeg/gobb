@@ -108,6 +108,16 @@ func GetOnlineUsers() (users []*User) {
     return users
 }
 
+func GetUser(id int) (*User, error) {
+	db := GetDbSession()
+	obj, err := db.Get(&User{}, id)
+	if obj == nil {
+		return nil, err
+	}
+
+	return obj.(*User), err
+}
+
 // Converts the given string into an appropriate hash, resets the salt,
 // and sets the Password attribute. Does *not* commit to the database.
 func (user *User) SetPassword(password string) {
@@ -123,7 +133,7 @@ func (user *User) SetPassword(password string) {
 }
 
 func (user *User) IsAdmin() bool {
-	if user.GroupId == 1 {
+	if user.GroupId == 2 {
 		return true
 	}
 

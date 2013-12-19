@@ -448,6 +448,12 @@ input[type=submit] {
     margin: 0px;
 }
 
+.alphabet {
+    width: 100%;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
 /*
  * Index specifics
  */

@@ -1,0 +1,52 @@
+{{ define "content" }}
+<div class="box larger">
+    {{ template "admin_topbar" . }}
+    <h2>Manage user {{ .user.Username }}</h2>
+    
+    {{ if .success }}
+    <div class="success">Settings saved!</div>
+    {{ end }}
+
+    {{ if .error }}
+    <div class="error">{{ .error }}</div>
+    {{ end }}
+
+    <form method="POST" action="">
+    <label for="avatar_url">Avatar url</label>
+    <input name="avatar_url" id="avatar_url" type="text" value="{{.user.Avatar}}" placeholder="default avatar">
+
+    <label for="stylesheet_url">Stylesheet URL</label>
+    <input name="stylesheet_url" id="stylesheet_url" type="text" value="{{.user_stylesheet}}" placeholder="default stylesheet">
+
+    <label for="user_title">User title:</label>
+    <input name="user_title" type="text" value="{{.user.UserTitle}}" placeholder="Nothing" maxlength="40">
+
+    {{ if .enable_signatures }}
+    <label for="signature">Signature</label>
+    <textarea name="signature" id="signature" placeholder="no signature">{{.user_signature}}</textarea>
+    {{ end }}
+
+    <label for="hide_online">Online presence display:</label>
+    <select name="hide_online">
+        <option value="0" {{ if not .user.HideOnline }}selected{{ end }}>Allow people to see when I am online</option>
+        <option value="1" {{ if .user.HideOnline }}selected{{ end }}>Do not allow people to see when I am online</option>
+    </select>
+
+    <h2>Change password</h2>
+    <label for="password_new">New password:</label>
+    <input type="password" name="password_new" placeholder="Their new password" />
+
+    <label for="password_new2">Confirm password:</label>
+    <input type="password" name="password_new2" placeholder="Their new password again" />
+
+    <h2>Admin settings</h2>
+    <label for="group_id">User's group:</label>
+    <select name="group_id">
+        <option value="0" {{ if eq .user.GroupId 0 }}selected{{ end }}>User</option>
+        <option value="1" {{ if eq .user.GroupId 1 }}selected{{ end }}>Moderator</option>
+        <option value="2" {{ if eq .user.GroupId 2 }}selected{{ end }}>Administrator</option>
+    </select>
+
+    <input type="submit" class="submit button" value="Save Settings">
+    </form>
+{{ end }}

@@ -47,6 +47,8 @@ func main() {
 	r.HandleFunc("/logout", controllers.Logout)
 	r.HandleFunc("/admin", controllers.Admin)
 	r.HandleFunc("/admin/boards", controllers.AdminBoards)
+	r.HandleFunc("/admin/users/{id:[0-9]+}", controllers.AdminUser)
+	r.HandleFunc("/admin/users", controllers.AdminUsers)
 	r.HandleFunc("/action/stick", controllers.ActionStickThread)
 	r.HandleFunc("/action/delete", controllers.ActionDeleteThread)
 	r.HandleFunc("/action/move", controllers.ActionMoveThread)
