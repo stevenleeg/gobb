@@ -62,7 +62,7 @@ func ActionLockThread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	thread.Locked = !(thread.Sticky)
+	thread.Locked = !(thread.Locked)
 	db.Update(thread)
 
 	http.Redirect(w, r, fmt.Sprintf("/board/%d/%d", thread.BoardId, thread.Id), http.StatusFound)

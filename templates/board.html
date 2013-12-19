@@ -22,6 +22,9 @@
     {{ range .threads }}
     <tr{{ if .Sticky }} class="highlighted"{{ end }}>
         <td class="thread_title{{ if .Sticky }} thread_sticky{{ end }}">
+            {{ if .Locked }}
+                <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
+            {{ end }}
             <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> 
             <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
         </td>

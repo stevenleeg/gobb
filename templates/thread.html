@@ -100,7 +100,12 @@
 
     <div class="crumbs">
         <a class="crumbs_board" href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; 
-        <a class="crumbs_title" href="/board/{{.board.Id}}/{{.op.Id}}">{{.op.Title}}</a>
+        <a class="crumbs_title" href="/board/{{.board.Id}}/{{.op.Id}}">
+            {{.op.Title}}
+            {{ if .op.Locked }}
+            <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
+            {{ end }}
+        </a>
     </div>
 
     {{ template "pagination" . }}
