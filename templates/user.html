@@ -23,7 +23,7 @@
 {{ define "content" }}
 <h1>{{ .user.Username }}</h1>
 <div class="box larger">
-    {{ .user.Username }} created their account {{ TimeRelativeToNow .user.CreatedOn }} and has posted {{ .user.GetPostCount }} times since.
+    {{ .user.Username }} created their account {{ TimeRelativeToNow .user.CreatedOn }} and has posted {{ .user.GetPostCount }} times since. {{ if not .user.HideOnline }}Last seen {{ TimeRelativeToNow .user.LastSeen }}.{{ end }}
 </div>
 
 <h1>Posts by {{ .user.Username }}</h1>
