@@ -19,9 +19,15 @@ func AdminUsers(w http.ResponseWriter, r *http.Request) {
 	err := ""
 	success := false
 
+	starts_with := r.FormValue("starts_with")
+
 	db := models.GetDbSession()
 	var users []*models.User
-	db.Select(&users, "SELECT * FROM users LIMIT 15")
+    if len(starts_with) == 1 {
+        db.Select(&users, "SELECT * FROM users WHERE username LIKE $1", starts_with + "%")
+    } else {
+        db.Select(&users, "SELECT * FROM users ORDER BY username ASC")
+    }
 
 	utils.RenderTemplate(w, r, "admin_users.html", map[string]interface{}{
 		"error":   err,
