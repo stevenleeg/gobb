@@ -1,9 +1,13 @@
 {{ define "content" }}
 <div class="larger box">
-    <h1>Settings</h1>
+    <h1>General settings</h1>
 
     {{ if .success }}
     <div class="success">Settings saved!</div>
+    {{ end }}
+
+    {{ if .error }}
+    <div class="error">{{ .error }}</div>
     {{ end }}
 
     <form method="POST" action="">
@@ -26,6 +30,16 @@
         <option value="0" {{ if not .current_user.HideOnline }}selected{{ end }}>Allow people to see when I am online</option>
         <option value="1" {{ if .current_user.HideOnline }}selected{{ end }}>Do not allow people to see when I am online</option>
     </select>
+
+    <h1>Change password</h1>
+    <label for="password_old">Old password:</label>
+    <input type="password" name="password_old" placeholder="Your current password" />
+
+    <label for="password_new">New password:</label>
+    <input type="password" name="password_new" placeholder="Your new password" />
+
+    <label for="password_new2">Confirm password:</label>
+    <input type="password" name="password_new2" placeholder="Your new password again" />
 
     <input type="submit" class="submit button" value="Save Settings">
     </form>

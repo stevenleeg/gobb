@@ -24,6 +24,7 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 	}
 
 	success := false
+	var form_error string
 	if r.Method == "POST" {
 		db := models.GetDbSession()
 		current_user.Avatar = r.FormValue("avatar_url")
@@ -44,13 +45,36 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-        current_user.HideOnline = false
-        if r.FormValue("hide_online") == "1" {
-            current_user.HideOnline = true
-        }
+		// Change hiding settings
+		current_user.HideOnline = false
+		if r.FormValue("hide_online") == "1" {
+			current_user.HideOnline = true
+		}
 
-		db.Update(current_user)
-		success = true
+		// Update password?
+		old_pass := r.FormValue("password_old")
+		new_pass := r.FormValue("password_new")
+		new_pass2 := r.FormValue("password_new2")
+		if old_pass != "" {
+			err, user := models.AuthenticateUser(current_user.Username, old_pass)
+			if user == nil || err != nil {
+				form_error = "Invalid password"
+			} else if len(new_pass) < 5 {
+                form_error = "Password must be greater than 4 characters"
+            } else if new_pass != new_pass2 {
+				form_error = "Passwords didn't match"
+			} else {
+				current_user.SetPassword(new_pass)
+                session, _ := utils.GetCookieStore(r).Get(r, "sirsid")
+                session.Values["password"] = new_pass
+                session.Save(r, w)
+			}
+		}
+
+		if form_error == "" {
+			db.Update(current_user)
+			success = true
+		}
 	}
 
 	stylesheet := ""
@@ -63,6 +87,7 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.RenderTemplate(w, r, "user_settings.html", map[string]interface{}{
+		"error":             form_error,
 		"success":           success,
 		"user_stylesheet":   stylesheet,
 		"user_signature":    signature,

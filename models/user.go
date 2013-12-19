@@ -30,22 +30,14 @@ type User struct {
 }
 
 func NewUser(username, password string) *User {
-	var int_salt int32
-	binary.Read(rand.Reader, binary.LittleEndian, &int_salt)
-    salt := strconv.Itoa(int(int_salt))
-
-	hasher := sha1.New()
-	io.WriteString(hasher, password)
-	io.WriteString(hasher, salt)
-	password = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-
-	return &User{
+    user := &User{
 		CreatedOn: time.Now(),
 		Username:  username,
-		Password:  password,
-		Salt:      salt,
         LastSeen:  time.Now(),
 	}
+
+    user.SetPassword(password)
+    return user
 }
 
 func AuthenticateUser(username, password string) (error, *User) {
@@ -114,6 +106,20 @@ func GetOnlineUsers() (users []*User) {
 
     db.Select(&users, "SELECT * FROM users WHERE last_seen > current_timestamp - interval '5 minutes' AND hide_online != true")
     return users
+}
+
+// Converts the given string into an appropriate hash, resets the salt,
+// and sets the Password attribute. Does *not* commit to the database.
+func (user *User) SetPassword(password string) {
+	var int_salt int32
+	binary.Read(rand.Reader, binary.LittleEndian, &int_salt)
+    salt := strconv.Itoa(int(int_salt))
+
+	hasher := sha1.New()
+	io.WriteString(hasher, password)
+	io.WriteString(hasher, salt)
+	user.Password = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
+    user.Salt = salt
 }
 
 func (user *User) IsAdmin() bool {
