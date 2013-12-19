@@ -21,7 +21,11 @@
     <textarea name="signature" id="signature" placeholder="no signature">{{.user_signature}}</textarea>
     {{ end }}
 
-
+    <label for="hide_online">Online presence display:</label>
+    <select name="hide_online">
+        <option value="0" {{ if not .current_user.HideOnline }}selected{{ end }}>Allow people to see when I am online</option>
+        <option value="1" {{ if .current_user.HideOnline }}selected{{ end }}>Do not allow people to see when I am online</option>
+    </select>
 
     <input type="submit" class="submit button" value="Save Settings">
     </form>

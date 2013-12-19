@@ -43,6 +43,12 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 				String: r.FormValue("signature"),
 			}
 		}
+
+        current_user.HideOnline = false
+        if r.FormValue("hide_online") == "1" {
+            current_user.HideOnline = true
+        }
+
 		db.Update(current_user)
 		success = true
 	}

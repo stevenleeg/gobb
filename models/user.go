@@ -110,7 +110,7 @@ func GetLatestUser() (*User, error) {
 func GetOnlineUsers() (users []*User) {
     db := GetDbSession()
 
-    db.Select(&users, "SELECT * FROM users WHERE last_seen > current_timestamp - interval '5 minutes'")
+    db.Select(&users, "SELECT * FROM users WHERE last_seen > current_timestamp - interval '5 minutes' AND hide_online != true")
     return users
 }
 

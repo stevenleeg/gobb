@@ -228,7 +228,7 @@ label {
     margin: 0px 0px 5px 0px;
 }
 
-input, textarea {
+input, textarea, select {
     background: #EEE;
     border: 1px solid #CCC;
     display: block;
