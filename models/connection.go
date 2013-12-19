@@ -48,7 +48,6 @@ func GetDbSession() *gorp.DbMap {
 	db_map.AddTableWithName(Board{}, "boards").SetKeys(true, "Id")
 	db_map.AddTableWithName(Post{}, "posts").SetKeys(true, "Id")
 	db_map.AddTableWithName(Setting{}, "settings").SetKeys(true, "Key")
-	db_map.CreateTablesIfNotExists()
 
 	return db_map
 }
