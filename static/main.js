@@ -28,9 +28,17 @@ var Sirjtaa = (function() {
         }
     }
 
+    function clickModerate(e) {
+        e.preventDefault();
+        $(this).hide();
+        $(this).parent().children(".mod_tools").show();
+        $(this).parent().children(".prec_slash").hide();
+    }
+
     $(document).ready(function() {
         $(".thread_quote").on("click", clickThreadQuote);
         $(".thread_reply_btn").on("click", clickThreadReply);
         $(".delete").on("click", clickConfirmDelete);
+        $(".moderate").on("click", clickModerate);
     });
 })();

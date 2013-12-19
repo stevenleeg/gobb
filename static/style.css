@@ -385,6 +385,10 @@ input[type=submit] {
     text-align: right;
 }
 
+.mod_tools {
+    display: none;
+}
+
 .post_content {
     padding: 0px 10px;
     vertical-align: top;

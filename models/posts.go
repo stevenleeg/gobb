@@ -22,11 +22,12 @@ type Post struct {
 	LatestReply time.Time     `db:"latest_reply"`
 	LastEdit    time.Time     `db:"last_edit"`
 	Sticky      bool          `db:"sticky"`
+	Locked      bool          `db:"locked"`
 }
 
 // Initializes a new struct, adds some data, and returns the pointer to it
 func NewPost(author *User, board *Board, title, content string) *Post {
-    post := &Post{
+	post := &Post{
 		BoardId:   board.Id,
 		AuthorId:  author.Id,
 		Title:     title,
@@ -55,7 +56,7 @@ func GetThread(parent_id, page_id int) (error, *Post, []*Post) {
 
 	op, err := db.Get(Post{}, parent_id)
 	if err != nil || op == nil {
-        fmt.Printf("Something weird is going on here: parent_id: %d, page_id: %d", parent_id, page_id);
+		fmt.Printf("Something weird is going on here: parent_id: %d, page_id: %d", parent_id, page_id)
 		return errors.New(fmt.Sprintf("[error] Could not get parent (%d)", parent_id)), nil, nil
 	}
 
@@ -107,19 +108,19 @@ func (post *Post) PostGet(s gorp.SqlExecutor) error {
 
 // Ensures that a post is valid
 func (post *Post) Validate() error {
-    if post.BoardId == 0  {
-        return errors.New("Board does not exist")
-    }
+	if post.BoardId == 0 {
+		return errors.New("Board does not exist")
+	}
 
-    if len(post.Content) <= 3 {
-        return errors.New("Post must be longer than three characters")
-    }
+	if len(post.Content) <= 3 {
+		return errors.New("Post must be longer than three characters")
+	}
 
-    if !post.ParentId.Valid && len(post.Title) <= 3 {
-        return errors.New("Post title must be longer than three characters")
-    }
+	if !post.ParentId.Valid && len(post.Title) <= 3 {
+		return errors.New("Post title must be longer than three characters")
+	}
 
-    return nil
+	return nil
 }
 
 // This is used primarily for threads. It will find the latest

@@ -40,6 +40,11 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+        if op.Locked && !current_user.CanModerate() {
+			http.NotFound(w, r)
+			return
+        }
+
 		post := models.NewPost(current_user, board, title, content)
 		post.ParentId = sql.NullInt64{int64(post_id), true}
 		op.LatestReply = time.Now()
@@ -89,6 +94,15 @@ func Thread(w http.ResponseWriter, r *http.Request) {
         "previous_text": previous_text,
 	}, map[string]interface{}{
 
+        "CurrentUserCanModerateThread": func(thread *models.Post) bool {
+			current_user := utils.GetCurrentUser(r)
+            if current_user == nil {
+                return false
+            }
+
+            return (current_user.CanModerate() && thread.ParentId.Valid == false)
+        },
+
 		"CurrentUserCanDeletePost": func(thread *models.Post) bool {
 			current_user := utils.GetCurrentUser(r)
 			if current_user == nil {
@@ -96,24 +110,6 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 			}
 
 			return (current_user.Id == thread.AuthorId) || current_user.CanModerate()
-		},
-
-		"CurrentUserCanStickyThread": func(thread *models.Post) bool {
-			current_user := utils.GetCurrentUser(r)
-			if current_user == nil {
-				return false
-			}
-
-			return (current_user.CanModerate() && !thread.ParentId.Valid)
-		},
-
-		"CurrentUserCanMoveThread": func(thread *models.Post) bool {
-			current_user := utils.GetCurrentUser(r)
-			if current_user == nil {
-				return false
-			}
-
-			return (current_user.CanModerate() && !thread.ParentId.Valid)
 		},
 
 		"CurrentUserCanEditPost": func(post *models.Post) bool {
@@ -125,9 +121,26 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 			return (current_user.Id == post.AuthorId || current_user.CanModerate())
 		},
 
+        "CurrentUserCanModerate": func() bool {
+			current_user := utils.GetCurrentUser(r)
+			if current_user == nil {
+				return false
+			}
+
+            return current_user.CanModerate()
+        },
+
 		"SignaturesEnabled": func() bool {
 			enable_signatures, _ := config.Config.GetBool("gobb", "enable_signatures")
 			return enable_signatures
 		},
+
+        "ShowReplyBox": func(post *models.Post) bool {
+			current_user := utils.GetCurrentUser(r)
+            if current_user != nil && (!post.Locked || current_user.CanModerate()) {
+                return true
+            }
+            return false
+        },
 	})
 }
