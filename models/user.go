@@ -23,7 +23,8 @@ type User struct {
 	Signature     sql.NullString `db:"signature"`
 	Salt          string         `db:"salt"`
 	StylesheetUrl sql.NullString `db:"stylesheet_url"`
-    UserTitle     string          `db:"user_title"`
+    UserTitle     string         `db:"user_title"`
+    LastSeen      time.Time      `db:"last_seen"`
 }
 
 func NewUser(username, password string) *User {
@@ -40,6 +41,7 @@ func NewUser(username, password string) *User {
 		Username:  username,
 		Password:  password,
 		Salt:      salt,
+        LastSeen:  time.Now(),
 	}
 }
 
@@ -64,6 +66,10 @@ func AuthenticateUser(username, password string) (error, *User) {
 	if password != user.Password {
 		return errors.New("Invalid username/password"), nil
 	}
+
+    // Update the user's last seen
+    user.LastSeen = time.Now()
+    db.Update(user)
 
 	return nil, user
 }
@@ -96,6 +102,13 @@ func GetLatestUser() (*User, error) {
 	}
 
 	return user, nil
+}
+
+func GetOnlineUsers() (users []*User) {
+    db := GetDbSession()
+
+    db.Select(&users, "SELECT * FROM users WHERE last_seen > current_timestamp - interval '5 minutes'")
+    return users
 }
 
 func (user *User) IsAdmin() bool {

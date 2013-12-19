@@ -40,10 +40,20 @@
 
 <h1>Stats</h1>
 <div class="box larger">
-    {{ .site_name }} has <b>{{ .user_count }} members</b>, who have created a total of <b>{{ .total_posts}} posts</b>. 
-    
-    {{ if .latest_user }}
-    Say hello to our newest member, <a href="/user/{{.latest_user.Id}}">{{ .latest_user.Username }}</a>. 
+    <p>
+        {{ .site_name }} has <b>{{ .user_count }} members</b>, who have created a total of <b>{{ .total_posts}} posts</b>. 
+        
+        {{ if .latest_user }}
+        Say hello to our newest member, <a href="/user/{{.latest_user.Id}}">{{ .latest_user.Username }}</a>. 
     {{ end }}
+    </p>
+
+    <p>
+        <b>Users online:</b>
+
+        {{ range .online_users }}
+            <a class="online_user" href="/user/{{.Id}}">{{ .Username }}</a>
+        {{ end }}
+    </p>
 </div>
 {{ end }}

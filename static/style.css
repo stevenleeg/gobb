@@ -12,7 +12,7 @@ body {
 
 a {
     text-decoration: none;
-    color: #333;
+    color: #7c9278;
     font-weight: bold;
 }
 
@@ -446,4 +446,11 @@ input[type=submit] {
 
 .list tr td input {
     margin: 0px;
+}
+
+/*
+ * Index specifics
+ */
+.online_user:not(:last-child):after {
+    content:",";
 }

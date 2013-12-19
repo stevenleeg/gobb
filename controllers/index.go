@@ -22,6 +22,7 @@ func Index(w http.ResponseWriter, request *http.Request) {
 	utils.RenderTemplate(w, request, "index.html", map[string]interface{}{
 		"boards":      boards,
 		"user_count":  user_count,
+        "online_users": models.GetOnlineUsers(),
 		"latest_user": latest_user,
 		"total_posts": total_posts,
 	}, nil)
