@@ -12,6 +12,8 @@
     <form method="POST" action="/admin">
         <label for="theme_stylesheet">Default theme stylesheet:</label>
         <input type="text" name="theme_stylesheet" value="{{.theme_stylesheet}}" placeholder="None. Use default theme." />
+        <label for="favicon_url">URL for favicon:</label>
+        <input type="text" name="favicon_url" value="{{.favicon_url}}" placeholder="None. Use default favicon." />
         <input type="submit" value="Save" />
     </form>
 </div>

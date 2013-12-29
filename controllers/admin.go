@@ -16,9 +16,12 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 	var err error
 	success := false
 	stylesheet, _ := models.GetStringSetting("theme_stylesheet")
+	favicon, _ := models.GetStringSetting("favicon_url")
 	if r.Method == "POST" {
 		stylesheet = r.FormValue("theme_stylesheet")
+        favicon = r.FormValue("favicon_url")
 		models.SetStringSetting("theme_stylesheet", stylesheet)
+		models.SetStringSetting("favicon_url", favicon)
 		success = true
 	}
 
@@ -26,5 +29,6 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 		"error":            err,
 		"success":          success,
 		"theme_stylesheet": stylesheet,
+        "favicon_url"     : favicon,
 	}, nil)
 }

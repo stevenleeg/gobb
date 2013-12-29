@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"time"
+    "strings"
 )
 
 func tplAdd(first, second int) int {
@@ -36,12 +37,21 @@ func tplIsValidTime(in time.Time) bool {
 	return in.Year() > 1
 }
 
+func tplParseFaviconType(url string) string {
+    split := strings.Split(url, ".")
+    if len(split) == 0 {
+        return ""
+    }
+    return split[len(split) - 1]
+}
+
 var default_funcmap = template.FuncMap{
 	"TimeRelativeToNow": TimeRelativeToNow,
 	"Add":               tplAdd,
 	"ParseMarkdown":     tplParseMarkdown,
 	"IsValidTime":       tplIsValidTime,
     "GetStringSetting":  tplGetStringSetting,
+    "ParseFaviconType":  tplParseFaviconType,
 }
 
 func RenderTemplate(
@@ -66,6 +76,8 @@ func RenderTemplate(
         }
     }
 
+    favicon_url, _ := models.GetStringSetting("favicon_url")
+
 	send := map[string]interface{}{
 		"current_user":   current_user,
 		"request":        r,
@@ -73,6 +85,7 @@ func RenderTemplate(
 		"ga_tracking_id": ga_tracking_id,
 		"ga_account":     ga_account,
 		"stylesheet":     stylesheet,
+        "favicon_url":    favicon_url,
 	}
 
 	// Merge the global template variables with the local context
