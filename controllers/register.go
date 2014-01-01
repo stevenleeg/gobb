@@ -30,6 +30,10 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			error = "This username is already taken."
 		}
 
+        if len(username) < 3 {
+            error = "Username must be greater than 3 characters."
+        }
+
 		if error != "" {
 			utils.RenderTemplate(w, r, "register.html", map[string]interface{}{
 				"error": error,

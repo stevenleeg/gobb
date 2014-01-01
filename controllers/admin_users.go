@@ -57,6 +57,7 @@ func AdminUser(w http.ResponseWriter, r *http.Request) {
 	success := false
 	if r.Method == "POST" {
 		db := models.GetDbSession()
+        user.Username = r.FormValue("username")
 		user.Avatar = r.FormValue("avatar_url")
 		user.UserTitle = r.FormValue("user_title")
 		user.StylesheetUrl = sql.NullString{
@@ -80,6 +81,11 @@ func AdminUser(w http.ResponseWriter, r *http.Request) {
 		if r.FormValue("hide_online") == "1" {
 			user.HideOnline = true
 		}
+
+        // Update the username?
+        if len(user.Username) < 3 {
+            form_error = "Username must at least 3 characters"
+        }
 
 		// Update password?
 		new_pass := r.FormValue("password_new")

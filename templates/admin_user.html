@@ -12,10 +12,13 @@
     {{ end }}
 
     <form method="POST" action="">
-    <label for="avatar_url">Avatar url</label>
+    <label for="username">Username:</label>
+    <input name="username" id="username" type="text" value="{{.user.Username}}" placeholder="Cannot be empty!">
+
+    <label for="avatar_url">Avatar url:</label>
     <input name="avatar_url" id="avatar_url" type="text" value="{{.user.Avatar}}" placeholder="default avatar">
 
-    <label for="stylesheet_url">Stylesheet URL</label>
+    <label for="stylesheet_url">Stylesheet URL:</label>
     <input name="stylesheet_url" id="stylesheet_url" type="text" value="{{.user_stylesheet}}" placeholder="default stylesheet">
 
     <label for="user_title">User title:</label>
