@@ -63,7 +63,7 @@ func main() {
 	// Handle static files
 	pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
 	static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../")
-	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
+	r.PathPrefix("/templates/static/").Handler(http.FileServer(http.Dir(static_path)))
 
 	// User provided static files
 	static_path, err = config.Config.GetString("gobb", "base_path")
