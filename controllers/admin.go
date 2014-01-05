@@ -17,11 +17,15 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 	success := false
 	stylesheet, _ := models.GetStringSetting("theme_stylesheet")
 	favicon, _ := models.GetStringSetting("favicon_url")
+    current_template, _ := models.GetStringSetting("template")
+
 	if r.Method == "POST" {
 		stylesheet = r.FormValue("theme_stylesheet")
         favicon = r.FormValue("favicon_url")
+        current_template = r.FormValue("template")
 		models.SetStringSetting("theme_stylesheet", stylesheet)
 		models.SetStringSetting("favicon_url", favicon)
+        models.SetStringSetting("template", current_template)
 		success = true
 	}
 
@@ -30,5 +34,11 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 		"success":          success,
 		"theme_stylesheet": stylesheet,
         "favicon_url"     : favicon,
-	}, nil)
+        "current_template": current_template,
+        "templates":        utils.ListTemplates(),
+	}, map[string]interface{} {
+        "IsCurrentTemplate": func(name string) bool {
+            return name == current_template
+        },
+    })
 }

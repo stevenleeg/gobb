@@ -11,7 +11,26 @@ import (
 	"path/filepath"
 	"time"
     "strings"
+    "io/ioutil"
+    "path"
 )
+
+// Returns a list of all available themes
+func ListTemplates() []string {
+    names := []string{"default"}
+
+    static_path, _ := config.Config.GetString("gobb", "base_path")
+    files, _ := ioutil.ReadDir(path.Join(static_path, "templates"))
+
+    for _, f := range files {
+        if !f.IsDir() {
+            continue
+        }
+        names = append(names, f.Name())
+    }
+
+    return names
+}
 
 func tplAdd(first, second int) int {
 	return first + second
@@ -101,11 +120,20 @@ func RenderTemplate(
 	}
 
 	// Get the base template path
-	pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
-	base_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/base.html")
-	tpl_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/"+tpl_file)
+    selected_template, _ := models.GetStringSetting("template")
+    var base_path string
+    if selected_template == "default" {
+        pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+        base_path = filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/")
+    } else {
+        base_path, _ = config.Config.GetString("gobb", "base_path")
+        base_path = filepath.Join(base_path, "templates", selected_template)
+    }
 
-	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles(base_path, tpl_path)
+    base_tpl := filepath.Join(base_path, "base.html")
+    rend_tpl := filepath.Join(base_path, tpl_file)
+
+	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles(base_tpl, rend_tpl)
 	if err != nil {
 		fmt.Printf("[error] Could not parse template (%s)\n", err.Error())
 	}
