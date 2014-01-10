@@ -40,6 +40,8 @@ Now that everything's ready to go we can start the server for the first time. Yo
 $ gobb --config /path/to/gobb.conf --migrate
 ```
 
+(Remember to add `$GOPATH/bin` to your `$PATH`! If you don't know what this means, [start here](http://askubuntu.com/questions/60218/how-to-add-a-directory-to-my-path))
+
 The server should then be up and running on port 8080.
 
 ### Your first account
