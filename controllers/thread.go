@@ -29,12 +29,12 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 
 	var posting_error error
 
+    current_user := utils.GetCurrentUser(r)
 	if r.Method == "POST" {
 		db := models.GetDbSession()
 		title := r.FormValue("title")
 		content := r.FormValue("content")
 
-		current_user := utils.GetCurrentUser(r)
 		if current_user == nil {
 			http.NotFound(w, r)
 			return
@@ -79,6 +79,11 @@ func Thread(w http.ResponseWriter, r *http.Request) {
     var previous_text string
     if posting_error != nil {
         previous_text = r.FormValue("content")
+    }
+
+    // Mark the thread as read
+    if(current_user != nil) {
+        models.AddView(current_user, op)
     }
 
 	utils.RenderTemplate(w, r, "thread.html", map[string]interface{}{

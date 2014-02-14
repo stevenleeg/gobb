@@ -186,6 +186,15 @@ blockquote {
     margin: 0px 5px 0px 5px;
 }
 
+.unread_indicator {
+    display: inline-block;
+    height: .5em;
+    width: .5em;
+    vertical-align: middle;
+    border-radius: 1em;
+    background: #00B4FF;
+}
+
 /*
  * Content boxes
  */

@@ -21,10 +21,13 @@
     {{ range .boards }}
     <tr>
         <td>
+            {{ if IsUnread . }}
+            <span class="unread_indicator">&nbsp;</span>
+            {{ end }}
             <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
         </td>
         <td class="board_right" rowspan="2">
-            {{ template "board_right" .GetLatestPost }}
+            {{ template "board_right" .Board.GetLatestPost }}
         </td>
     </tr>
     <tr>

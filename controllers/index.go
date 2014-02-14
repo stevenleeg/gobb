@@ -8,8 +8,8 @@ import (
 )
 
 func Index(w http.ResponseWriter, request *http.Request) {
-
-	boards, err := models.GetBoards()
+    current_user := utils.GetCurrentUser(request)
+    boards, err := models.GetBoardsUnread(current_user)
 
 	if err != nil {
 		fmt.Printf("[error] Could not get boards (%s)\n", err.Error())
@@ -25,5 +25,10 @@ func Index(w http.ResponseWriter, request *http.Request) {
         "online_users": models.GetOnlineUsers(),
 		"latest_user": latest_user,
 		"total_posts": total_posts,
-	}, nil)
+	}, map[string]interface{}{
+        "IsUnread": func(join *models.JoinBoardView) bool {
+            latest_post := join.Board.GetLatestPost()
+            return !join.ViewedOn.Valid || join.ViewedOn.Time.Before(latest_post.Op.LatestReply)
+        },
+    })
 }
