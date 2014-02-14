@@ -377,6 +377,11 @@ input[type=submit] {
     padding: 0 10px;
 }
 
+.post_signature img {
+    max-width: 408px;
+    height: auto;
+}
+
 .post_avatar {
     display: block;
     width: 135px;
@@ -418,7 +423,7 @@ input[type=submit] {
 
 .post_content img {
     display: block;
-    max-width: 90%;
+    max-width: 408px;
     margin: 10px auto 0px auto;
 }
 
