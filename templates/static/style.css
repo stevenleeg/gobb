@@ -195,6 +195,10 @@ blockquote {
     background: #00B4FF;
 }
 
+.board_actions {
+    text-align: center;
+}
+
 /*
  * Content boxes
  */

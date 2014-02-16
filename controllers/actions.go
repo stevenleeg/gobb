@@ -2,11 +2,27 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/lib/pq"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/utils"
 	"net/http"
 	"strconv"
+	"time"
 )
+
+func ActionMarkAllRead(w http.ResponseWriter, r *http.Request) {
+	user := utils.GetCurrentUser(r)
+	if user == nil {
+		http.NotFound(w, r)
+		return
+	}
+
+    db := models.GetDbSession()
+	user.LastUnreadAll = pq.NullTime{Time: time.Now(), Valid: true}
+    db.Update(user)
+
+	http.Redirect(w, r, "/", http.StatusFound)
+}
 
 func ActionStickThread(w http.ResponseWriter, r *http.Request) {
 	user := utils.GetCurrentUser(r)

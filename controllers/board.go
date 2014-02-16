@@ -32,7 +32,7 @@ func Board(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    current_user := utils.GetCurrentUser(r)
+	current_user := utils.GetCurrentUser(r)
 	threads, err := board.GetThreads(page_id, current_user)
 	if err != nil {
 		fmt.Printf("[error] Could not get posts (%s)\n", err.Error())
@@ -47,8 +47,11 @@ func Board(w http.ResponseWriter, r *http.Request) {
 		"prev_page": (page_id != 0),
 		"next_page": (page_id < num_pages),
 	}, map[string]interface{}{
-        "IsUnread": func(join *models.JoinThreadView) bool {
-            return !join.ViewedOn.Valid || join.ViewedOn.Time.Before(join.LatestReply)
-        },
-    })
+		"IsUnread": func(join *models.JoinThreadView) bool {
+			if current_user != nil && !current_user.LastUnreadAll.Time.Before(join.LatestReply) {
+				return false
+			}
+			return !join.ViewedOn.Valid || join.ViewedOn.Time.Before(join.LatestReply)
+		},
+	})
 }

@@ -54,6 +54,7 @@ func main() {
 	r.HandleFunc("/action/lock", controllers.ActionLockThread)
 	r.HandleFunc("/action/delete", controllers.ActionDeleteThread)
 	r.HandleFunc("/action/move", controllers.ActionMoveThread)
+	r.HandleFunc("/action/mark_read", controllers.ActionMarkAllRead)
 	r.HandleFunc("/action/edit", controllers.PostEditor)
 	r.HandleFunc("/board/{id:[0-9]+}", controllers.Board)
 	r.HandleFunc("/board/{board_id:[0-9]+}/new", controllers.PostEditor)

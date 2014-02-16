@@ -28,6 +28,11 @@ func Index(w http.ResponseWriter, request *http.Request) {
 	}, map[string]interface{}{
         "IsUnread": func(join *models.JoinBoardView) bool {
             latest_post := join.Board.GetLatestPost()
+
+            if current_user != nil && !current_user.LastUnreadAll.Time.Before(latest_post.Op.LatestReply) {
+                return false
+            }
+
             return !join.ViewedOn.Valid || join.ViewedOn.Time.Before(latest_post.Op.LatestReply)
         },
     })

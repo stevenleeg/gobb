@@ -8,9 +8,10 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/lib/pq"
 	"github.com/stevenleeg/gobb/config"
 	"io"
-    "strconv"
+	"strconv"
 	"time"
 )
 
@@ -24,20 +25,21 @@ type User struct {
 	Signature     sql.NullString `db:"signature"`
 	Salt          string         `db:"salt"`
 	StylesheetUrl sql.NullString `db:"stylesheet_url"`
-    UserTitle     string         `db:"user_title"`
-    LastSeen      time.Time      `db:"last_seen"`
-    HideOnline    bool           `db:"hide_online"`
+	UserTitle     string         `db:"user_title"`
+	LastSeen      time.Time      `db:"last_seen"`
+	HideOnline    bool           `db:"hide_online"`
+	LastUnreadAll pq.NullTime    `db:"last_unread_all"`
 }
 
 func NewUser(username, password string) *User {
-    user := &User{
+	user := &User{
 		CreatedOn: time.Now(),
 		Username:  username,
-        LastSeen:  time.Now(),
+		LastSeen:  time.Now(),
 	}
 
-    user.SetPassword(password)
-    return user
+	user.SetPassword(password)
+	return user
 }
 
 func AuthenticateUser(username, password string) (error, *User) {
@@ -62,11 +64,11 @@ func AuthenticateUser(username, password string) (error, *User) {
 		return errors.New("Invalid username/password"), nil
 	}
 
-    // Update the user's last seen
-    if !user.HideOnline {
-        user.LastSeen = time.Now()
-        db.Update(user)
-    }
+	// Update the user's last seen
+	if !user.HideOnline {
+		user.LastSeen = time.Now()
+		db.Update(user)
+	}
 
 	return nil, user
 }
@@ -102,10 +104,10 @@ func GetLatestUser() (*User, error) {
 }
 
 func GetOnlineUsers() (users []*User) {
-    db := GetDbSession()
+	db := GetDbSession()
 
-    db.Select(&users, "SELECT * FROM users WHERE last_seen > current_timestamp - interval '5 minutes' AND hide_online != true")
-    return users
+	db.Select(&users, "SELECT * FROM users WHERE last_seen > current_timestamp - interval '5 minutes' AND hide_online != true")
+	return users
 }
 
 func GetUser(id int) (*User, error) {
@@ -123,13 +125,13 @@ func GetUser(id int) (*User, error) {
 func (user *User) SetPassword(password string) {
 	var int_salt int32
 	binary.Read(rand.Reader, binary.LittleEndian, &int_salt)
-    salt := strconv.Itoa(int(int_salt))
+	salt := strconv.Itoa(int(int_salt))
 
 	hasher := sha1.New()
 	io.WriteString(hasher, password)
 	io.WriteString(hasher, salt)
 	user.Password = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-    user.Salt = salt
+	user.Salt = salt
 }
 
 func (user *User) IsAdmin() bool {
