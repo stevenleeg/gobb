@@ -5,7 +5,7 @@ body {
     background: #EEE;
     color: #222;
     font-family: "Lato", Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     margin: 0px;
     min-width: 600px;
 }
@@ -157,7 +157,7 @@ blockquote {
 }
 
 .board_description, .thread_author {
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 5px;
 }
 
