@@ -82,6 +82,7 @@ func main() {
 
 	http.Handle("/", r)
 
-	fmt.Println("[notice] Starting server on port 8080")
-	http.ListenAndServe(":8080", nil)
+    port, err := config.Config.GetString("gobb", "port")
+	fmt.Println("[notice] Starting server on port "+ port)
+	http.ListenAndServe(":" + port, nil)
 }
