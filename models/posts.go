@@ -130,11 +130,7 @@ func (post *Post) GetLatestPost() *Post {
 	db := GetDbSession()
 	latest := &Post{}
 
-	err := db.SelectOne(latest, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on DESC LIMIT 1", post.Id)
-
-	if err != nil {
-		fmt.Printf("[error] Could not get latest post: (%s)\n", err.Error())
-	}
+	db.SelectOne(latest, "SELECT * FROM posts WHERE parent_id=$1 ORDER BY created_on DESC LIMIT 1", post.Id)
 
 	return latest
 }
