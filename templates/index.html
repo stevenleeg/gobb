@@ -16,11 +16,6 @@
 {{ define "content" }}
 <h1>Boards</h1>
 {{ if .boards }}
-{{ if .current_user }}
-    <div class="board_actions">
-        <a href="/action/mark_read">[ Mark all as read ]</a>
-    </div>
-{{ end }}
 <table class="boards">
     <tr><td>Title</td><td>Latest post</td></tr>
     {{ range .boards }}
@@ -40,6 +35,11 @@
     </tr>
     {{ end }}
 </table>
+{{ if .current_user }}
+    <div class="board_actions">
+        <a href="/action/mark_read">[ Mark all as read ]</a>
+    </div>
+{{ end }}
 {{ else }}
 <div class="box larger centered">
     Nothing yet!
