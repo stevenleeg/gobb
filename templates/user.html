@@ -11,7 +11,9 @@
             <div class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</div>
         </td>
         <td class="post_meta">
-            posted {{ TimeRelativeToNow .CreatedOn }}
+            <a href="{{.GetLink}}">
+                posted {{ TimeRelativeToNow .CreatedOn }}
+            </a>
         </td>
     </tr>
     <tr>
