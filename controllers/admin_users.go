@@ -20,13 +20,16 @@ func AdminUsers(w http.ResponseWriter, r *http.Request) {
 	success := false
 
 	starts_with := r.FormValue("starts_with")
+	last_seen := r.FormValue("last_seen")
 
 	db := models.GetDbSession()
 	var users []*models.User
     if len(starts_with) == 1 {
         db.Select(&users, "SELECT * FROM users WHERE username LIKE $1", starts_with + "%")
-    } else {
-        db.Select(&users, "SELECT * FROM users ORDER BY username ASC")
+    } else if(last_seen == "1") {
+        db.Select(&users, "SELECT * FROM users ORDER BY last_seen DESC")
+    }else {
+        db.Select(&users, "SELECT * FROM users ORDER BY id DESC")
     }
 
 	utils.RenderTemplate(w, r, "admin_users.html", map[string]interface{}{
