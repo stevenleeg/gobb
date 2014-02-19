@@ -47,10 +47,23 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			fmt.Printf("[error] Could not insert user (%s)\n", err.Error())
-		} else {
-			http.Redirect(w, r, "/login", http.StatusFound)
-			return
+			return;
 		}
+
+		// Adminify the first user
+		id, err := db.SelectInt("SELECT lastval()")
+		if err == nil && id == 1 {
+			user.GroupId = 2
+			count, err = db.Update(user)
+
+			if err != nil {
+				fmt.Printf("[error] Could not adminify user (%s)\n", err.Error())
+				return;
+			}
+		}
+
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
 	}
 
 	utils.RenderTemplate(w, r, "register.html", nil, nil)
