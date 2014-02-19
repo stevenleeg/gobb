@@ -192,3 +192,17 @@ func (post *Post) DeleteAllChildren() error {
 	_, err := db.Exec("DELETE FROM posts WHERE parent_id=$1", post.Id)
 	return err
 }
+
+// Get the thread id for a post
+func (post *Post) GetThreadId() (int64) {
+	if post.ParentId.Valid {
+		return post.ParentId.Int64
+	} else {
+		return post.Id
+	}
+}
+
+// Generate a link to a post
+func (post *Post) GetLink() string {
+	return fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, post.GetThreadId(), post.GetPageInThread(), post.Id)
+}

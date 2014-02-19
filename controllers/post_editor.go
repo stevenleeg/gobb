@@ -105,16 +105,7 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		var redirect_post int64
-		if post.ParentId.Valid {
-			redirect_post = post.ParentId.Int64
-		} else {
-			redirect_post = post.Id
-		}
-
-		redirect_page := post.GetPageInThread()
-
-		http.Redirect(w, r, fmt.Sprintf("/board/%d/%d?page=%d#post_%d", post.BoardId, redirect_post, redirect_page, post.Id), http.StatusFound)
+		http.Redirect(w, r, post.GetLink(), http.StatusFound)
 		return
 	}
 
