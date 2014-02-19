@@ -6,6 +6,8 @@ GoBB is currently in its early stages of development. While it is pretty usable 
 
 GoBB is getting better by the day, so hopefully it'll be ready to graduate from the alpha stage of development soon.
 
+![Screenshot](http://imgur.com/JFSzskx.png)
+
 ## Installation
 
 ### Get GoBB
