@@ -8,8 +8,8 @@ import (
 
 func Logout(w http.ResponseWriter, r *http.Request) {
 	session, _ := utils.GetCookieStore(r).Get(r, "sirsid")
-	session.Values["username"] = ""
-	session.Values["password"] = ""
+	delete(session.Values, "username")
+	delete(session.Values, "password")
 
 	err := session.Save(r, w)
 	if err != nil {
