@@ -162,6 +162,7 @@ blockquote {
 }
 
 .board_description, .thread_author {
+    display: block;
     font-size: 14px;
     margin-top: 5px;
 }
