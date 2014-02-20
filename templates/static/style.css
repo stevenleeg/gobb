@@ -73,6 +73,11 @@ blockquote {
     width: 12px;
 }
 
+.icon.user {
+    background: url('/static/images/user.png') top center no-repeat;
+    background-size: 16px 16px;
+}
+
 .right {
     float: right;
 }
@@ -399,6 +404,7 @@ input[type=submit] {
 .post_meta {
     border-bottom: 2px solid #EEE;
     font-size: 12px;
+    height: 1.5em;
     padding: 10px 10px;
     text-align: right;
 }

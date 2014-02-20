@@ -27,7 +27,7 @@
                 <a href="/" class="logo" tabindex="1">{{.site_name}}</a>
                 <div class="right">
                     {{if .current_user}}
-                        <img src="/static/images/user.png" class="icon" alt="User">
+                        <i class="icon user" alt="User"></i>
                         <a href="/user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
                         {{ if .current_user.IsAdmin }}
                         <a href="/admin">admin</a> //
