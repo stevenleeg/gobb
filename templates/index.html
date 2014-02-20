@@ -27,7 +27,7 @@
             <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
             <span class="board_description">{{ .Description }}</span>
         </td>
-        <td class="board_right" rowspan="2">
+        <td class="board_right">
             {{ template "board_right" .Board.GetLatestPost }}
         </td>
     </tr>
