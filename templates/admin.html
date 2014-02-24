@@ -1,6 +1,12 @@
 {{ define "content" }}
 <div class="box larger">
-    {{ template "admin_topbar" . }}
+    <table class="box_tabs">
+        <tr>
+            <td><a href="/admin">General</a></td>
+            <td><a href="/admin/boards">Boards</a></td>
+            <td><a href="/admin/users">Users</a></td>
+    </tr>
+    </table>
     <h2>General settings</h2>
 
     {{ if .success }}
@@ -10,8 +16,8 @@
     {{ end }}
 
     <form method="POST" action="/admin">
-        <label for="theme_stylesheet">Default theme stylesheet:</label>
-        <input type="text" name="theme_stylesheet" value="{{.theme_stylesheet}}" placeholder="None. Use default theme." />
+        <label for="theme_stylesheet">Theme stylesheet:</label>
+        <input type="text" name="theme_stylesheet" value="{{.theme_stylesheet}}" placeholder="None. Use gobb default theme." />
         <label for="favicon_url">URL for favicon:</label>
         <input type="text" name="favicon_url" value="{{.favicon_url}}" placeholder="None. Use default favicon." />
         <label for="template">Board template (you must restart your Gobb instance):</label>
