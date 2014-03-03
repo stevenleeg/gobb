@@ -2,23 +2,23 @@
 
 <div class="pagination">
     {{ if .first_page }}
-        <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page=0">&laquo; first page</a>
+        <a class="prev" href="/board/{{ .board.Id }}/{{ .op.Id }}?page=0">&laquo; first page</a>
     {{ end }}
     {{ if .prev_page }}
-        <a class="prev" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
+        <a class="prev" href="/board/{{ .board.Id }}/{{ .op.Id }}?page={{Add .page_id -1}}">&laquo; previous page</a>
     {{ end }}
     {{ if .next_page }}
-        <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
+        <a class="next" href="/board/{{ .board.Id }}/{{ .op.Id }}?page={{Add .page_id 1}}">next page &raquo;</a>
     {{ end }}
     {{ if .last_page }}
-        <a class="next" href="/board/{{.board.Id}}/{{.op.Id}}?page={{ .op.GetPagesInThread }}#latest">last page &raquo;</a>
+        <a class="next" href="/board/{{ .board.Id }}/{{ .op.Id }}?page={{ .op.GetPagesInThread }}#latest">last page &raquo;</a>
     {{ end }}
 </div>
 
 {{ end }}
 
 {{ define "post" }}
-<table class="post" id="post_{{.Id}}">
+<table class="post" id="post_{{ .Id }}">
     <tr>
         <td rowspan="4" class="post_sidebar">
             {{ if .Author.Avatar }}
@@ -27,7 +27,7 @@
             <img class="post_avatar" src="/static/images/default_user.png">
             {{ end }}
 
-            <a href="/user/{{ .Author.Id }}" class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</a>
+            <a href="/user/{{ .Author.Id }}" class="post_author" id="p{{ .Id }}_author">{{ .Author.Username }}</a>
             {{ if .Author.UserTitle }}
                 <div class="user_title">{{ .Author.UserTitle }}</div>
             {{ end }}
@@ -41,31 +41,34 @@
                 {{ if CurrentUserCanModerateThread . }}
                     // 
                     {{ if .Sticky }}
-                        <a href="/action/stick?post_id={{.Id}}">unstick</a>
+                        <a href="/action/stick?post_id={{ .Id }}">unstick</a>
                     {{ else }}
-                        <a href="/action/stick?post_id={{.Id}}">stick</a>
+                        <a href="/action/stick?post_id={{ .Id }}">stick</a>
                     {{ end}}
 
-                    // <a href="/action/move?post_id={{.Id}}">move</a>
+                    // <a href="/action/move?post_id={{ .Id }}">move</a>
 
                     //
                     {{ if .Locked }}
-                        <a href="/action/lock?post_id={{.Id}}">unlock</a>
+                        <a href="/action/lock?post_id={{ .Id }}">unlock</a>
                     {{ else }}
-                        <a href="/action/lock?post_id={{.Id}}">lock</a>
+                        <a href="/action/lock?post_id={{ .Id }}">lock</a>
                     {{ end }}
                 {{ end }}
             </span>
             {{ end }}
 
             {{ if CurrentUserCanDeletePost . }}
-                // <a href="/action/delete?post_id={{.Id}}" class="delete">delete</a>
+                // <a href="/action/delete?post_id={{ .Id }}" class="delete">delete</a>
             {{ end }}
 
             {{ if CurrentUserCanEditPost . }}
-                // <a href="/action/edit?post_id={{.Id}}">edit</a>
+                // <a href="/action/edit?post_id={{ .Id }}">edit</a>
             {{ end }}
-            // <a href="#reply" class="thread_quote" thread="{{.Id}}">quote</a>
+
+            {{ if CurrentUserCanReply . }}
+                // <a href="#reply" class="thread_quote" thread="{{ .Id }}">quote</a>
+            {{ end }}
         </td>
     </tr>
     <tr>
@@ -90,18 +93,18 @@
         {{ end }}
     </tr>
 </table>
-<div class="post_unparsed_content" id="p{{.Id}}_content">{{ .Content }}</div>
+<div class="post_unparsed_content" id="p{{ .Id }}_content">{{ .Content }}</div>
 {{ end }}
 
 {{ define "content" }}
-    {{ if .current_user }}
-    <a href="#reply" class="write button right thread_reply_btn">Reply</a>
+    {{ if CurrentUserCanReply .op }}
+        <a href="#reply" class="write button right thread_reply_btn">Reply</a>
     {{ end }}
 
     <div class="crumbs">
-        <a class="crumbs_board" href="/board/{{.board.Id}}">{{.board.Title}}</a> &gt; 
-        <a class="crumbs_title" href="/board/{{.board.Id}}/{{.op.Id}}">
-            {{.op.Title}}
+        <a class="crumbs_board" href="/board/{{ .board.Id }}">{{ .board.Title }}</a> &gt; 
+        <a class="crumbs_title" href="/board/{{ .board.Id }}/{{ .op.Id }}">
+            {{ .op.Title }}
             {{ if .op.Locked }}
             <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
             {{ end }}
@@ -122,7 +125,7 @@
 
     {{ template "pagination" . }}
 
-    {{ if ShowReplyBox .op }}
+    {{ if CurrentUserCanReply .op }}
     <a name="reply"></a>
     <div class="thread_reply">
         {{ if .op.Locked }}
