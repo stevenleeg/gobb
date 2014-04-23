@@ -110,7 +110,7 @@ blockquote {
 
 .container {
     margin: 0px auto 0px auto;
-    width: 600px;
+    width: 960px;
 }
 
 .footer {
@@ -212,7 +212,7 @@ blockquote {
 }
 
 .box.larger {
-    width: 600px;
+    width: 960px;
     margin: 20px auto 0px auto;
     text-align: left;
     box-sizing: border-box;
@@ -348,7 +348,7 @@ input[type=submit] {
 }
 
 .post {
-    width: 600px;
+    width: 960px;
     box-sizing: content-box;
     background: #FFF;
     margin: 10px 0px;
