@@ -6,6 +6,8 @@ GoBB is currently in its early stages of development. While it is pretty usable 
 
 GoBB is getting better by the day, so hopefully it'll be ready to graduate from the alpha stage of development soon.
 
+![Screenshot](http://imgur.com/JFSzskx.png)
+
 ## Installation
 
 ### Get GoBB
@@ -45,13 +47,7 @@ $ gobb --config /path/to/gobb.conf --migrate
 The server should then be up and running on port 8080.
 
 ### Your first account
-Once the server is up, go ahead and browse to http://localhost:8080 and register. Once you've created the first account you can promote it to admin in order to create the first boards and begin moderating posts.
-
-```
-$ psql gobb
-# UPDATE users SET group_id='1' WHERE id='1';
-UPDATE 0 1
-```
+Once the server is up, go ahead and browse to http://localhost:8080 and register. Once you've created the first account, it will be promoted to admin so you can create the first boards and begin moderating posts.
 
 And that's it! You should have a functional copy of GoBB ready to use!
 

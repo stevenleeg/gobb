@@ -140,7 +140,7 @@ func Thread(w http.ResponseWriter, r *http.Request) {
 			return enable_signatures
 		},
 
-        "ShowReplyBox": func(post *models.Post) bool {
+        "CurrentUserCanReply": func(post *models.Post) bool {
 			current_user := utils.GetCurrentUser(r)
             if current_user != nil && (!post.Locked || current_user.CanModerate()) {
                 return true

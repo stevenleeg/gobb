@@ -73,6 +73,11 @@ blockquote {
     width: 12px;
 }
 
+.icon.user {
+    background: url('/static/images/user.png') top center no-repeat;
+    background-size: 16px 16px;
+}
+
 .right {
     float: right;
 }
@@ -159,6 +164,10 @@ blockquote {
 .board_description, .thread_author {
     font-size: 14px;
     margin-top: 5px;
+}
+
+.board_description {
+    display: block;
 }
 
 .board_title, .thread_title {
@@ -399,6 +408,7 @@ input[type=submit] {
 .post_meta {
     border-bottom: 2px solid #EEE;
     font-size: 12px;
+    height: 1.5em;
     padding: 10px 10px;
     text-align: right;
 }
