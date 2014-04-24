@@ -21,7 +21,7 @@ type BoardLatest struct {
 }
 
 type JoinBoardView struct {
-    Board       *Board      `db:"-"`
+	Board       *Board      `db:"-"`
 	Id          int64       `db:"id"`
 	Title       string      `db:"title"`
 	Description string      `db:"description"`
@@ -82,10 +82,10 @@ func GetBoards() ([]*Board, error) {
 func GetBoardsUnread(user *User) ([]*JoinBoardView, error) {
 	db := GetDbSession()
 
-    user_id := int64(-1)
-    if user != nil {
-        user_id = user.Id
-    }
+	user_id := int64(-1)
+	if user != nil {
+		user_id = user.Id
+	}
 
 	var boards []*JoinBoardView
 	_, err := db.Select(&boards, `
@@ -100,15 +100,15 @@ func GetBoardsUnread(user *User) ([]*JoinBoardView, error) {
             ordering ASC
     `, user_id)
 
-    for i := range boards {
-        if user_id == -1 {
-            boards[i].ViewedOn = pq.NullTime{Time: time.Now(), Valid: true}
-        }
+	for i := range boards {
+		if user_id == -1 {
+			boards[i].ViewedOn = pq.NullTime{Time: time.Now(), Valid: true}
+		}
 
-        boards[i].Board = &Board{
-            Id: boards[i].Id,
-        }
-    }
+		boards[i].Board = &Board{
+			Id: boards[i].Id,
+		}
+	}
 	return boards, err
 }
 
@@ -171,9 +171,9 @@ func (board *Board) GetThreads(page int, user *User) ([]*JoinThreadView, error) 
     `, board.Id, threads_per_page-1, i_begin, user_id)
 
 	for i := range threads {
-        if user_id == -1 {
-            threads[i].ViewedOn = pq.NullTime{Time: time.Now(), Valid: true}
-        }
+		if user_id == -1 {
+			threads[i].ViewedOn = pq.NullTime{Time: time.Now(), Valid: true}
+		}
 
 		obj, _ := db.Get(&User{}, threads[i].AuthorId)
 		user := obj.(*User)

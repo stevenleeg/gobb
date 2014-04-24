@@ -194,7 +194,7 @@ func (post *Post) DeleteAllChildren() error {
 }
 
 // Get the thread id for a post
-func (post *Post) GetThreadId() (int64) {
+func (post *Post) GetThreadId() int64 {
 	if post.ParentId.Valid {
 		return post.ParentId.Int64
 	} else {

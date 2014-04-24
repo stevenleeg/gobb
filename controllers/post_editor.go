@@ -20,7 +20,7 @@ func renderPostEditor(
 	utils.RenderTemplate(w, r, "post_editor.html", map[string]interface{}{
 		"board": board,
 		"post":  post,
-        "error": err,
+		"error": err,
 	}, map[string]interface{}{
 		"ShowTitleField": func() bool {
 			if post == nil {
@@ -78,11 +78,11 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 			post = models.NewPost(current_user, board, title, content)
 			post.LatestReply = time.Now()
 
-            err = post.Validate()
-            if err != nil {
-                renderPostEditor(w, r, board, post, err)
-                return
-            }
+			err = post.Validate()
+			if err != nil {
+				renderPostEditor(w, r, board, post, err)
+				return
+			}
 
 			err = db.Insert(post)
 		} else {
@@ -91,11 +91,11 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 			post.LastEdit = time.Now()
 			post.LatestReply = time.Now()
 
-            err = post.Validate()
-            if err != nil {
-                renderPostEditor(w, r, board, post, err)
-                return
-            }
+			err = post.Validate()
+			if err != nil {
+				renderPostEditor(w, r, board, post, err)
+				return
+			}
 
 			_, err = db.Update(post)
 		}
@@ -109,5 +109,5 @@ func PostEditor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    renderPostEditor(w, r, board, post, err)
+	renderPostEditor(w, r, board, post, err)
 }

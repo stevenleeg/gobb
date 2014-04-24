@@ -60,14 +60,14 @@ func UserSettings(w http.ResponseWriter, r *http.Request) {
 			if user == nil || err != nil {
 				form_error = "Invalid password"
 			} else if len(new_pass) < 5 {
-                form_error = "Password must be greater than 4 characters"
-            } else if new_pass != new_pass2 {
+				form_error = "Password must be greater than 4 characters"
+			} else if new_pass != new_pass2 {
 				form_error = "Passwords didn't match"
 			} else {
 				current_user.SetPassword(new_pass)
-                session, _ := utils.GetCookieStore(r).Get(r, "sirsid")
-                session.Values["password"] = new_pass
-                session.Save(r, w)
+				session, _ := utils.GetCookieStore(r).Get(r, "sirsid")
+				session.Values["password"] = new_pass
+				session.Save(r, w)
 			}
 		}
 

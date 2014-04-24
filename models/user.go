@@ -65,8 +65,8 @@ func AuthenticateUser(username, password string) (error, *User) {
 	}
 
 	// Update the user's last seen
-    user.LastSeen = time.Now()
-    db.Update(user)
+	user.LastSeen = time.Now()
+	db.Update(user)
 
 	return nil, user
 }

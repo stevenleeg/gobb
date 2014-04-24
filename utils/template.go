@@ -7,29 +7,29 @@ import (
 	"github.com/stevenleeg/gobb/models"
 	"go/build"
 	"html/template"
+	"io/ioutil"
 	"net/http"
+	"path"
 	"path/filepath"
+	"strings"
 	"time"
-    "strings"
-    "io/ioutil"
-    "path"
 )
 
 // Returns a list of all available themes
 func ListTemplates() []string {
-    names := []string{"default"}
+	names := []string{"default"}
 
-    static_path, _ := config.Config.GetString("gobb", "base_path")
-    files, _ := ioutil.ReadDir(path.Join(static_path, "templates"))
+	static_path, _ := config.Config.GetString("gobb", "base_path")
+	files, _ := ioutil.ReadDir(path.Join(static_path, "templates"))
 
-    for _, f := range files {
-        if !f.IsDir() {
-            continue
-        }
-        names = append(names, f.Name())
-    }
+	for _, f := range files {
+		if !f.IsDir() {
+			continue
+		}
+		names = append(names, f.Name())
+	}
 
-    return names
+	return names
 }
 
 func tplAdd(first, second int) int {
@@ -48,8 +48,8 @@ func tplGetCurrentUser(r *http.Request) func() *models.User {
 }
 
 func tplGetStringSetting(key string) string {
-    val, _ := models.GetStringSetting(key)
-    return val
+	val, _ := models.GetStringSetting(key)
+	return val
 }
 
 func tplIsValidTime(in time.Time) bool {
@@ -57,11 +57,11 @@ func tplIsValidTime(in time.Time) bool {
 }
 
 func tplParseFaviconType(url string) string {
-    split := strings.Split(url, ".")
-    if len(split) == 0 {
-        return ""
-    }
-    return split[len(split) - 1]
+	split := strings.Split(url, ".")
+	if len(split) == 0 {
+		return ""
+	}
+	return split[len(split)-1]
 }
 
 var default_funcmap = template.FuncMap{
@@ -69,8 +69,8 @@ var default_funcmap = template.FuncMap{
 	"Add":               tplAdd,
 	"ParseMarkdown":     tplParseMarkdown,
 	"IsValidTime":       tplIsValidTime,
-    "GetStringSetting":  tplGetStringSetting,
-    "ParseFaviconType":  tplParseFaviconType,
+	"GetStringSetting":  tplGetStringSetting,
+	"ParseFaviconType":  tplParseFaviconType,
 }
 
 func RenderTemplate(
@@ -88,14 +88,14 @@ func RenderTemplate(
 	stylesheet := ""
 	if (current_user != nil) && current_user.StylesheetUrl.Valid && current_user.StylesheetUrl.String != "" {
 		stylesheet = current_user.StylesheetUrl.String
-	} else if((current_user == nil || !current_user.StylesheetUrl.Valid || current_user.StylesheetUrl.String == "")) {
-        global_theme, _ := models.GetStringSetting("theme_stylesheet")
-        if global_theme != "" {
-            stylesheet = global_theme
-        }
-    }
+	} else if current_user == nil || !current_user.StylesheetUrl.Valid || current_user.StylesheetUrl.String == "" {
+		global_theme, _ := models.GetStringSetting("theme_stylesheet")
+		if global_theme != "" {
+			stylesheet = global_theme
+		}
+	}
 
-    favicon_url, _ := models.GetStringSetting("favicon_url")
+	favicon_url, _ := models.GetStringSetting("favicon_url")
 
 	send := map[string]interface{}{
 		"current_user":   current_user,
@@ -104,7 +104,7 @@ func RenderTemplate(
 		"ga_tracking_id": ga_tracking_id,
 		"ga_account":     ga_account,
 		"stylesheet":     stylesheet,
-        "favicon_url":    favicon_url,
+		"favicon_url":    favicon_url,
 	}
 
 	// Merge the global template variables with the local context
@@ -120,18 +120,18 @@ func RenderTemplate(
 	}
 
 	// Get the base template path
-    selected_template, _ := models.GetStringSetting("template")
-    var base_path string
-    if selected_template == "default" {
-        pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
-        base_path = filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/")
-    } else {
-        base_path, _ = config.Config.GetString("gobb", "base_path")
-        base_path = filepath.Join(base_path, "templates", selected_template)
-    }
+	selected_template, _ := models.GetStringSetting("template")
+	var base_path string
+	if selected_template == "default" {
+		pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+		base_path = filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/")
+	} else {
+		base_path, _ = config.Config.GetString("gobb", "base_path")
+		base_path = filepath.Join(base_path, "templates", selected_template)
+	}
 
-    base_tpl := filepath.Join(base_path, "base.html")
-    rend_tpl := filepath.Join(base_path, tpl_file)
+	base_tpl := filepath.Join(base_path, "base.html")
+	rend_tpl := filepath.Join(base_path, tpl_file)
 
 	tpl, err := template.New("tpl").Funcs(func_map).ParseFiles(base_tpl, rend_tpl)
 	if err != nil {

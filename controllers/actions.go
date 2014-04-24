@@ -17,9 +17,9 @@ func ActionMarkAllRead(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    db := models.GetDbSession()
+	db := models.GetDbSession()
 	user.LastUnreadAll = pq.NullTime{Time: time.Now(), Valid: true}
-    db.Update(user)
+	db.Update(user)
 
 	http.Redirect(w, r, "/", http.StatusFound)
 }

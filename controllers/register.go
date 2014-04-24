@@ -30,9 +30,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			error = "This username is already taken."
 		}
 
-        if len(username) < 3 {
-            error = "Username must be greater than 3 characters."
-        }
+		if len(username) < 3 {
+			error = "Username must be greater than 3 characters."
+		}
 
 		if error != "" {
 			utils.RenderTemplate(w, r, "register.html", map[string]interface{}{
@@ -47,7 +47,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			fmt.Printf("[error] Could not insert user (%s)\n", err.Error())
-			return;
+			return
 		}
 
 		// Adminify the first user
@@ -58,7 +58,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 			if err != nil {
 				fmt.Printf("[error] Could not adminify user (%s)\n", err.Error())
-				return;
+				return
 			}
 		}
 

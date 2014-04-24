@@ -13,7 +13,7 @@ type View struct {
 	PostId int64     `db:"post_id"`
 	User   *User     `db:"-"`
 	UserId int64     `db:"user_id"`
-    Time   time.Time `db:"time"`
+	Time   time.Time `db:"time"`
 }
 
 func AddView(user *User, post *Post) *View {
@@ -29,7 +29,7 @@ func AddView(user *User, post *Post) *View {
 	obj, _ := db.Get(&View{}, hash)
 	if obj == nil {
 		view = &View{
-            Id:     hash,
+			Id:     hash,
 			Post:   post,
 			PostId: post.Id,
 			User:   user,
@@ -37,7 +37,7 @@ func AddView(user *User, post *Post) *View {
 			Time:   time.Now(),
 		}
 
-        db.Insert(view)
+		db.Insert(view)
 	} else {
 		view = obj.(*View)
 		view.User = user
@@ -46,7 +46,6 @@ func AddView(user *User, post *Post) *View {
 
 		db.Update(view)
 	}
-
 
 	return view
 }
