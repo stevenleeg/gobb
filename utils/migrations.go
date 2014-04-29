@@ -24,6 +24,17 @@ func generateGooseDbConf() *goose.DBConf {
 	db_port, _ := config.Config.GetString("database", "port")
 	migrations_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../db/migrations")
 
+	db_env_hostname, _ := config.Config.GetString("database", "env_hostname")
+	db_env_port, _ := config.Config.GetString("database", "env_port")
+
+	// Allow database information to come from environment variables
+	if db_env_hostname != "" {
+		db_hostname = os.Getenv(db_env_hostname)
+	}
+	if db_env_port != "" {
+		db_port = os.Getenv(db_env_port)
+	}
+
 	if db_port == "" {
 		db_port = "5432"
 	}
