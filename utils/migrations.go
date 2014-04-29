@@ -7,6 +7,7 @@ import (
 	"github.com/stevenleeg/gobb/models"
 	"go/build"
 	"path/filepath"
+	"os"
 )
 
 var goose_conf *goose.DBConf
