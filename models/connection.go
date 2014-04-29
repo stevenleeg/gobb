@@ -6,6 +6,7 @@ import (
 	"github.com/coopernurse/gorp"
 	_ "github.com/lib/pq"
 	"github.com/stevenleeg/gobb/config"
+	"os"
 )
 
 var db_map *gorp.DbMap
@@ -20,6 +21,17 @@ func GetDbSession() *gorp.DbMap {
 	db_database, _ := config.Config.GetString("database", "database")
 	db_hostname, _ := config.Config.GetString("database", "hostname")
 	db_port, _ := config.Config.GetString("database", "port")
+
+	db_env_hostname, _ := config.Config.GetString("database", "env_hostname")
+	db_env_port, _ := config.Config.GetString("database", "env_port")
+
+	// Allow database information to come from environment variables
+	if db_env_hostname != "" {
+		db_hostname = os.Getenv(db_env_hostname)
+	}
+	if db_env_port != "" {
+		db_port = os.Getenv(db_env_port)
+	}
 
 	if db_port == "" {
 		db_port = "5432"
