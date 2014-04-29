@@ -35,25 +35,23 @@
         <td class="post_meta">
             posted {{ TimeRelativeToNow .CreatedOn }}
 
-            {{ if CurrentUserCanModerate }}
+            {{ if CurrentUserCanModerateThread . }}
             <span class="prec_slash">//</span> <a href="#" class="moderate">moderate</a>
             <span class="mod_tools">
-                {{ if CurrentUserCanModerateThread . }}
-                    // 
-                    {{ if .Sticky }}
-                        <a href="/action/stick?post_id={{ .Id }}">unstick</a>
-                    {{ else }}
-                        <a href="/action/stick?post_id={{ .Id }}">stick</a>
-                    {{ end}}
+                // 
+                {{ if .Sticky }}
+                    <a href="/action/stick?post_id={{ .Id }}">unstick</a>
+                {{ else }}
+                    <a href="/action/stick?post_id={{ .Id }}">stick</a>
+                {{ end}}
 
-                    // <a href="/action/move?post_id={{ .Id }}">move</a>
+                // <a href="/action/move?post_id={{ .Id }}">move</a>
 
-                    //
-                    {{ if .Locked }}
-                        <a href="/action/lock?post_id={{ .Id }}">unlock</a>
-                    {{ else }}
-                        <a href="/action/lock?post_id={{ .Id }}">lock</a>
-                    {{ end }}
+                //
+                {{ if .Locked }}
+                    <a href="/action/lock?post_id={{ .Id }}">unlock</a>
+                {{ else }}
+                    <a href="/action/lock?post_id={{ .Id }}">lock</a>
                 {{ end }}
             </span>
             {{ end }}
