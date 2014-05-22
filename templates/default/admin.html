@@ -10,11 +10,11 @@
     {{ end }}
 
     <form method="POST" action="/admin">
-        <label for="theme_stylesheet">Theme stylesheet:</label>
+        <label for="theme_stylesheet">Forum stylesheet:</label>
         <input type="text" name="theme_stylesheet" value="{{.theme_stylesheet}}" placeholder="None. Use gobb default theme." />
         <label for="favicon_url">URL for favicon:</label>
         <input type="text" name="favicon_url" value="{{.favicon_url}}" placeholder="None. Use default favicon." />
-        <label for="template">Board template (you must restart your Gobb instance):</label>
+        <label for="template">Forum templates:</label>
         <select name="template">
             {{ range .templates }}
             <option value="{{ . }}"{{ if IsCurrentTemplate . }} selected{{end}}>{{ . }}</option>

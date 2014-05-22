@@ -9,7 +9,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
-	"path"
+	//"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -17,10 +17,13 @@ import (
 
 // Returns a list of all available themes
 func ListTemplates() []string {
-	names := []string{"default"}
+	names := []string{}
 
-	static_path, _ := config.Config.GetString("gobb", "base_path")
-	files, _ := ioutil.ReadDir(path.Join(static_path, "templates"))
+	var base_path string
+		pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+		base_path = filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/")
+
+	files, _ := ioutil.ReadDir(base_path)
 
 	for _, f := range files {
 		if !f.IsDir() {
@@ -84,6 +87,7 @@ func RenderTemplate(
 	site_name, _ := config.Config.GetString("gobb", "site_name")
 	ga_tracking_id, _ := config.Config.GetString("googleanalytics", "tracking_id")
 	ga_account, _ := config.Config.GetString("googleanalytics", "account")
+	selected_template, _ := models.GetStringSetting("template")
 
 	stylesheet := ""
 	if (current_user != nil) && current_user.StylesheetUrl.Valid && current_user.StylesheetUrl.String != "" {
@@ -98,13 +102,14 @@ func RenderTemplate(
 	favicon_url, _ := models.GetStringSetting("favicon_url")
 
 	send := map[string]interface{}{
-		"current_user":   current_user,
-		"request":        r,
-		"site_name":      site_name,
-		"ga_tracking_id": ga_tracking_id,
-		"ga_account":     ga_account,
-		"stylesheet":     stylesheet,
-		"favicon_url":    favicon_url,
+		"current_user":     current_user,
+		"request":          r,
+		"site_name":        site_name,
+		"ga_tracking_id":   ga_tracking_id,
+		"ga_account":       ga_account,
+		"stylesheet":       stylesheet,
+		"favicon_url":      favicon_url,
+		"selected_template":selected_template,
 	}
 
 	// Merge the global template variables with the local context
@@ -120,15 +125,9 @@ func RenderTemplate(
 	}
 
 	// Get the base template path
-	selected_template, _ := models.GetStringSetting("template")
 	var base_path string
-	if selected_template == "default" {
 		pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
-		base_path = filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/")
-	} else {
-		base_path, _ = config.Config.GetString("gobb", "base_path")
-		base_path = filepath.Join(base_path, "templates", selected_template)
-	}
+		base_path = filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/" + selected_template)
 
 	base_tpl := filepath.Join(base_path, "base.html")
 	rend_tpl := filepath.Join(base_path, tpl_file)
