@@ -12,17 +12,17 @@
 
     <form method="POST" action="">
     <label for="avatar_url">Avatar url</label>
-    <input name="avatar_url" id="avatar_url" type="text" value="{{.current_user.Avatar}}" placeholder="default avatar">
+    <input id="avatar_url" name="avatar_url" id="avatar_url" type="text" value="{{.current_user.Avatar}}" placeholder="default avatar">
 
     <label for="stylesheet_url">Stylesheet URL</label>
-    <input name="stylesheet_url" id="stylesheet_url" type="text" value="{{.user_stylesheet}}" placeholder="default stylesheet">
+    <input id="stylesheet_url" name="stylesheet_url" id="stylesheet_url" type="text" value="{{.user_stylesheet}}" placeholder="default stylesheet">
 
     <label for="user_title">User title:</label>
-    <input name="user_title" type="text" value="{{.current_user.UserTitle}}" placeholder="Nothing" maxlength="40">
+    <input id="user_title" name="user_title" type="text" value="{{.current_user.UserTitle}}" placeholder="Nothing" maxlength="40">
 
     {{ if .enable_signatures }}
     <label for="signature">Signature</label>
-    <textarea name="signature" id="signature" placeholder="no signature">{{.user_signature}}</textarea>
+    <textarea id="signature" name="signature" id="signature" placeholder="no signature">{{.user_signature}}</textarea>
     {{ end }}
 
     <label for="hide_online">Online presence display:</label>
@@ -33,13 +33,13 @@
 
     <h1>Change password</h1>
     <label for="password_old">Old password:</label>
-    <input type="password" name="password_old" placeholder="Your current password" />
+    <input id="password_old" type="password" name="password_old" placeholder="Your current password" />
 
     <label for="password_new">New password:</label>
-    <input type="password" name="password_new" placeholder="Your new password" />
+    <input id="password_new" type="password" name="password_new" placeholder="Your new password" />
 
     <label for="password_new2">Confirm password:</label>
-    <input type="password" name="password_new2" placeholder="Your new password again" />
+    <input id="password_new2" type="password" name="password_new2" placeholder="Your new password again" />
 
     <input type="submit" class="submit button" value="Save Settings">
     </form>

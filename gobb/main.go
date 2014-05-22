@@ -64,21 +64,9 @@ func main() {
 
 	// Handle static files
 	selected_template, _ := models.GetStringSetting("template")
-	base_path, _ := config.Config.GetString("gobb", "base_path")
-	if selected_template == "default" {
-		pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
-		static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates")
-		r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
-	} else {
-		static_path := filepath.Join(base_path, "templates", selected_template)
-		r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
-	}
-
-	// User provided static files
-	static_path, err := config.Config.GetString("gobb", "base_path")
-	if err == nil {
-		r.PathPrefix("/assets/").Handler(http.FileServer(http.Dir(static_path)))
-	}
+	pkg, _ := build.Import("github.com/stevenleeg/gobb/gobb", ".", build.FindOnly)
+	static_path := filepath.Join(pkg.SrcRoot, pkg.ImportPath, "../templates/" + selected_template)
+	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir(static_path)))
 
 	http.Handle("/", r)
 
