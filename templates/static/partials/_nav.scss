@@ -1,0 +1,32 @@
+$nav-height: 56px;
+
+.nav {
+    background-color: lighten($color-dark, 10%);
+    color: $color-light;
+    padding: 0px 10px;
+    border-bottom: 5px solid $color-green;
+    line-height: $nav-height;
+    height: $nav-height;
+
+    a {
+        color: $color-light;
+
+        &.title {
+            font-size: 24px;
+        }
+
+        &:hover {
+            color: $color-green;
+        }
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    &:after {
+        content: " ";
+        display: block;
+        clear: both;
+    }
+}

@@ -1,62 +1,45 @@
-{{ define "admin_topbar" }}
-<table class="box_tabs">
-    <tr>
-        <td><a href="/admin">General</a></td>
-        <td><a href="/admin/boards">Boards</a></td>
-        <td><a href="/admin/users">Users</a></td>
-    </tr>
-</table>
-{{ end }}
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<html>
+  <head>
     <title>{{.site_name}}</title>
-        <link rel="stylesheet" href="/static/style.css">
-        {{ if .stylesheet }}<link rel="stylesheet" href="{{.stylesheet}}">{{ end }}
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-        {{ if .favicon_url }}
-        <link rel="icon" type="image/{{ParseFaviconType .favicon_url}}" href="{{.favicon_url}}" />
-        {{ end }}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="/static/main.js"></script>
-        <meta name="viewport" content="width=625px, user-scalable=yes">
-    </head>
-    <body>
-        <div class="top">
-            <div class="container">
-                <a href="/" class="logo" tabindex="1">{{.site_name}}</a>
-                <div class="right">
-                    {{if .current_user}}
-                        <i class="icon user" alt="User"></i>
-                        <a href="/user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
-                        {{ if .current_user.IsAdmin }}
-                        <a href="/admin">admin</a> //
-                        {{ end}}
-                        <a href="/logout">logout</a>
-                    {{else}}
-                        <a href="/register">register</a> // 
-                        <a href="/login">login</a>
-                    {{end}}
-                </div>
-            </div>
-        </div>
-        <div class="container content">
-            {{ template "content" . }}
-        </div>
+    <link rel="stylesheet" type="text/css" href="static/main.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    {{if .stylesheet}}
+      <link rel="stylesheet" type="text/css" href="{{.stylesheet}}" />
+    {{end}}
+    {{if .favicon_url}}
+      <link rel="icon" type="image/{{ParseFaviconType .favicon_url}}" href="{{.favicon_url}}" />
+    {{end}}
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+  </head>
+  <body>
+    <div class="nav"><div class="container_12">
+      <div class="grid_6">
+        <a class="title" href="/">{{.site_name}}</a>
+      </div>
 
-        <div class="footer">
-            powered by <a href="http://github.com/stevenleeg/gobb">gobb</a>
-        </div>
-        {{ if .ga_tracking_id }}
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      <div class="right grid_6">
+          {{if .currentUser}}
+            <a href="user/{{.currentUser.Id}}/settings">{{.currentUser.Username}}</a> //
 
-            ga('create', '{{ .ga_tracking_id }}', '{{ .ga_account }}');
-            ga('send', 'pageview');
-        </script>
-        {{ end }}
-    </body>
+            {{if .currentUser}}
+              <a href="admin/">admin</a> //
+            {{end}}
+
+            <a href="logout/">logout</a>
+          {{else}}
+            <a href="register/">register</a> //
+            <a href="login/">login</a>
+          {{end}}
+      </div>
+    </div></div>
+
+    <div class="container_12">
+      {{ template "content" }}
+
+      <div class="footer grid_12">
+        powered by <a href="https://github.com/stevenleeg/gobb">gobb</a>
+      </div>
+    </div>
+  </body>
 </html>

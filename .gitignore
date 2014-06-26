@@ -2,3 +2,5 @@
 gobb.conf
 .DS_Store
 dbconf.yml
+templates/static/main.css
+templates/static/.sass-cache

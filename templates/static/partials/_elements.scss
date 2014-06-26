@@ -1,0 +1,17 @@
+body {
+    font-family: $font-default;
+    background: $color-gray;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    color: $color-green;
+    text-decoration: none;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0px;
+}
