@@ -47,18 +47,20 @@
     {{end}}
   </div>
 
-  <div class="stats sixteen columns">
-    <p>{{.site_name}} has <b>{{.user_count}} members</b>, who have created a total of <b>{{.total_posts}} posts</b>. Say hello to our newest member, <a href="user/{{.latest_user.Id}}">{{.latest_user.Username}}</a></p>
+  <div class="sixteen columns">
+    <h1>Stats</h1>
+    <div class="stats">
+      <p>{{.site_name}} has <b>{{.user_count}} members</b>, who have created a total of <b>{{.total_posts}} posts</b>. Say hello to our newest member, <a href="user/{{.latest_user.Id}}">{{.latest_user.Username}}</a></p>
 
-    <p>
-      <b>Users online:</b> 
-      {{range .online_users}}
-        <a class="online-user" href="user/{{.Id}}">{{.Username}}</a>
-      {{else}}
-        None
-      {{end}}
-    </p>
-
+      <p>
+        <b>Users online:</b> 
+        {{range .online_users}}
+          <a class="online-user" href="user/{{.Id}}">{{.Username}}</a>
+        {{else}}
+          None
+        {{end}}
+      </p>
+    </div>
   </div>
 
 {{end}}
