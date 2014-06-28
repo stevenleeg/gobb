@@ -13,12 +13,12 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
   </head>
   <body>
-    <div class="nav"><div class="container_12">
-      <div class="grid_6">
+    <div class="nav"><div class="container">
+      <div class="eight columns">
         <a class="title" href="/">{{.site_name}}</a>
       </div>
 
-      <div class="right grid_6">
+      <div class="right eight columns">
           {{if .currentUser}}
             <a href="user/{{.currentUser.Id}}/settings">{{.currentUser.Username}}</a> //
 
@@ -34,10 +34,10 @@
       </div>
     </div></div>
 
-    <div class="container_12">
-      {{ template "content" }}
+    <div class="container">
+      {{template "content" .}}
 
-      <div class="footer grid_12">
+      <div class="footer sixteen columns">
         powered by <a href="https://github.com/stevenleeg/gobb">gobb</a>
       </div>
     </div>

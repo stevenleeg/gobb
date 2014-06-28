@@ -1,0 +1,56 @@
+.board-nothing {
+    @extend %base-box;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.board-list {
+    @extend %base-box;
+    width: 100%;
+    padding: 15px;
+    border-spacing: 0px;
+    margin-bottom: 15px;
+
+    thead tr td {
+        font-weight: bold;
+        font-size: 18px;
+        border-bottom: 1px solid $color-border;
+    }
+
+    .board-title {
+        display: block;
+        font-size: 18px;
+    }
+
+    .board-row td {
+        padding: 5px 0px;
+    }
+
+    .board-description {
+        font-size: 14px;
+    }
+
+    .board-list-left {
+        width: 75%;
+    }
+
+    .board-list-right {
+        width: 25%;
+    }
+}
+
+.stats {
+    @extend %base-box;
+    margin-top: 15px;
+    padding: 15px;
+
+    p {
+        margin: 0px;
+
+        &:nth-child(1) {
+            margin-bottom: 10px;
+        }
+    }
+
+}

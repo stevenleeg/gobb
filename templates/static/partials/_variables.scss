@@ -3,5 +3,6 @@ $color-dark: #222;
 $color-dark-gray: lighten($color-dark, 10%);
 $color-light: #FFF;
 $color-green: #7c9278;
+$color-border: lighten($color-dark-gray, 55%);
 
 $font-default: "Lato", Helvetica, Arial, sans-serif;

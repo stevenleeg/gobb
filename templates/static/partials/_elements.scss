@@ -1,5 +1,6 @@
 body {
     font-family: $font-default;
+    font-size: 16px;
     background: $color-gray;
 
     margin: 0px;
@@ -9,6 +10,17 @@ body {
 a {
     color: $color-green;
     text-decoration: none;
+}
+
+h1 {
+    font-size: 28px;
+    margin: .4em 0px;
+    padding: 0px;
+}
+
+%base-box {
+    background: $color-light;
+    border: 1px solid $color-border;
 }
 
 .footer {
