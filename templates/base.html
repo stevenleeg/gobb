@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>{{.site_name}}</title>
+    <base href="//{{.base_url}}" />
+
     <link rel="stylesheet" type="text/css" href="static/main.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700">
     {{if .stylesheet}}
@@ -10,7 +12,7 @@
     {{if .favicon_url}}
       <link rel="icon" type="image/{{ParseFaviconType .favicon_url}}" href="{{.favicon_url}}">
     {{end}}
-    <base href="{{.base_url}}">
+
     <meta name="viewport" content="width=device-width, user-scalable=no">
   </head>
   <body>

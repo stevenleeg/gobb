@@ -6,17 +6,7 @@
 }
 
 .board-list {
-    @extend %base-box;
-    width: 100%;
-    padding: 15px;
-    border-spacing: 0px;
-    margin-bottom: 15px;
-
-    thead tr td {
-        font-weight: bold;
-        font-size: 18px;
-        border-bottom: 1px solid $color-border;
-    }
+    @extend %base-box, %base-list;
 
     .board-title {
         display: block;

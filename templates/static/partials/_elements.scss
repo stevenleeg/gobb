@@ -23,6 +23,26 @@ h1 {
     border: 1px solid $color-border;
 }
 
+%base-list {
+    width: 100%;
+    padding: 15px;
+    border-spacing: 0px;
+    margin-bottom: 15px;
+
+    thead tr td {
+        font-weight: bold;
+        font-size: 18px;
+        border-bottom: 1px solid $color-border;
+    }
+
+    .list-nothing td {
+        font-weight: bold;
+        text-align: center;
+        padding: 25px 0px;
+    }
+}
+
+
 .footer {
     text-align: center;
     padding: 10px 0px;

@@ -106,7 +106,7 @@ func RenderTemplate(
 		"ga_account":     ga_account,
 		"stylesheet":     stylesheet,
 		"favicon_url":    favicon_url,
-		"base_url":       base_url,
+		"base_url":		  base_url,
 	}
 
 	// Merge the global template variables with the local context

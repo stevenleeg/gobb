@@ -1,60 +1,55 @@
-{{ define "thread_right" }}
-{{ if .Author }}
-    by <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a>
-    <div class="thread_time">{{ TimeRelativeToNow .CreatedOn }}</div>
-{{ else }}
+{{define "thread_right"}}
+
+{{if .Author }}
+    by <a href="user/{{.Author.Id}}">{{.Author.Username}}</a>
+    <div class="thread-list-time">{{TimeRelativeToNow .CreatedOn}}</div>
+{{else}}
     no replies
-{{ end }}
-{{ end }}
+{{end}}
 
-{{ define "content" }}
+{{end}}
 
-{{ if .current_user }}
-<div class="menu">
-    <a href="/board/{{.board.Id}}/new" class="write button">New Thread</a>
-</div>
-{{ end }}
+{{define "content"}}
 
-<h1>Posts in {{.board.Title}}</h1>
-{{ if .threads }}
-<table class="threads">
-    <tr><td>Title</td><td>Latest reply</td></tr>
-    {{ range .threads }}
-    <tr{{ if .Sticky }} class="highlighted"{{ end }}>
-        <td class="thread_title{{ if .Sticky }} thread_sticky{{ end }}">
-            {{ if IsUnread . }}
-            <span class="unread_indicator">&nbsp;</span>
-            {{ end }}
-            {{ if .Locked }}
-                <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
-            {{ end }}
-            <a href="/board/{{.BoardId}}/{{.Id}}" class="thread_title">{{.Title}}</a> 
-            <a href="/board/{{.BoardId}}/{{.Id}}?page={{ .Thread.GetPagesInThread}}#latest" class="thread_latest">&raquo;</a>
-        </td>
-        <td class="thread_right" rowspan="2">{{ template "thread_right" .Thread.GetLatestPost }}</td>
-    </tr>
-    <tr>
-        <td class="thread_author{{ if .Sticky }} highlighted{{ end }}">
-            posted by 
-            <a href="/user/{{ .Author.Id }}">{{.Author.Username}}</a> 
-            {{ TimeRelativeToNow .CreatedOn }}
-        </td>
-    </tr>
-    {{ end }}
-</table>
-{{ else }}
-<div class="box larger centered">
-    Nothing yet!
-</div>
-{{ end }}
+<div class="container">
+  <div class="sixteen columns">
+    <h1>Posts in {{.board.Title}}</h1>
+  </div>
+  <div class="sixteen columns">
+    <table class="thread-list">
+      <thead><tr>
+        <td>Title</td>
+        <td>Latest reply</td>
+      </tr></thead>
 
-<div class="pagination">
-    {{ if .prev_page }}
-        <a class="prev" href="/board/{{.board.Id}}?page={{Add .page_id -1}}">&laquo; previous page</a>
-    {{ end }}
-    {{ if .next_page }}
-        <a class="next" href="/board/{{.board.Id}}?page={{Add .page_id 1}}">next page &raquo;</a>
-    {{ end }}
+      {{range .threads}}
+        <tr{{if .Sticky}} class="highlighted"{{end}}>
+          <td>
+            {{if IsUnread .}}
+              <span class="thread-list-unread"></span>
+            {{end}}
+            {{if .Locked}}
+              <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
+            {{end}}
+            <div class="thread-list-title">
+              <a href="board/{{.BoardId}}/{{.Id}}">{{.Title}}</a> 
+              <a href="board/{{.BoardId}}/{{.Id}}?page={{.Thread.GetPagesInThread}}#latest" class="thread-list-latest">&raquo;</a>
+            </div>
+            <div class="thread-list-author">
+              Posted by <a href="user/{{.Author.Id}}">{{.Author.Username}}</a>
+              {{TimeRelativeToNow .CreatedOn}}
+            </div>
+          </td>
+          <td>{{template "thread_right" .Thread.GetLatestPost}}</td>
+        </tr>
+      {{else}}
+        <tr class="list-nothing"><td colspan="2">
+          Nothing yet!
+        </td></tr>
+      {{end}}
+
+    </table>
+  </div>
 </div>
 
-{{ end }}
+{{end}}
