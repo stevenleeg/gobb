@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>{{.site_name}}</title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css" />
+    <link rel="stylesheet" type="text/css" href="static/main.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700">
     {{if .stylesheet}}
       <link rel="stylesheet" type="text/css" href="{{.stylesheet}}">
@@ -10,6 +10,7 @@
     {{if .favicon_url}}
       <link rel="icon" type="image/{{ParseFaviconType .favicon_url}}" href="{{.favicon_url}}">
     {{end}}
+    <base href="{{.base_url}}">
     <meta name="viewport" content="width=device-width, user-scalable=no">
   </head>
   <body>
@@ -21,16 +22,16 @@
 
         <div class="right eight columns">
             {{if .currentUser}}
-              <a href="/user/{{.currentUser.Id}}/settings">{{.currentUser.Username}}</a> //
+              <a href="user/{{.currentUser.Id}}/settings">{{.currentUser.Username}}</a> //
 
               {{if .currentUser}}
-                <a href="/admin">admin</a> //
+                <a href="admin">admin</a> //
               {{end}}
 
-              <a href="/logout">logout</a>
+              <a href="logout">logout</a>
             {{else}}
-              <a href="/register">register</a> //
-              <a href="/login">login</a>
+              <a href="register">register</a> //
+              <a href="login">login</a>
             {{end}}
         </div>
       </div>

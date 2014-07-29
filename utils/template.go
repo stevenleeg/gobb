@@ -82,6 +82,7 @@ func RenderTemplate(
 
 	current_user := GetCurrentUser(r)
 	site_name, _ := config.Config.GetString("gobb", "site_name")
+	base_url, _ := config.Config.GetString("gobb", "base_url")
 	ga_tracking_id, _ := config.Config.GetString("googleanalytics", "tracking_id")
 	ga_account, _ := config.Config.GetString("googleanalytics", "account")
 
@@ -105,6 +106,7 @@ func RenderTemplate(
 		"ga_account":     ga_account,
 		"stylesheet":     stylesheet,
 		"favicon_url":    favicon_url,
+		"base_url":       base_url,
 	}
 
 	// Merge the global template variables with the local context
