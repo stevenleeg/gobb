@@ -16,6 +16,7 @@ h1 {
     font-size: 28px;
     margin: .4em 0px;
     padding: 0px;
+    text-transform: lowercase;
 }
 
 %base-box {
@@ -42,6 +43,23 @@ h1 {
     }
 }
 
+.action-button {
+    display: inline-block;
+    background: $color-dark;
+    color: $color-light;
+    padding: 10px 15px;
+    text-transform: lowercase;
+    margin-top: 10px;
+
+    &:hover {
+        background: $color-green;
+        color: $color-light;
+    }
+}
+
+.action-bar {
+    text-align: right;
+}
 
 .footer {
     text-align: center;

@@ -12,8 +12,11 @@
 {{define "content"}}
 
 <div class="container">
-  <div class="sixteen columns">
+  <div class="title-bar eight columns">
     <h1>Posts in {{.board.Title}}</h1>
+  </div>
+  <div class="action-bar eight columns">
+    <a class="action-button" href="board/{{.board.Id}}/new">New thread</a>
   </div>
   <div class="sixteen columns">
     <table class="thread-list">
