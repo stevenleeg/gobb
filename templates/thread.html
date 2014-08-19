@@ -1,5 +1,5 @@
 {{ define "pagination" }}
-<div class="pagination">
+<div class="pagination sixteen columns">
     {{if .first_page}}
         <a class="prev" href="/board/{{ .board.Id }}/{{ .op.Id }}?page=0">&laquo; first page</a>
     {{end}}
@@ -92,6 +92,8 @@
       <a class="action-button" href="#reply">Reply</a>
     </div>
   {{end}}
+
+  {{template "pagination" .}}
 </div>
 
 {{if not .first_page}}
@@ -101,6 +103,12 @@
 {{range .posts}}
   {{template "post" .}}
 {{end}}
+
+<div class="container">
+  <a name="latest"></a>
+  {{template "pagination" .}}
+</div>
+
 
 <div class="reply container">
   <div class="sixteen columns">
