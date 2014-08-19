@@ -32,6 +32,11 @@ input, textarea {
 %base-box {
     background: $color-light;
     border: 1px solid $color-border;
+
+    @include respond-to(mobile) {
+        border-left: 0px;
+        border-right: 0px;
+    }
 }
 
 .full-box {
@@ -62,6 +67,10 @@ input, textarea {
         text-align: center;
         padding: 25px 0px;
     }
+
+    @include respond-to(mobile) {
+        padding: 10px 5px;
+    }
 }
 
 .action-button {
@@ -82,8 +91,25 @@ input, textarea {
     }
 }
 
+.title-bar {
+    @include respond-to(mobile) {
+        box-sizing: border-box;
+        padding-left: 10px;
+
+        h1 {
+            margin-bottom: 0px;
+        }
+    }
+}
+
 .action-bar {
     text-align: right;
+
+    @include respond-to(mobile) {
+        text-align: center;
+        box-sizing: border-box;
+        padding-bottom: 10px;
+    }
 }
 
 .footer {

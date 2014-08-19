@@ -23,10 +23,18 @@
 
     .board-list-left {
         width: 75%;
+
+        @include respond-to(mobile) {
+            width: 65%;
+        }
     }
 
     .board-list-right {
         width: 25%;
+
+        @include respond-to(mobile) {
+            width: 35%;
+        }
     }
 }
 

@@ -19,6 +19,16 @@
       <div class="container">
         <div class="eight columns">
           <a class="title" href="/">{{.site_name}}</a>
+
+          <div class="mobile-menu">
+            {{if .current_user}}
+              <a href="/user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
+              <a href="/logout">logout</a>
+            {{else}}
+              <a href="/login">login</a> //
+              <a href="/register">register</a>
+            {{end}}
+          </div>
         </div>
 
         <div class="right eight columns">

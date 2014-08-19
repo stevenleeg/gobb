@@ -1,10 +1,6 @@
 .thread-list {
     @extend %base-box, %base-list;
 
-    tr td:nth-last-child(1) {
-        width: 25%;
-    }
-
     :not(thead) {
         td {
             padding: 3px 0px;

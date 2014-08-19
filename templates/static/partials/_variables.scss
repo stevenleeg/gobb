@@ -1,3 +1,4 @@
+// Colors
 $color-gray: #EEE;
 $color-dark: #222;
 $color-dark-gray: lighten($color-dark, 10%);
@@ -7,4 +8,18 @@ $color-green: #7c9278;
 $color-light-green: #B4FFB0;
 $color-border: lighten($color-dark-gray, 55%);
 
+// Fonts
 $font-default: "Lato", Helvetica, Arial, sans-serif;
+
+// Widths
+$break-mobile: 480px;
+
+// Mixins
+@mixin respond-to($media) {
+    @if $media == mobile {
+        @media only screen and (max-width: $break-mobile) {
+            @content;
+        }
+    }
+}
+

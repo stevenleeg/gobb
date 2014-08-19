@@ -22,6 +22,19 @@ $nav-height: 56px;
 
     .right {
         text-align: right;
+
+        @include respond-to(mobile) {
+            display: none;
+        }
+    }
+
+    .mobile-menu {
+        display: none;
+
+        @include respond-to(mobile) {
+            display: inline-block;
+            float: right;
+        }
     }
 
     &:after {

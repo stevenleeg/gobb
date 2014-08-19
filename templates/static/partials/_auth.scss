@@ -22,4 +22,8 @@
         display: block;
         clear: both;
     }
+
+    @include respond-to(mobile) {
+        margin-top: 0px;
+    }
 }

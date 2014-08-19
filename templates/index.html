@@ -19,8 +19,11 @@
 {{define "content"}}
 
 <div class="container">
-  <div class="sixteen columns">
+  <div class="title-bar sixteen columns">
     <h1>Boards</h1>
+  </div>
+
+  <div class="sixteen columns">
     {{if .boards}}
       <table class="board-list">
         <thead><tr>
@@ -48,8 +51,11 @@
     {{end}}
   </div>
 
-  <div class="sixteen columns">
+  <div class="title-bar sixteen columns">
     <h1>Stats</h1>
+  </div>
+
+  <div class="sixteen columns">
     <div class="stats">
       <p>
         {{.site_name}} has <b>{{.user_count}} members</b>, who have created a total of <b>{{.total_posts}} posts</b>. 
