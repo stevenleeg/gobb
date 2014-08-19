@@ -32,7 +32,8 @@ $nav-height: 56px;
         display: none;
 
         @include respond-to(mobile) {
-            display: inline-block;
+            display: block;
+            text-align: right;
             float: right;
         }
     }

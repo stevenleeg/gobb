@@ -13,10 +13,30 @@
             margin: 0px auto;
             max-width: 100%;
             margin-bottom: 10px;
+
+            @include respond-to(mobile) {
+                max-width: 50px;
+                max-height: 50px;
+                display: inline-block;
+                vertical-align: middle;
+            }
         }
         
         .author-name {
             font-size: 18px;
+        }
+
+        .user-title {
+            @include respond-to(mobile) {
+                display: none;
+            }
+        }
+
+        @include respond-to(mobile) {
+            text-align: left;
+            padding: 10px 10px 0px 10px;
+            border-bottom: 1px solid $color-border;
+            border-right: 0px;
         }
     }
 
@@ -30,15 +50,30 @@
         .mod-tools {
             display: none;
         }
+
+        @include respond-to(mobile) {
+            margin-top: -75px;
+            border-bottom: 0px;
+            padding-right: 10px;
+        }
     }
 
     .post-content {
         box-sizing: border-box;
+
+        @include respond-to(mobile) {
+            padding: 0px 10px;
+        }
     }
 
     .post-signature {
         border-top: 1px solid $color-border;
         font-size: 12px;
+        box-sizing: border-box;
+
+        @include respond-to(mobile) {
+            padding: 0px 10px;
+        }
     }
 }
 
