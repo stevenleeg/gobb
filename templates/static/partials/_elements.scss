@@ -19,6 +19,16 @@ h1 {
     text-transform: lowercase;
 }
 
+input, textarea {
+    display: inline-block;
+    border: 1px solid $color-border;
+    outline: none;
+    font-family: $font-default;
+    background: $color-gray;
+    padding: 3px;
+    font-size: 14px;
+}
+
 %base-box {
     background: $color-light;
     border: 1px solid $color-border;

@@ -1,0 +1,28 @@
+.post-editor {
+    background: $color-light;
+    margin-top: 25px;
+    padding: 15px;
+    box-sizing: border-box;
+
+    input[type=text] {
+        display: block;
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        height: 200px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        display: block;
+        float: right;
+    }
+}
