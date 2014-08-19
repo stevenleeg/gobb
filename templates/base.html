@@ -23,10 +23,10 @@
         </div>
 
         <div class="right eight columns">
-            {{if .currentUser}}
-              <a href="user/{{.currentUser.Id}}/settings">{{.currentUser.Username}}</a> //
+            {{if .current_user}}
+              <a href="user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
 
-              {{if .currentUser}}
+              {{if .current_user.IsAdmin}}
                 <a href="admin">admin</a> //
               {{end}}
 
@@ -39,9 +39,9 @@
       </div>
     </div>
 
-    <div class="container">
-      {{template "content" .}}
+    {{template "content" .}}
 
+    <div class="container">
       <div class="footer sixteen columns">
         powered by <a href="//github.com/stevenleeg/gobb">gobb</a>
       </div>

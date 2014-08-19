@@ -2,9 +2,6 @@ package utils
 
 import (
 	"fmt"
-	"github.com/russross/blackfriday"
-	"github.com/stevenleeg/gobb/config"
-	"github.com/stevenleeg/gobb/models"
 	"go/build"
 	"html/template"
 	"io/ioutil"
@@ -13,6 +10,10 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/russross/blackfriday"
+	"github.com/stevenleeg/gobb/config"
+	"github.com/stevenleeg/gobb/models"
 )
 
 // Returns a list of all available themes
@@ -38,7 +39,7 @@ func tplAdd(first, second int) int {
 
 func tplParseMarkdown(input string) template.HTML {
 	byte_slice := []byte(input)
-	return template.HTML(string(blackfriday.MarkdownCommon(byte_slice)))
+	return template.HTML(string(blackfriday.MarkdownBasic(byte_slice)))
 }
 
 func tplGetCurrentUser(r *http.Request) func() *models.User {
@@ -106,7 +107,7 @@ func RenderTemplate(
 		"ga_account":     ga_account,
 		"stylesheet":     stylesheet,
 		"favicon_url":    favicon_url,
-		"base_url":		  base_url,
+		"base_url":       base_url,
 	}
 
 	// Merge the global template variables with the local context
