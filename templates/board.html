@@ -1,7 +1,7 @@
 {{define "thread_right"}}
 
 {{if .Author }}
-    by <a href="user/{{.Author.Id}}">{{.Author.Username}}</a>
+    by <a href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
     <div class="thread-list-time">{{TimeRelativeToNow .CreatedOn}}</div>
 {{else}}
     no replies
@@ -16,7 +16,7 @@
     <h1>Posts in {{.board.Title}}</h1>
   </div>
   <div class="action-bar eight columns">
-    <a class="action-button" href="board/{{.board.Id}}/new">New thread</a>
+    <a class="action-button" href="/board/{{.board.Id}}/new">New thread</a>
   </div>
   <div class="sixteen columns">
     <table class="thread-list">
@@ -35,11 +35,11 @@
               <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
             {{end}}
             <div class="thread-list-title">
-              <a href="board/{{.BoardId}}/{{.Id}}">{{.Title}}</a> 
-              <a href="board/{{.BoardId}}/{{.Id}}?page={{.Thread.GetPagesInThread}}#latest" class="thread-list-latest">&raquo;</a>
+              <a href="/board/{{.BoardId}}/{{.Id}}">{{.Title}}</a> 
+              <a href="/board/{{.BoardId}}/{{.Id}}?page={{.Thread.GetPagesInThread}}#latest" class="thread-list-latest">&raquo;</a>
             </div>
             <div class="thread-list-author">
-              Posted by <a href="user/{{.Author.Id}}">{{.Author.Username}}</a>
+              Posted by <a href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
               {{TimeRelativeToNow .CreatedOn}}
             </div>
           </td>

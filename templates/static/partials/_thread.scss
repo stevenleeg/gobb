@@ -1,11 +1,12 @@
 .post {
     background: $color-light;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 
     .post-meta {
         box-sizing: border-box;
         padding: 10px;
         text-align: center;
+        border-right: 1px solid $color-border;
 
         .author-avatar {
             display: block;
@@ -24,10 +25,42 @@
         font-size: 12px;
         padding: 10px 0px;
         border-bottom: 1px solid $color-border;
+        text-align: right;
+
+        .mod-tools {
+            display: none;
+        }
     }
 
     .post-content {
         box-sizing: border-box;
+    }
+
+    .post-signature {
+        border-top: 1px solid $color-border;
+        font-size: 12px;
+    }
+}
+
+.reply {
+    background: $color-light;
+
+    .padded {
+        padding: 15px 10px;
+    }
+
+    textarea {
+        display: block;
+        width: 100%;
+        background: $color-gray;
+        border: 1px solid $color-border;
+        font-family: $font-default;
+        font-size: 16px;
+        color: $color-dark;
+        padding: 10px;
+        box-sizing: border-box;
+        outline: 0px;
+        height: 125px;
     }
 }
 

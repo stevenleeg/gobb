@@ -2,9 +2,8 @@
 <html>
   <head>
     <title>{{.site_name}}</title>
-    <base href="//{{.base_url}}" />
 
-    <link rel="stylesheet" type="text/css" href="static/main.css" />
+    <link rel="stylesheet" type="text/css" href="/static/main.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700">
     {{if .stylesheet}}
       <link rel="stylesheet" type="text/css" href="{{.stylesheet}}">
@@ -24,16 +23,16 @@
 
         <div class="right eight columns">
             {{if .current_user}}
-              <a href="user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
+              <a href="/user/{{.current_user.Id}}/settings">{{.current_user.Username}}</a> //
 
               {{if .current_user.IsAdmin}}
-                <a href="admin">admin</a> //
+                <a href="/admin">admin</a> //
               {{end}}
 
-              <a href="logout">logout</a>
+              <a href="/logout">logout</a>
             {{else}}
-              <a href="register">register</a> //
-              <a href="login">login</a>
+              <a href="/register">register</a> //
+              <a href="/login">login</a>
             {{end}}
         </div>
       </div>

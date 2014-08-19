@@ -21,9 +21,9 @@
     {{if .Author.Avatar}}
       <img class="author-avatar" src="{{.Author.Avatar}}" />
     {{else}}
-      <img class="author-avatar" src="static/images/default_user.png" />
+      <img class="author-avatar" src="/static/images/default_user.png" />
     {{end}}
-    <a class="author-name" href="user/{{.Author.Id}}">{{.Author.Username}}</a>
+    <a class="author-name" href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
 
     {{if .Author.UserTitle}}
       <p class="user-title">{{.Author.UserTitle}}</p>
@@ -31,12 +31,53 @@
   </div>
 
   <div class="post-topmeta thirteen columns">
-    Some information about the post goes here
+    posted {{TimeRelativeToNow .CreatedOn}}
+
+    {{if CurrentUserCanModerateThread .}}
+      //
+      <a href="#">moderate</a>
+      <span class="mod-tools">
+        //
+        {{if .Sticky}}
+          <a href="/action/stick?post_id={{.Id}}">unstick</a>
+        {{else}}
+          <a href="/action/stick?post_id={{.Id}}">stick</a>
+        {{end}}
+        //
+        <a href="/action/move?post_id={{ .Id }}">move</a>
+        //
+        {{if .Locked}}
+          <a href="/action/lock?post_id={{ .Id }}">unlock</a>
+        {{else}}
+          <a href="/action/lock?post_id={{ .Id }}">lock</a>
+        {{end}}
+      </span>
+    {{end}}
+
+    {{if CurrentUserCanDeletePost .}}
+      // <a href="/action/delete?post_id={{.Id}}" class="delete">delete</a>
+    {{end}}
+
+    {{if CurrentUserCanEditPost .}}
+      // <a href="/action/edit?post_id={{.Id}}">edit</a>
+    {{end}}
+
+    {{if CurrentUserCanReply .}}
+      // <a href="#reply" class="thread-quote" thread="{{.Id}}">reply</a>
+    {{end}}
   </div>
 
   <div class="post-content thirteen columns">
     {{ParseMarkdown .Content}}
   </div>
+
+  {{if SignaturesEnabled}}
+  {{if .Author.Signature.Valid}}
+  <div class="post-signature thirteen columns">
+    {{ParseMarkdown .Author.Signature.Value}}
+  </div>
+  {{end}}
+  {{end}}
 </div>
 {{end}}
 
@@ -48,7 +89,7 @@
 
   {{if .current_user}}
     <div class="action-bar eight columns">
-      <a class="action-button" href="board/{{.op.Board.Id}}/{{op.Id}}/#reply">Reply</a>
+      <a class="action-button" href="#reply">Reply</a>
     </div>
   {{end}}
 </div>
@@ -60,4 +101,16 @@
 {{range .posts}}
   {{template "post" .}}
 {{end}}
+
+<div class="reply container">
+  <div class="sixteen columns">
+    <div class="padded">
+      <form method="POST" action="">
+        <textarea name="content" placeholder="reply to this thread"></textarea>
+        <input type="submit" class="action-button" value="reply" />
+      </form>
+    </div>
+  </div>
+</div>
+
 {{end}}
