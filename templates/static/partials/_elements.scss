@@ -1,0 +1,118 @@
+body {
+    font-family: $font-default;
+    font-size: 16px;
+    background: $color-gray;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    color: $color-green;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 28px;
+    margin: .4em 0px;
+    padding: 0px;
+    text-transform: lowercase;
+}
+
+input, textarea {
+    display: inline-block;
+    border: 1px solid $color-border;
+    outline: none;
+    font-family: $font-default;
+    background: $color-gray;
+    padding: 3px;
+    font-size: 14px;
+}
+
+%base-box {
+    background: $color-light;
+    border: 1px solid $color-border;
+
+    @include respond-to(mobile) {
+        border-left: 0px;
+        border-right: 0px;
+    }
+}
+
+.full-box {
+    @extend %base-box;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 20px 0px;
+
+    h1 {
+        margin-top: 0px;
+    }
+}
+
+%base-list {
+    width: 100%;
+    padding: 15px;
+    border-spacing: 0px;
+    margin-bottom: 15px;
+
+    thead tr td {
+        font-weight: bold;
+        font-size: 18px;
+        border-bottom: 1px solid $color-border;
+    }
+
+    .list-nothing td {
+        font-weight: bold;
+        text-align: center;
+        padding: 25px 0px;
+    }
+
+    @include respond-to(mobile) {
+        padding: 10px 5px;
+    }
+}
+
+.action-button {
+    display: inline-block;
+    background: $color-dark;
+    color: $color-light;
+    padding: 10px 15px;
+    text-transform: lowercase;
+    margin-top: 10px;
+    border: 0px;
+    font-family: $font-default;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+        background: $color-green;
+        color: $color-light;
+    }
+}
+
+.title-bar {
+    @include respond-to(mobile) {
+        box-sizing: border-box;
+        padding-left: 10px;
+
+        h1 {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.action-bar {
+    text-align: right;
+
+    @include respond-to(mobile) {
+        text-align: center;
+        box-sizing: border-box;
+        padding-bottom: 10px;
+    }
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0px;
+}

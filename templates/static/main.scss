@@ -1,0 +1,16 @@
+// Vendor
+@import "vendor/skeleton";
+
+// General stuff
+@import "partials/variables";
+@import "partials/elements";
+@import "partials/nav";
+
+// Page specific partials
+@import "partials/thread";
+@import "partials/index";
+@import "partials/board";
+@import "partials/editor";
+@import "partials/auth";
+@import "partials/user-settings";
+

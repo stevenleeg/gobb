@@ -1,144 +1,124 @@
 {{ define "pagination" }}
-
-<div class="pagination">
-    {{ if .first_page }}
+<div class="pagination sixteen columns">
+    {{if .first_page}}
         <a class="prev" href="/board/{{ .board.Id }}/{{ .op.Id }}?page=0">&laquo; first page</a>
-    {{ end }}
-    {{ if .prev_page }}
+    {{end}}
+    {{if .prev_page}}
         <a class="prev" href="/board/{{ .board.Id }}/{{ .op.Id }}?page={{Add .page_id -1}}">&laquo; previous page</a>
-    {{ end }}
-    {{ if .next_page }}
+    {{end }}
+    {{if .next_page}}
         <a class="next" href="/board/{{ .board.Id }}/{{ .op.Id }}?page={{Add .page_id 1}}">next page &raquo;</a>
-    {{ end }}
-    {{ if .last_page }}
+    {{end}}
+    {{if .last_page}}
         <a class="next" href="/board/{{ .board.Id }}/{{ .op.Id }}?page={{ .op.GetPagesInThread }}#latest">last page &raquo;</a>
-    {{ end }}
+    {{end}}
+</div>
+{{end}}
+
+{{define "post"}}
+<div class="post container">
+  <div class="post-meta three columns">
+    {{if .Author.Avatar}}
+      <img class="author-avatar" src="{{.Author.Avatar}}" />
+    {{else}}
+      <img class="author-avatar" src="/static/images/default_user.png" />
+    {{end}}
+    <a class="author-name" href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
+
+    {{if .Author.UserTitle}}
+      <p class="user-title">{{.Author.UserTitle}}</p>
+    {{end}}
+  </div>
+
+  <div class="post-topmeta thirteen columns">
+    posted {{TimeRelativeToNow .CreatedOn}}
+
+    {{if CurrentUserCanModerateThread .}}
+      //
+      <a href="#">moderate</a>
+      <span class="mod-tools">
+        //
+        {{if .Sticky}}
+          <a href="/action/stick?post_id={{.Id}}">unstick</a>
+        {{else}}
+          <a href="/action/stick?post_id={{.Id}}">stick</a>
+        {{end}}
+        //
+        <a href="/action/move?post_id={{ .Id }}">move</a>
+        //
+        {{if .Locked}}
+          <a href="/action/lock?post_id={{ .Id }}">unlock</a>
+        {{else}}
+          <a href="/action/lock?post_id={{ .Id }}">lock</a>
+        {{end}}
+      </span>
+    {{end}}
+
+    {{if CurrentUserCanDeletePost .}}
+      // <a href="/action/delete?post_id={{.Id}}" class="delete">delete</a>
+    {{end}}
+
+    {{if CurrentUserCanEditPost .}}
+      // <a href="/action/edit?post_id={{.Id}}">edit</a>
+    {{end}}
+
+    {{if CurrentUserCanReply .}}
+      // <a href="#reply" class="thread-quote" thread="{{.Id}}">reply</a>
+    {{end}}
+  </div>
+
+  <div class="post-content thirteen columns">
+    {{ParseMarkdown .Content}}
+  </div>
+
+  {{if SignaturesEnabled}}
+  {{if .Author.Signature.Valid}}
+  <div class="post-signature thirteen columns">
+    {{ParseMarkdown .Author.Signature.Value}}
+  </div>
+  {{end}}
+  {{end}}
+</div>
+{{end}}
+
+{{define "content"}}
+<div class="container">
+  <div class="eight columns">
+    <h1>{{.op.Title}}</h1>
+  </div>
+
+  {{if .current_user}}
+    <div class="action-bar eight columns">
+      <a class="action-button" href="#reply">Reply</a>
+    </div>
+  {{end}}
+
+  {{template "pagination" .}}
 </div>
 
-{{ end }}
+{{if not .first_page}}
+  {{ template "post" .op}}
+{{end}}
 
-{{ define "post" }}
-<table class="post" id="post_{{ .Id }}">
-    <tr>
-        <td rowspan="4" class="post_sidebar">
-            {{ if .Author.Avatar }}
-            <img class="post_avatar" src="{{.Author.Avatar}}">
-            {{ else }}
-            <img class="post_avatar" src="/static/images/default_user.png">
-            {{ end }}
+{{range .posts}}
+  {{template "post" .}}
+{{end}}
 
-            <a href="/user/{{ .Author.Id }}" class="post_author" id="p{{ .Id }}_author">{{ .Author.Username }}</a>
-            {{ if .Author.UserTitle }}
-                <div class="user_title">{{ .Author.UserTitle }}</div>
-            {{ end }}
-        </td>
-        <td class="post_meta">
-            posted {{ TimeRelativeToNow .CreatedOn }}
+<div class="container">
+  <a name="latest"></a>
+  {{template "pagination" .}}
+</div>
 
-            {{ if CurrentUserCanModerateThread . }}
-            <span class="prec_slash">//</span> <a href="#" class="moderate">moderate</a>
-            <span class="mod_tools">
-                // 
-                {{ if .Sticky }}
-                    <a href="/action/stick?post_id={{ .Id }}">unstick</a>
-                {{ else }}
-                    <a href="/action/stick?post_id={{ .Id }}">stick</a>
-                {{ end}}
 
-                // <a href="/action/move?post_id={{ .Id }}">move</a>
-
-                //
-                {{ if .Locked }}
-                    <a href="/action/lock?post_id={{ .Id }}">unlock</a>
-                {{ else }}
-                    <a href="/action/lock?post_id={{ .Id }}">lock</a>
-                {{ end }}
-            </span>
-            {{ end }}
-
-            {{ if CurrentUserCanDeletePost . }}
-                // <a href="/action/delete?post_id={{ .Id }}" class="delete">delete</a>
-            {{ end }}
-
-            {{ if CurrentUserCanEditPost . }}
-                // <a href="/action/edit?post_id={{ .Id }}">edit</a>
-            {{ end }}
-
-            {{ if CurrentUserCanReply . }}
-                // <a href="#reply" class="thread_quote" thread="{{ .Id }}">quote</a>
-            {{ end }}
-        </td>
-    </tr>
-    <tr>
-        <td class="post_content">{{ ParseMarkdown .Content }}</td>
-    </tr>
-    {{ if SignaturesEnabled }}
-    {{ if .Author.Signature.Valid }}
-    <tr>
-        <td class="post_signature">
-            {{ ParseMarkdown .Author.Signature.Value }}
-        </td>
-    </tr>
-    {{ end }}
-    {{ end }}
-    <tr>
-        {{ if IsValidTime .LastEdit }}
-        <td class="post_edited">
-            Edited {{ TimeRelativeToNow .LastEdit }}
-        </td>
-        {{ else }}
-        <td class="post_edited_empty"></td>
-        {{ end }}
-    </tr>
-</table>
-<div class="post_unparsed_content" id="p{{ .Id }}_content">{{ .Content }}</div>
-{{ end }}
-
-{{ define "content" }}
-    {{ if CurrentUserCanReply .op }}
-        <a href="#reply" class="write button right thread_reply_btn">Reply</a>
-    {{ end }}
-
-    <div class="crumbs">
-        <a class="crumbs_board" href="/board/{{ .board.Id }}">{{ .board.Title }}</a> &gt; 
-        <a class="crumbs_title" href="/board/{{ .board.Id }}/{{ .op.Id }}">
-            {{ .op.Title }}
-            {{ if .op.Locked }}
-            <img alt="This thread is locked. Only moderators are allowed to add responses." src="/static/images/lock.png" width="16px" height="16px" />
-            {{ end }}
-        </a>
+<div class="reply container">
+  <div class="sixteen columns">
+    <div class="padded">
+      <form method="POST" action="">
+        <textarea name="content" placeholder="reply to this thread"></textarea>
+        <input type="submit" class="action-button" value="reply" />
+      </form>
     </div>
+  </div>
+</div>
 
-    {{ template "pagination" . }}
-
-    {{ if not .first_page }}
-        {{ template "post" .op }}
-    {{ end }}
-
-    {{ range .posts }}
-        {{ template "post" . }}
-    {{ end }}
-
-    <a name="latest"></a>
-
-    {{ template "pagination" . }}
-
-    {{ if CurrentUserCanReply .op }}
-    <a name="reply"></a>
-    <div class="thread_reply">
-        {{ if .op.Locked }}
-        <p>This thread is locked. Only moderators are able to post replies.</p>
-        {{ end }}
-        <form method="POST" action="/board/{{.board.Id}}/{{.op.Id}}?page={{ .op.GetPagesInThread }}#latest">
-            {{ if .posting_error }}
-            <div class="error">
-                {{.posting_error}}
-            </div>
-            {{ end }}
-
-            <textarea name="content" id="reply_content" placeholder="Reply to this thread" tabindex="2" required>{{ .previous_text }}</textarea>
-            <input type="submit" class="submit button" value="Reply" tabindex="3">
-        </form>
-    </div>
-    {{ end }}
-{{ end }}
+{{end}}

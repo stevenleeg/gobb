@@ -1,0 +1,38 @@
+.user-settings {
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type=text], input[type=password], select, textarea {
+        display: block;
+        width: 98%;
+        margin: 0px auto 10px auto;
+    }
+
+    .action-button {
+        display: block;
+        float: right;
+    }
+
+    .success {
+        background: $color-light-green;
+        padding: 15px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .error {
+        background: $color-light-red;
+        padding: 15px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+

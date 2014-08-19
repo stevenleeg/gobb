@@ -3,13 +3,14 @@ package controllers
 import (
 	"database/sql"
 	"fmt"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/gorilla/mux"
 	"github.com/stevenleeg/gobb/config"
 	"github.com/stevenleeg/gobb/models"
 	"github.com/stevenleeg/gobb/utils"
-	"net/http"
-	"strconv"
-	"time"
 )
 
 func Thread(w http.ResponseWriter, r *http.Request) {

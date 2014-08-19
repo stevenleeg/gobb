@@ -1,67 +1,79 @@
-{{ define "board_right" }}
-{{ if .Op.Title }}
-    <a href="/board/{{ .Op.BoardId }}/{{.Op.Id}}?page={{ .Op.GetPagesInThread }}#latest" >{{ .Op.Title }}</a> by
-    {{ if .Latest }}
-        <a href="/user/{{ .Latest.Author.Id }}">{{ .Latest.Author.Username}}</a>
-        <div class="board_latest_time">{{ TimeRelativeToNow .Latest.CreatedOn }}</div>
-    {{ else }}
-        <a href="/user/{{ .Op.Author.Id }}">{{ .Op.Author.Username}}</a>
-        <div class="board_latest_time">{{ TimeRelativeToNow .Op.CreatedOn }}</div>
-    {{ end }}
-{{ else }}
+{{define "board-right"}}
+  {{if .Op.Title}}
+    <a href="board/{{.Op.BoardId}}/{{.Op.Id}}?page={{.Op.GetPagesInThread}}#latest">
+      {{.Op.Title}}
+    </a>
+    by
+    {{if .Latest}}
+      <a href="user/{{.Latest.Author.Id}}">{{.Latest.Author.Username}}</a>
+      <div class="board-latest-time">{{TimeRelativeToNow .Latest.CreatedOn}}</div>
+    {{else}}
+      <a href="user/{{.Op.Author.Id}}">{{.Op.Author.Username}}</a>
+      <div class="board-latest-time">{{TimeRelativeToNow .Op.CreatedOn}}</div>
+    {{end}}
+    {{else}}
     Nothing yet!
-{{ end }}
-{{ end }}
+  {{end}}
+{{end}}
 
-{{ define "content" }}
-<h1>Boards</h1>
-{{ if .boards }}
-<table class="boards">
-    <tr><td>Title</td><td>Latest post</td></tr>
-    {{ range .boards }}
-    <tr>
-        <td>
-            {{ if IsUnread . }}
-            <span class="unread_indicator">&nbsp;</span>
-            {{ end }}
-            <a href="/board/{{.Id}}" class="board_title">{{.Title}}</a>
-            <span class="board_description">{{ .Description }}</span>
-        </td>
-        <td class="board_right">
-            {{ template "board_right" .Board.GetLatestPost }}
-        </td>
-    </tr>
-    {{ end }}
-</table>
-{{ if .current_user }}
-    <div class="board_actions">
-        <a href="/action/mark_read">[ Mark all as read ]</a>
+{{define "content"}}
+
+<div class="container">
+  <div class="title-bar sixteen columns">
+    <h1>Boards</h1>
+  </div>
+
+  <div class="sixteen columns">
+    {{if .boards}}
+      <table class="board-list">
+        <thead><tr>
+          <td>Title</td>
+          <td>Latest Post</td>
+        </tr></thead>
+
+        {{range .boards}}
+          <tr class="board-row">
+            <td class="board-list-left">
+              {{if IsUnread .}}
+                <span class="unread-indicator">&nbsp;</span>
+              {{end}}
+              <a href="board/{{.Id}}" class="board-title">{{.Title}}</a>
+              <span class="board-description">{{.Description}}</span>
+            </td>
+            <td class="board-list-right">
+              {{template "board-right" .Board.GetLatestPost}}
+            </td>
+          </tr>
+        {{end}}
+      </table>
+    {{else}}
+      <div class="board-nothing">Nothing yet!</div>
+    {{end}}
+  </div>
+
+  <div class="title-bar sixteen columns">
+    <h1>Stats</h1>
+  </div>
+
+  <div class="sixteen columns">
+    <div class="stats">
+      <p>
+        {{.site_name}} has <b>{{.user_count}} members</b>, who have created a total of <b>{{.total_posts}} posts</b>. 
+        {{if .latest_user}}
+          Say hello to our newest member, <a href="user/{{.latest_user.Id}}">{{.latest_user.Username}}</a>
+        {{end}}
+      </p>
+
+      <p>
+        <b>Users online:</b> 
+        {{range .online_users}}
+          <a class="online-user" href="user/{{.Id}}">{{.Username}}</a>
+        {{else}}
+          None
+        {{end}}
+      </p>
     </div>
-{{ end }}
-{{ else }}
-<div class="box larger centered">
-    Nothing yet!
+  </div>
 </div>
-{{ end }}
 
-<h1>Stats</h1>
-<div class="box larger">
-    <p>
-        {{ .site_name }} has <b>{{ .user_count }} members</b>, who have created a total of <b>{{ .total_posts}} posts</b>. 
-        
-        {{ if .latest_user }}
-        Say hello to our newest member, <a href="/user/{{.latest_user.Id}}">{{ .latest_user.Username }}</a>. 
-    {{ end }}
-    </p>
-
-    <p>
-        <b>Users online:</b>
-
-        {{ range .online_users }}
-            <a class="online_user" href="/user/{{.Id}}">{{ .Username }}</a>
-        {{ else }}
-            None
-        {{ end }}
-    </p>
-</div>
-{{ end }}
+{{end}}
