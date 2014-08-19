@@ -1,0 +1,25 @@
+.auth-box {
+    @extend %base-box;
+    padding: 10px;
+    margin-top: 75px;
+
+    input[type=text], input[type=password] {
+        display: block;
+        width: 95%;
+        margin: 10px auto;
+        padding: 5px;
+        font-size: 18px;
+    }
+
+    input[type=submit] {
+        display: block;
+        float: right;
+        margin-top: 0px;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}

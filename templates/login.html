@@ -1,16 +1,20 @@
 {{ define "content" }}
-<div class="box">
-    <h1>Login</h1>
-    {{if .error}}
-    <div class="error">
+<div class="container">
+  <div class="six columns offset-by-five">
+    <div class="auth-box">
+      <h1>Login</h1>
+      {{if .error}}
+      <div class="error">
         {{.error}}
-    </div>
-    {{end}}
+      </div>
+      {{end}}
 
-    <form method="POST" action="/login">
+      <form method="POST" action="/login">
         <input name="username" type="text" placeholder="username" autofocus>
         <input name="password" type="password" placeholder="password">
-        <input type="submit" class="button" value="Login">
-    </form>
+        <input type="submit" class="action-button" value="Login">
+      </form>
+    </div>
+  </div>
 </div>
 {{ end }}
