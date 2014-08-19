@@ -1,0 +1,691 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+/* Table of Contents
+==================================================
+    #Base 960 Grid
+    #Tablet (Portrait)
+    #Mobile (Portrait)
+    #Mobile (Landscape)
+    #Clearing */
+/* #Base 960 Grid
+================================================== */
+.container {
+  position: relative;
+  width: 960px;
+  margin: 0 auto;
+  padding: 0; }
+
+.container .column,
+.container .columns {
+  float: left;
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px; }
+
+.row {
+  margin-bottom: 20px; }
+
+/* Nested Column Classes */
+.column.alpha, .columns.alpha {
+  margin-left: 0; }
+
+.column.omega, .columns.omega {
+  margin-right: 0; }
+
+/* Base Grid */
+.container .one.column,
+.container .one.columns {
+  width: 40px; }
+
+.container .two.columns {
+  width: 100px; }
+
+.container .three.columns {
+  width: 160px; }
+
+.container .four.columns {
+  width: 220px; }
+
+.container .five.columns {
+  width: 280px; }
+
+.container .six.columns {
+  width: 340px; }
+
+.container .seven.columns {
+  width: 400px; }
+
+.container .eight.columns {
+  width: 460px; }
+
+.container .nine.columns {
+  width: 520px; }
+
+.container .ten.columns {
+  width: 580px; }
+
+.container .eleven.columns {
+  width: 640px; }
+
+.container .twelve.columns {
+  width: 700px; }
+
+.container .thirteen.columns {
+  width: 760px; }
+
+.container .fourteen.columns {
+  width: 820px; }
+
+.container .fifteen.columns {
+  width: 880px; }
+
+.container .sixteen.columns {
+  width: 940px; }
+
+.container .one-third.column {
+  width: 300px; }
+
+.container .two-thirds.column {
+  width: 620px; }
+
+/* Offsets */
+.container .offset-by-one {
+  padding-left: 60px; }
+
+.container .offset-by-two {
+  padding-left: 120px; }
+
+.container .offset-by-three {
+  padding-left: 180px; }
+
+.container .offset-by-four {
+  padding-left: 240px; }
+
+.container .offset-by-five {
+  padding-left: 300px; }
+
+.container .offset-by-six {
+  padding-left: 360px; }
+
+.container .offset-by-seven {
+  padding-left: 420px; }
+
+.container .offset-by-eight {
+  padding-left: 480px; }
+
+.container .offset-by-nine {
+  padding-left: 540px; }
+
+.container .offset-by-ten {
+  padding-left: 600px; }
+
+.container .offset-by-eleven {
+  padding-left: 660px; }
+
+.container .offset-by-twelve {
+  padding-left: 720px; }
+
+.container .offset-by-thirteen {
+  padding-left: 780px; }
+
+.container .offset-by-fourteen {
+  padding-left: 840px; }
+
+.container .offset-by-fifteen {
+  padding-left: 900px; }
+
+/* #Tablet (Portrait)
+================================================== */
+/* Note: Design for a width of 768px */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  .container {
+    width: 768px; }
+
+  .container .column,
+  .container .columns {
+    margin-left: 10px;
+    margin-right: 10px; }
+
+  .column.alpha, .columns.alpha {
+    margin-left: 0;
+    margin-right: 10px; }
+
+  .column.omega, .columns.omega {
+    margin-right: 0;
+    margin-left: 10px; }
+
+  .alpha.omega {
+    margin-left: 0;
+    margin-right: 0; }
+
+  .container .one.column,
+  .container .one.columns {
+    width: 28px; }
+
+  .container .two.columns {
+    width: 76px; }
+
+  .container .three.columns {
+    width: 124px; }
+
+  .container .four.columns {
+    width: 172px; }
+
+  .container .five.columns {
+    width: 220px; }
+
+  .container .six.columns {
+    width: 268px; }
+
+  .container .seven.columns {
+    width: 316px; }
+
+  .container .eight.columns {
+    width: 364px; }
+
+  .container .nine.columns {
+    width: 412px; }
+
+  .container .ten.columns {
+    width: 460px; }
+
+  .container .eleven.columns {
+    width: 508px; }
+
+  .container .twelve.columns {
+    width: 556px; }
+
+  .container .thirteen.columns {
+    width: 604px; }
+
+  .container .fourteen.columns {
+    width: 652px; }
+
+  .container .fifteen.columns {
+    width: 700px; }
+
+  .container .sixteen.columns {
+    width: 748px; }
+
+  .container .one-third.column {
+    width: 236px; }
+
+  .container .two-thirds.column {
+    width: 492px; }
+
+  /* Offsets */
+  .container .offset-by-one {
+    padding-left: 48px; }
+
+  .container .offset-by-two {
+    padding-left: 96px; }
+
+  .container .offset-by-three {
+    padding-left: 144px; }
+
+  .container .offset-by-four {
+    padding-left: 192px; }
+
+  .container .offset-by-five {
+    padding-left: 240px; }
+
+  .container .offset-by-six {
+    padding-left: 288px; }
+
+  .container .offset-by-seven {
+    padding-left: 336px; }
+
+  .container .offset-by-eight {
+    padding-left: 384px; }
+
+  .container .offset-by-nine {
+    padding-left: 432px; }
+
+  .container .offset-by-ten {
+    padding-left: 480px; }
+
+  .container .offset-by-eleven {
+    padding-left: 528px; }
+
+  .container .offset-by-twelve {
+    padding-left: 576px; }
+
+  .container .offset-by-thirteen {
+    padding-left: 624px; }
+
+  .container .offset-by-fourteen {
+    padding-left: 672px; }
+
+  .container .offset-by-fifteen {
+    padding-left: 720px; } }
+/*  #Mobile (Portrait)
+================================================== */
+/* Note: Design for a width of 320px */
+@media only screen and (max-width: 767px) {
+  .container {
+    width: 100%; }
+
+  .container .columns,
+  .container .column {
+    margin: 0; }
+
+  .container .one.column,
+  .container .one.columns,
+  .container .two.columns,
+  .container .three.columns,
+  .container .four.columns,
+  .container .five.columns,
+  .container .six.columns,
+  .container .seven.columns,
+  .container .eight.columns,
+  .container .nine.columns,
+  .container .ten.columns,
+  .container .eleven.columns,
+  .container .twelve.columns,
+  .container .thirteen.columns,
+  .container .fourteen.columns,
+  .container .fifteen.columns,
+  .container .sixteen.columns,
+  .container .one-third.column,
+  .container .two-thirds.column {
+    width: 100%; }
+
+  /* Offsets */
+  .container .offset-by-one,
+  .container .offset-by-two,
+  .container .offset-by-three,
+  .container .offset-by-four,
+  .container .offset-by-five,
+  .container .offset-by-six,
+  .container .offset-by-seven,
+  .container .offset-by-eight,
+  .container .offset-by-nine,
+  .container .offset-by-ten,
+  .container .offset-by-eleven,
+  .container .offset-by-twelve,
+  .container .offset-by-thirteen,
+  .container .offset-by-fourteen,
+  .container .offset-by-fifteen {
+    padding-left: 0; } }
+/* #Mobile (Landscape)
+================================================== */
+/* Note: Design for a width of 480px */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .container {
+    width: 100%; }
+
+  .container .columns,
+  .container .column {
+    margin: 0; }
+
+  .container .one.column,
+  .container .one.columns,
+  .container .two.columns,
+  .container .three.columns,
+  .container .four.columns,
+  .container .five.columns,
+  .container .six.columns,
+  .container .seven.columns,
+  .container .eight.columns,
+  .container .nine.columns,
+  .container .ten.columns,
+  .container .eleven.columns,
+  .container .twelve.columns,
+  .container .thirteen.columns,
+  .container .fourteen.columns,
+  .container .fifteen.columns,
+  .container .sixteen.columns,
+  .container .one-third.column,
+  .container .two-thirds.column {
+    width: 100%; } }
+/* #Clearing
+================================================== */
+/* Self Clearing Goodness */
+.container:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+/* Use clearfix class on parent to clear nested columns,
+or wrap each row of columns in a <div class="row"> */
+.clearfix:before,
+.clearfix:after,
+.row:before,
+.row:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0; }
+
+.row:after,
+.clearfix:after {
+  clear: both; }
+
+.row,
+.clearfix {
+  zoom: 1; }
+
+/* You can also use a <br class="clear" /> to clear columns */
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0; }
+
+body {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background: #eeeeee;
+  margin: 0px;
+  padding: 0px; }
+
+a {
+  color: #7c9278;
+  text-decoration: none; }
+
+h1 {
+  font-size: 28px;
+  margin: .4em 0px;
+  padding: 0px;
+  text-transform: lowercase; }
+
+input, textarea {
+  display: inline-block;
+  border: 1px solid #c8c8c8;
+  outline: none;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  background: #eeeeee;
+  padding: 3px;
+  font-size: 14px; }
+
+.full-box, .board-nothing, .board-list, .stats, .thread-list, .auth-box {
+  background: white;
+  border: 1px solid #c8c8c8; }
+  @media only screen and (max-width: 480px) {
+    .full-box, .board-nothing, .board-list, .stats, .thread-list, .auth-box {
+      border-left: 0px;
+      border-right: 0px; } }
+
+.full-box {
+  padding: 15px;
+  box-sizing: border-box;
+  margin: 20px 0px; }
+  .full-box h1 {
+    margin-top: 0px; }
+
+.board-list, .thread-list {
+  width: 100%;
+  padding: 15px;
+  border-spacing: 0px;
+  margin-bottom: 15px; }
+  .board-list thead tr td, .thread-list thead tr td {
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom: 1px solid #c8c8c8; }
+  .board-list .list-nothing td, .thread-list .list-nothing td {
+    font-weight: bold;
+    text-align: center;
+    padding: 25px 0px; }
+  @media only screen and (max-width: 480px) {
+    .board-list, .thread-list {
+      padding: 10px 5px; } }
+
+.action-button {
+  display: inline-block;
+  background: #222222;
+  color: white;
+  padding: 10px 15px;
+  text-transform: lowercase;
+  margin-top: 10px;
+  border: 0px;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer; }
+  .action-button:hover {
+    background: #7c9278;
+    color: white; }
+
+@media only screen and (max-width: 480px) {
+  .title-bar {
+    box-sizing: border-box;
+    padding-left: 10px; }
+    .title-bar h1 {
+      margin-bottom: 0px; } }
+
+.action-bar {
+  text-align: right; }
+  @media only screen and (max-width: 480px) {
+    .action-bar {
+      text-align: center;
+      box-sizing: border-box;
+      padding-bottom: 10px; } }
+
+.footer {
+  text-align: center;
+  padding: 10px 0px; }
+
+.nav {
+  background-color: #3c3c3c;
+  color: white;
+  padding: 0px 10px;
+  border-bottom: 5px solid #7c9278;
+  line-height: 56px;
+  height: 56px; }
+  .nav a {
+    color: white; }
+    .nav a.title {
+      font-size: 24px; }
+    .nav a:hover {
+      color: #7c9278; }
+  .nav .right {
+    text-align: right; }
+    @media only screen and (max-width: 480px) {
+      .nav .right {
+        display: none; } }
+  .nav .mobile-menu {
+    display: none; }
+    @media only screen and (max-width: 480px) {
+      .nav .mobile-menu {
+        display: block;
+        text-align: right;
+        float: right; } }
+  .nav:after {
+    content: " ";
+    display: block;
+    clear: both; }
+
+.post {
+  background: white;
+  margin-bottom: 10px; }
+  .post .post-meta {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #c8c8c8; }
+    .post .post-meta .author-avatar {
+      display: block;
+      margin: 0px auto;
+      max-width: 100%;
+      margin-bottom: 10px; }
+      @media only screen and (max-width: 480px) {
+        .post .post-meta .author-avatar {
+          max-width: 50px;
+          max-height: 50px;
+          display: inline-block;
+          vertical-align: middle; } }
+    .post .post-meta .author-name {
+      font-size: 18px; }
+    @media only screen and (max-width: 480px) {
+      .post .post-meta .user-title {
+        display: none; } }
+    @media only screen and (max-width: 480px) {
+      .post .post-meta {
+        text-align: left;
+        padding: 10px 10px 0px 10px;
+        border-bottom: 1px solid #c8c8c8;
+        border-right: 0px; } }
+  .post .post-topmeta {
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #c8c8c8;
+    text-align: right; }
+    .post .post-topmeta .mod-tools {
+      display: none; }
+    @media only screen and (max-width: 480px) {
+      .post .post-topmeta {
+        margin-top: -75px;
+        border-bottom: 0px;
+        padding-right: 10px; } }
+  .post .post-content {
+    box-sizing: border-box; }
+    @media only screen and (max-width: 480px) {
+      .post .post-content {
+        padding: 0px 10px; } }
+  .post .post-signature {
+    border-top: 1px solid #c8c8c8;
+    font-size: 12px;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 480px) {
+      .post .post-signature {
+        padding: 0px 10px; } }
+
+.reply {
+  background: white; }
+  .reply .padded {
+    padding: 15px 10px; }
+  .reply textarea {
+    display: block;
+    width: 100%;
+    background: #eeeeee;
+    border: 1px solid #c8c8c8;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #222222;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: 0px;
+    height: 125px; }
+
+.pagination {
+  text-align: center;
+  box-sizing: border-box;
+  padding: 5px; }
+
+.board-nothing {
+  text-align: center;
+  padding: 15px;
+  font-weight: bold; }
+
+.board-list .board-title {
+  display: block;
+  font-size: 18px; }
+.board-list .board-row td {
+  padding: 5px 0px; }
+.board-list .board-description {
+  font-size: 14px; }
+.board-list .board-list-left {
+  width: 75%; }
+  @media only screen and (max-width: 480px) {
+    .board-list .board-list-left {
+      width: 65%; } }
+.board-list .board-list-right {
+  width: 25%; }
+  @media only screen and (max-width: 480px) {
+    .board-list .board-list-right {
+      width: 35%; } }
+
+.stats {
+  margin-top: 15px;
+  padding: 15px; }
+  .stats p {
+    margin: 0px; }
+    .stats p:nth-child(1) {
+      margin-bottom: 10px; }
+
+.thread-list :not(thead) td {
+  padding: 3px 0px; }
+.thread-list .thread-list-author {
+  font-size: 14px; }
+.thread-list .thread-list-title {
+  font-size: 18px; }
+
+.post-editor {
+  background: white;
+  margin-top: 25px;
+  padding: 15px;
+  box-sizing: border-box; }
+  .post-editor input[type=text] {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    box-sizing: border-box; }
+  .post-editor textarea {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box; }
+  .post-editor input[type=submit] {
+    display: block;
+    float: right; }
+
+.auth-box {
+  padding: 10px;
+  margin-top: 75px; }
+  .auth-box input[type=text], .auth-box input[type=password] {
+    display: block;
+    width: 95%;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 18px; }
+  .auth-box input[type=submit] {
+    display: block;
+    float: right;
+    margin-top: 0px; }
+  .auth-box:after {
+    content: "";
+    display: block;
+    clear: both; }
+  @media only screen and (max-width: 480px) {
+    .auth-box {
+      margin-top: 25px; } }
+
+.user-settings label {
+  display: block;
+  margin-bottom: 5px; }
+.user-settings input[type=text], .user-settings input[type=password], .user-settings select, .user-settings textarea {
+  display: block;
+  width: 98%;
+  margin: 0px auto 10px auto; }
+.user-settings .action-button {
+  display: block;
+  float: right; }
+.user-settings .success {
+  background: #b4ffb0;
+  padding: 15px;
+  margin-bottom: 10px;
+  text-align: center; }
+.user-settings .error {
+  background: #ff8080;
+  padding: 15px;
+  margin-bottom: 10px;
+  text-align: center; }
+.user-settings:after {
+  content: "";
+  display: block;
+  clear: both; }
