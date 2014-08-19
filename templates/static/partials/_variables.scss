@@ -2,7 +2,9 @@ $color-gray: #EEE;
 $color-dark: #222;
 $color-dark-gray: lighten($color-dark, 10%);
 $color-light: #FFF;
+$color-light-red: lighten(#FF0000, 25%);
 $color-green: #7c9278;
+$color-light-green: #B4FFB0;
 $color-border: lighten($color-dark-gray, 55%);
 
 $font-default: "Lato", Helvetica, Arial, sans-serif;
