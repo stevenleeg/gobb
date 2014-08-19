@@ -34,6 +34,17 @@ input, textarea {
     border: 1px solid $color-border;
 }
 
+.full-box {
+    @extend %base-box;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 20px 0px;
+
+    h1 {
+        margin-top: 0px;
+    }
+}
+
 %base-list {
     width: 100%;
     padding: 15px;

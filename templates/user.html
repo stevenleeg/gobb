@@ -1,38 +1,85 @@
-{{ define "post" }}
-<table class="post">
-    <tr>
-        <td rowspan="2" class="post_sidebar">
-            {{ if .Author.Avatar }}
-            <img class="post_avatar" src="{{.Author.Avatar}}" />
-            {{ else }}
-            <img class="post_avatar" src="/static/images/default_user.png" />
-            {{ end }}
+{{define "post"}}
+<div class="post container">
+  <div class="post-meta three columns">
+    {{if .Author.Avatar}}
+      <img class="author-avatar" src="{{.Author.Avatar}}" />
+    {{else}}
+      <img class="author-avatar" src="/static/images/default_user.png" />
+    {{end}}
+    <a class="author-name" href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
 
-            <div class="post_author" id="p{{.Id}}_author">{{ .Author.Username }}</div>
-        </td>
-        <td class="post_meta">
-            <a href="{{.GetLink}}">
-                posted {{ TimeRelativeToNow .CreatedOn }}
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td class="post_content" >{{ ParseMarkdown .Content}}</td>
-    </tr>
-</table>
-{{ end }}
+    {{if .Author.UserTitle}}
+      <p class="user-title">{{.Author.UserTitle}}</p>
+    {{end}}
+  </div>
+
+  <div class="post-topmeta thirteen columns">
+    posted {{TimeRelativeToNow .CreatedOn}}
+
+    {{if CurrentUserCanModerateThread .}}
+      //
+      <a href="#">moderate</a>
+      <span class="mod-tools">
+        //
+        {{if .Sticky}}
+          <a href="/action/stick?post_id={{.Id}}">unstick</a>
+        {{else}}
+          <a href="/action/stick?post_id={{.Id}}">stick</a>
+        {{end}}
+        //
+        <a href="/action/move?post_id={{ .Id }}">move</a>
+        //
+        {{if .Locked}}
+          <a href="/action/lock?post_id={{ .Id }}">unlock</a>
+        {{else}}
+          <a href="/action/lock?post_id={{ .Id }}">lock</a>
+        {{end}}
+      </span>
+    {{end}}
+
+    {{if CurrentUserCanDeletePost .}}
+      // <a href="/action/delete?post_id={{.Id}}" class="delete">delete</a>
+    {{end}}
+
+    {{if CurrentUserCanEditPost .}}
+      // <a href="/action/edit?post_id={{.Id}}">edit</a>
+    {{end}}
+
+    {{if CurrentUserCanReply .}}
+      // <a href="#reply" class="thread-quote" thread="{{.Id}}">reply</a>
+    {{end}}
+  </div>
+
+  <div class="post-content thirteen columns">
+    {{ParseMarkdown .Content}}
+  </div>
+
+  {{if SignaturesEnabled}}
+  {{if .Author.Signature.Valid}}
+  <div class="post-signature thirteen columns">
+    {{ParseMarkdown .Author.Signature.Value}}
+  </div>
+  {{end}}
+  {{end}}
+</div>
+{{end}}
 
 {{ define "content" }}
-<h1>{{ .user.Username }}</h1>
-<div class="box larger">
-    {{ .user.Username }} created their account {{ TimeRelativeToNow .user.CreatedOn }} and has posted {{ .user.GetPostCount }} times since. {{ if not .user.HideOnline }}Last seen {{ TimeRelativeToNow .user.LastSeen }}.{{ end }}
-</div>
+<div class="container">
+  <div class="full-box sixteen columns">
+    <h1>{{ .user.Username }}</h1>
+    <div class="box larger">
+        {{ .user.Username }} created their account {{ TimeRelativeToNow .user.CreatedOn }} and has posted {{ .user.GetPostCount }} times since. {{ if not .user.HideOnline }}Last seen {{ TimeRelativeToNow .user.LastSeen }}.{{ end }}
+    </div>
+  </div>
 
-<h1>Posts by {{ .user.Username }}</h1>
+  <div class="sixteen columns">
+    <h1>Posts by {{ .user.Username }}</h1>
+  </div>
+</div>
 
 {{ range .user.GetPosts 0 }}
     {{ template "post" . }}
 {{ end }}
-
 {{ end }}
 
