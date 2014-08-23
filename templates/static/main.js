@@ -1,24 +1,26 @@
 var Sirjtaa = (function() {
-    function clickThreadQuote() {
-        var thread_id = $(this).attr("thread");
-        var content = $("#p"+ thread_id +"_content").text();
-        var author  = $("#p"+ thread_id +"_author").text();
+    function quotePostClicked(e) {
+        e.preventDefault();
+
+        var pid = $(this).data("postid");
+        var content = $("#p"+ pid +"-unparsed-content").text();
+        var author  = $("#p"+ pid +"-author").text();
 
         // Remove any previous quotes from the content
         content = content.replace(/.* said:\s*(\>.*\n)*/g, "");
         content = content.replace(/>.*\n/g, "").trim();
         content = content.replace(/\n/g, "\n>");
 
-        var prev = $("#reply_content").text();
+        var reply = $("#reply-field");
+        var prev = reply.text();
         var val  = author + " said: \n\n>" + content + "\n\n";
-        $("#reply_content")
-            .focus()
+        reply.focus()
             .val('').val(val)
-            .scrollTop($('#reply_content')[0].scrollHeight);
+            .scrollTop(reply[0].scrollHeight);
     }
 
-    function clickThreadReply() {
-        $("#reply_content").focus();
+    function threadReplyClicked() {
+        $("#reply-field").focus();
     }
 
     function clickConfirmDelete() {
@@ -36,8 +38,8 @@ var Sirjtaa = (function() {
     }
 
     $(document).ready(function() {
-        $(".thread_quote").on("click", clickThreadQuote);
-        $(".thread_reply_btn").on("click", clickThreadReply);
+        $(".quote-post").on("click", quotePostClicked);
+        $(".thread-reply-btn").on("click", threadReplyClicked);
         $(".delete").on("click", clickConfirmDelete);
         $(".moderate").on("click", clickModerate);
     });

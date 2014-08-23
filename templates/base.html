@@ -9,8 +9,10 @@
       <link rel="stylesheet" type="text/css" href="{{.stylesheet}}">
     {{end}}
     {{if .favicon_url}}
-      <link rel="icon" type="image/{{ParseFaviconType .favicon_url}}" href="{{.favicon_url}}">
+      <link rel="icon" type="/image/{{ParseFaviconType .favicon_url}}" href="{{.favicon_url}}">
     {{end}}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/static/main.js"></script>
 
     <meta name="viewport" content="width=device-width, user-scalable=no">
   </head>

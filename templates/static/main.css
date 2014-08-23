@@ -561,6 +561,8 @@ input, textarea {
     @media only screen and (max-width: 480px) {
       .post .post-signature {
         padding: 0px 10px; } }
+  .post .post-unparsed-content {
+    display: none; }
 
 .reply {
   background: white; }

@@ -23,7 +23,7 @@
     {{else}}
       <img class="author-avatar" src="/static/images/default_user.png" />
     {{end}}
-    <a class="author-name" href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
+    <a class="author-name" id="p{{.Id}}-author" href="/user/{{.Author.Id}}">{{.Author.Username}}</a>
 
     {{if .Author.UserTitle}}
       <p class="user-title">{{.Author.UserTitle}}</p>
@@ -63,13 +63,15 @@
     {{end}}
 
     {{if CurrentUserCanReply .}}
-      // <a href="#reply" class="thread-quote" thread="{{.Id}}">reply</a>
+      // <a href="#reply" class="quote-post" data-postid="{{.Id}}">quote</a>
     {{end}}
   </div>
 
   <div class="post-content thirteen columns">
     {{ParseMarkdown .Content}}
   </div>
+
+  <div class="post-unparsed-content" id="p{{.Id}}-unparsed-content">{{.Content}}</div>
 
   {{if SignaturesEnabled}}
   {{if .Author.Signature.Valid}}
@@ -89,7 +91,7 @@
 
   {{if .current_user}}
     <div class="action-bar eight columns">
-      <a class="action-button" href="#reply">Reply</a>
+      <a class="action-button thread-reply-btn" href="#reply">Reply</a>
     </div>
   {{end}}
 
@@ -114,7 +116,7 @@
   <div class="sixteen columns">
     <div class="padded">
       <form method="POST" action="">
-        <textarea name="content" placeholder="reply to this thread"></textarea>
+        <textarea id="reply-field" name="content" placeholder="reply to this thread"></textarea>
         <input type="submit" class="action-button" value="reply" />
       </form>
     </div>
