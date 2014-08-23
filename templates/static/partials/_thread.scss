@@ -61,6 +61,13 @@
     .post-content {
         box-sizing: border-box;
 
+        blockquote {
+            background: $color-gray;
+            margin: 0px;
+            border: 1px solid $color-border;
+            padding: 10px;
+        }
+
         @include respond-to(mobile) {
             padding: 0px 10px;
         }
@@ -70,6 +77,10 @@
         border-top: 1px solid $color-border;
         font-size: 12px;
         box-sizing: border-box;
+
+        img {
+            max-width: 100%;
+        }
 
         @include respond-to(mobile) {
             padding: 0px 10px;

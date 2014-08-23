@@ -558,6 +558,11 @@ input, textarea {
         padding-right: 10px; } }
   .post .post-content {
     box-sizing: border-box; }
+    .post .post-content blockquote {
+      background: #eeeeee;
+      margin: 0px;
+      border: 1px solid #c8c8c8;
+      padding: 10px; }
     @media only screen and (max-width: 480px) {
       .post .post-content {
         padding: 0px 10px; } }
@@ -565,6 +570,8 @@ input, textarea {
     border-top: 1px solid #c8c8c8;
     font-size: 12px;
     box-sizing: border-box; }
+    .post .post-signature img {
+      max-width: 100%; }
     @media only screen and (max-width: 480px) {
       .post .post-signature {
         padding: 0px 10px; } }
