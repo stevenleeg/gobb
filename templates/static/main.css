@@ -448,7 +448,7 @@ input, textarea {
   color: white;
   padding: 10px 15px;
   text-transform: lowercase;
-  margin-top: 10px;
+  margin-top: 25px;
   border: 0px;
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -463,6 +463,13 @@ input, textarea {
     padding-left: 10px; }
     .title-bar h1 {
       margin-bottom: 0px; } }
+
+.breadcrumbs {
+  font-size: 32px;
+  margin-top: 15px;
+  margin-bottom: 15px; }
+  .breadcrumbs a:nth-last-child(1) {
+    color: #222222; }
 
 .action-bar {
   text-align: right; }

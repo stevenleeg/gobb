@@ -85,8 +85,10 @@
 
 {{define "content"}}
 <div class="container">
-  <div class="eight columns">
-    <h1>{{.op.Title}}</h1>
+  <div class="breadcrumbs eight columns">
+    <a href="/">index</a> &raquo;
+    <a href="/board/{{.board.Id}}">{{.board.Title}}</a> &raquo;
+    <a href="/board/{{.board.Id}}/{{.op.Id}}">{{.op.Title}}</a>
   </div>
 
   {{if .current_user}}

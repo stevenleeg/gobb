@@ -12,8 +12,9 @@
 {{define "content"}}
 
 <div class="container">
-  <div class="title-bar eight columns">
-    <h1>Posts in {{.board.Title}}</h1>
+  <div class="breadcrumbs eight columns">
+    <a href="/">index</a> &raquo;
+    <a href="/board/{{.board.Id}}">{{.board.Title}}</a>
   </div>
 
   <div class="action-bar eight columns">
