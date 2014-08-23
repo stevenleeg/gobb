@@ -558,6 +558,8 @@ input, textarea {
         padding-right: 10px; } }
   .post .post-content {
     box-sizing: border-box; }
+    .post .post-content img {
+      max-width: 100%; }
     .post .post-content blockquote {
       background: #eeeeee;
       margin: 0px;

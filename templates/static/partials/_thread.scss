@@ -61,6 +61,10 @@
     .post-content {
         box-sizing: border-box;
 
+        img {
+            max-width: 100%;
+        }
+
         blockquote {
             background: $color-gray;
             margin: 0px;
