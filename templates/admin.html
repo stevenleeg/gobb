@@ -1,6 +1,12 @@
 {{ define "content" }}
 <div class="box larger">
-    {{ template "admin_topbar" . }}
+    <table class="box_tabs">
+        <tr>
+            <td><a href="/admin">General</a></td>
+            <td><a href="/admin/boards">Boards</a></td>
+            <td><a href="/admin/users">Users</a></td>
+        </tr>
+    </table>
     <h2>General settings</h2>
 
     {{ if .success }}
